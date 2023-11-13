@@ -31,5 +31,4 @@ public class Workout {
     public void addWorkout(Workout activity){
         workouts.add(activity);
     }
-
 }
