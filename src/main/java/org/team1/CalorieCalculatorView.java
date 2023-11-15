@@ -18,79 +18,107 @@
  */
 package org.team1;
 
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
+
 public class CalorieCalculatorView extends Application {
     private CalorieCalculatorModel theModel;
+    private VBox root;
+    private HBox activitySection;
+    private HBox speedSection;
+    private HBox distanceSection;
+    private HBox bodyWeightSection;
+
+    /**
+     * FlowPane
+     */
+    private FlowPane topPane;
+
+    /**
+     * TextField
+     */
+    private TextField speedTextField;
+    private TextField distanceTextField;
+    private TextField bodyWeightTextField;
+
+    /**
+     * Label
+     */
+    private Label activityLabel;
+    private Label speedLabel;
+    private Label distanceLabel;
+    private Label bodyWeightLabel;
+
+    /**
+     * Button
+     */
+    private ComboBox<WorkoutType> activityComboBox;
+    private ComboBox<String> speedComboBox;
+    private ComboBox<String> distanceComboBox;
+
+
+    public CalorieCalculatorView(CalorieCalculatorModel theModel) {
+        this.theModel = theModel;
+        root = new VBox();
+        initSceneGraph();
+        initStyling();
+    }
 
     public VBox getRoot() {
         return root;
     }
 
-    private VBox root;
-
-    /** FlowPane */
-    private FlowPane topPane;
-
-    /** TextField  */
-    private TextField textFieldTempInput;
-
-    /** Label  */
-    private Label lblResult;
-
-
-    /** Button  */
-    private Button btnConvert;
-    public CalorieCalculatorView(CalorieCalculatorModel theModel) {
-        this.theModel = theModel;
-        initSceneGraph();
-        initStyling();
+    private WorkoutType getComboBoxActivity() {
+        return activityComboBox.getValue();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    private String getTextFieldSpeed() {
+        return speedTextField.getText();
     }
-    /**
-     * The main entry point for all JavaFX applications.
-     */
+
+    private String getComboBoxSpeed() {
+        return speedComboBox.getValue();
+    }
+
+    private String getTextFieldDistance() {
+        return distanceTextField.getText();
+    }
+
+    private String getComboBoxDistance() {
+        return distanceComboBox.getValue();
+    }
+
+    private String getTextFieldBodyWeight() {
+        return bodyWeightTextField.getText();
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         initSceneGraph();
 
-        // Apply styling to our scene graph nodes
         initStyling();
-
-        // Initialize Event handlers
         initEventHandlers();
 
-        // add the scene graph to the stage
-        primaryStage.setScene(new Scene(this.root));
-
-        // automatically resizes the window to show content on the stage
-        primaryStage.sizeToScene();
-
-        // set the title
         primaryStage.setTitle("Calories burned calculator");
-
-        // display the stage
+        primaryStage.setScene(new Scene(this.root));
+        primaryStage.sizeToScene();
         primaryStage.show();
     }
 
     /**
      * Initialize the entire scene graph
      */
-    private void initEventHandlers() {
 
-    }
 
     /**
      * Initialize the styling for the content in the scene graph
@@ -98,9 +126,13 @@ public class CalorieCalculatorView extends Application {
     private void initStyling() {
         root.setSpacing(5);
         root.setPrefWidth(250);
+
+        // Set padding on the sides
         root.setPadding(new Insets(10, 5, 10, 5));
         root.setAlignment(Pos.CENTER);
-    }
+        }
+
+
 
     /**
      * Initializing event handlers
@@ -108,14 +140,92 @@ public class CalorieCalculatorView extends Application {
     private void initSceneGraph() {
         root = new VBox();
 
-        topPane = new FlowPane();
-
-        textFieldTempInput = new TextField()
-;
-        //Label
-        topPane.getChildren().add(new Label( " Calories Burned Calculator "));
-        root.getChildren().add(topPane);
+        // Activity
+        activitySection= new HBox();
+        activityComboBox = activityDropDownOptions("Select Activity");
+        activityLabel = new Label("Activity: ");
+        activitySection.getChildren().addAll(activityLabel, activityComboBox);
 
 
+        // Speed/Pace
+        speedSection= new HBox();
+        speedTextField = new TextField();
+        speedComboBox = dropDownOptions("Select Unit", "Miles per Hour", "Meters per Second", "Kilometers per Hour");
+        speedLabel = new Label("Speed/Pace: ");
+        speedSection.getChildren().addAll(speedLabel, speedTextField, speedComboBox);
+        speedSection.setSpacing(10);
+
+        // Distance
+        distanceSection= new HBox();
+        distanceTextField = new TextField();
+        distanceComboBox = dropDownOptions("Select Unit", "Miles", "Meters", "Kilometers");
+        distanceLabel = new Label("Distance: ");
+        distanceSection.getChildren().addAll(distanceLabel, distanceTextField, distanceComboBox);
+        distanceSection.setSpacing(10);
+
+        //Body Weight
+        bodyWeightSection = new HBox();
+        bodyWeightTextField = new TextField();
+        bodyWeightLabel = new Label("Body Weight: ");
+        bodyWeightSection.getChildren().addAll(bodyWeightLabel, bodyWeightTextField);
+
+
+        //Calculate Calories
+        Button calculateButton = new Button("Calculate");
+        calculateButton.setOnAction(e -> handleCalculateButton());
+
+        root.getChildren().addAll(activitySection, speedSection, distanceSection,bodyWeightSection, calculateButton);
+    }
+
+
+
+    //format of all drop down options
+    private ComboBox<String> dropDownOptions(String promptText, String... items) {
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(items);
+        comboBox.setPromptText(promptText);
+        return comboBox;
+    }
+    private ComboBox<WorkoutType> activityDropDownOptions(String promptText) {
+        ComboBox<WorkoutType> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(WorkoutType.values());
+        comboBox.setPromptText(promptText);
+        return comboBox;
+    }
+
+    private void initEventHandlers() {
+        //activityComboBox.setOnAction(e -> handleOptionSelected(activityComboBox, "Selected Activity"));
+        speedComboBox.setOnAction(e -> handleOptionSelected(speedComboBox, "Selected Speed/Pace "));
+        distanceComboBox.setOnAction(e -> handleOptionSelected(distanceComboBox, "Selected Distance"));
+    }
+
+    private void handleOptionSelected(ComboBox<String> comboBox, String message) {
+        String selectedValue = comboBox.getValue();
+        System.out.println(message + ": " + selectedValue);
+        // You can perform additional actions based on the selected value if needed
+    }
+
+    private void handleCalculateButton() {
+        WorkoutType selectedActivity = getComboBoxActivity();
+        double speed = parseDouble(getTextFieldSpeed());
+        String speedUnit = getComboBoxSpeed();
+        double distance = parseDouble(getTextFieldDistance());
+        String distanceUnit = getComboBoxDistance();
+        double bodyWeight = parseDouble(getTextFieldBodyWeight());
+
+        // Calculate calories based on the model (you'll need to implement this method in your model class)
+        double calculatedCalories = theModel.calculateCalories(selectedActivity, speed, speedUnit, distance, distanceUnit, bodyWeight);
+
+        // Display/print to console for nowww
+        System.out.println("Calculated Calories: " + calculatedCalories);
+    }
+
+    private double parseDouble(String text) {
+        try {
+            return Double.parseDouble(text);
+        } catch (NumberFormatException e) {
+            // Handle invalid input (e.g., non-numeric input)
+            return 0.0; // Default value for invalid input
+        }
     }
 }

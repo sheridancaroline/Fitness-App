@@ -18,14 +18,14 @@ public class CalorieCalculatorController {
         //initEventHandlers();
         //initBindings();
     }
-    private void initEventHandlers() {
 
+    private void initEventHandlers() {
     }
 
     private void initBindings() {
+    }
 
     public void handleActionEvent(ActionEvent event) {
-
-
+    }
 
 }
