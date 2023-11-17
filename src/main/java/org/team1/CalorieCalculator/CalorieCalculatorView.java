@@ -16,7 +16,7 @@
  *
  * ****************************************
  */
-package org.team1;
+package org.team1.CalorieCalculator;
 
 
 import javafx.application.Application;
@@ -28,8 +28,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
+import org.team1.CalorieCalculator.CalorieCalculatorModel;
+import org.team1.WorkoutType;
+import org.team1.User;
 
 public class CalorieCalculatorView extends Application {
     private CalorieCalculatorModel theModel;
@@ -38,6 +39,9 @@ public class CalorieCalculatorView extends Application {
     private HBox speedSection;
     private HBox distanceSection;
     private HBox bodyWeightSection;
+    //TODO this creates a new user for the MVP , we
+    // have to figure out how to let it be jyst one user from the log in
+    private User user1;
 
     /**
      * FlowPane
@@ -70,6 +74,7 @@ public class CalorieCalculatorView extends Application {
     public CalorieCalculatorView(CalorieCalculatorModel theModel) {
         this.theModel = theModel;
         root = new VBox();
+        user1 = new User("M", 82);
         initSceneGraph();
         initStyling();
     }

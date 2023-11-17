@@ -1,10 +1,6 @@
-package org.team1;
+package org.team1.CalorieCalculator;
 
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 
 public class CalorieCalculatorController {
     private CalorieCalculatorModel theModel;

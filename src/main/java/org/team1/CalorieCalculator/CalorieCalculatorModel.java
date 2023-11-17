@@ -1,9 +1,11 @@
-package org.team1;
+package org.team1.CalorieCalculator;
 
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.stage.Stage;
+import org.team1.User;
+import org.team1.WorkoutType;
 
 public class CalorieCalculatorModel {
     private static final double CALORIES_PER_MIN_RUNNING_MALE = 10.0;
@@ -14,7 +16,7 @@ public class CalorieCalculatorModel {
 
     private static final double DEFAULT_WEIGHT = 150.0;
 
-    public static double calculateCalories(WorkoutType workoutType, double speedPace, String speedPaceUnit, double distance, String distanceUnit, double bodyWeightchar){
+    public static double calculateCalories(WorkoutType workoutType, double speedPace, String speedPaceUnit, double distance, String distanceUnit, double bodyWeight){
         // sex, double weight, int minutes, int seconds)
 
         // Use default weight if weight is not provided
