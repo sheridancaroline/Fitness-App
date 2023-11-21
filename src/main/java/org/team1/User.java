@@ -45,6 +45,7 @@ public class User {
 
     public double getWeight() {
         return weight;
+
     }
 
     public List<Double> getWeightHistory() {

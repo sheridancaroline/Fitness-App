@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class CalorieCalculatorMain extends Application {
-
     private CalorieCalculatorModel theModel;
     private CalorieCalculatorView theView;
     private CalorieCalculatorController theController;

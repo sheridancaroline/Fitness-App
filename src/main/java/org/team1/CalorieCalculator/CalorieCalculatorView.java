@@ -175,7 +175,6 @@ public class CalorieCalculatorView {
         distanceSection.getChildren().addAll(distanceLabel, distanceTextField, distanceComboBox);
         distanceSection.setSpacing(10);
 
-
         //Calculate Calories Button
         buttonSection= new HBox();
         calculateButton = new Button("Calculate");

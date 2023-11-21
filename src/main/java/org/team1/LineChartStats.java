@@ -24,6 +24,7 @@ public class LineChartStats extends Application {
     private XYChart.Series series;
     private VBox chartRoot;
     private VBox updateRoot;
+
     private TextField updateCals;
     private Label updateCalsLabel;
     private Button updateButton;

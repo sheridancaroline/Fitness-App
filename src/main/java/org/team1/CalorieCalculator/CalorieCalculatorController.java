@@ -17,6 +17,7 @@ public class CalorieCalculatorController {
 
         initEventHandlers();
         //initBindings();
+
     }
 
     private void initEventHandlers() {

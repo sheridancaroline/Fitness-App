@@ -27,6 +27,7 @@ public class CalorieCalculatorModel {
         double totalCalories = calculateTotalCalories(hours, minutes, caloriesPerMinute, weight);
 
         return totalCalories;
+
         }
 
     private static double getCaloriesPerMinute(User user, WorkoutType workoutType) {
