@@ -24,13 +24,13 @@ import java.util.List;
 
 public class User {
     //TODO change sex from string to char
-    private String sex; // 'M' or 'F'
+    private Sex sex; // 'MALE' or 'FEMALE'
     private double weight; // in pounds
     private List<Double> weightHistory;
 
     private List<Date> weightDates;
 
-    public User(String sex, double weight) {
+    public User(Sex sex, double weight) {
         this.sex = sex;
         this.weight = weight;
         this.weightHistory = new ArrayList<>();
@@ -39,7 +39,7 @@ public class User {
         this.weightDates.add(new Date()); // Initial date
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 

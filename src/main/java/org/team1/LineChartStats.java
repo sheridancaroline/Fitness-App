@@ -108,13 +108,12 @@ public class LineChartStats extends Application {
 
     }
     private void updateLineChart(String date, double calories) {
-       // XYChart.Data<String, Number> newData = new XYChart.Data<>(calories, date);
+        // XYChart.Data<String, Number> newData = new XYChart.Data<>(calories, date);
         series.getData().add(new XYChart.Data(date, calories));
-        //lineChart.getData().add(series);
+
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
-
