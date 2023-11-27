@@ -54,15 +54,22 @@ public class FitnessAppController {
         handleSceneChange();
 
         this.theView.getBtnLogin().setOnAction(event -> {
+            System.out.println(this.theView.getTextFieldUsername().getText());
             if (theView.getTextFieldUsername().getText().isEmpty()){
                 System.out.println("enter username");
             }
             if (theView.getTextFieldPassword().getText().isEmpty()){
                 System.out.println("enter password");
             }
+            else{
+                if (theModel.verifyLogin(theView.getTextFieldUsername().getText(), theView.getTextFieldPassword().getText())){
+                    System.out.println("Login success");
+                }
+            }
         });
 
     }
+
 
     private void handleSceneChange() {
 
@@ -73,6 +80,6 @@ public class FitnessAppController {
             stage.show();
 
         });
-
     }
 }
+

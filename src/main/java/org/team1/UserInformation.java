@@ -26,6 +26,8 @@ import java.util.TreeMap;
 
 public class UserInformation implements Serializable {
 
+    private static final long serialVersionUID = 101;
+
     private String username;
 
     private String password;
@@ -37,6 +39,18 @@ public class UserInformation implements Serializable {
         this.password = password;
         this.pastWorkouts = new TreeMap<>();
 
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public TreeMap<LocalDate, ArrayList<Workouts>> getPastWorkouts() {
+        return pastWorkouts;
     }
 
     public void addWorkout(Workouts workout){

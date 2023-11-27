@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class FitnessAppModel {
 
-    public static final String FILE_NAME = "userInformation.ser";
+    public static final String FILE_NAME = "userInformations.ser";
 
     private ArrayList<UserInformation> userInformations;
 
@@ -41,7 +41,7 @@ public class FitnessAppModel {
 
         System.out.println(userInformations);
 
-//
+//        this.userInformations = new ArrayList<>();
 //
 //        Workouts day0 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
 //        Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
@@ -56,7 +56,7 @@ public class FitnessAppModel {
 //
 //        try{
 //            SerializationUtil.serialize(userInformations, FILE_NAME);
-//            //System.out.println("success");
+//            System.out.println("success");
 //        }
 //        catch (IOException e){
 //            e.printStackTrace();
@@ -77,6 +77,18 @@ public class FitnessAppModel {
 
         return userInformations;
     }
+
+    public boolean verifyLogin(String username, String password){
+        for (int i = 0; i < userInformations.size(); i++){
+            System.out.println(userInformations.get(i).getUsername());
+            System.out.println(userInformations.get(i).getPassword());
+            if (userInformations.get(i).getUsername().equals(username) && userInformations.get(i).getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 

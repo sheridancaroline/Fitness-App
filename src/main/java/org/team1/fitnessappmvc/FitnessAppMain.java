@@ -16,6 +16,7 @@ public class FitnessAppMain extends Application {
     public void init() throws Exception {
         super.init();
         this.theModel = new FitnessAppModel();
+        //System.out.println("model set");
         this.theView = new FitnessAppView(theModel);
         this.theController = new FitnessAppController(theModel, theView);
 
