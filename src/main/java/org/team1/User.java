@@ -23,8 +23,8 @@ import java.util.Date;
 import java.util.List;
 
 public class User {
-    private char sex; // 'M' or 'F'
-    private double weight; // in pounds
+    public char sex; // 'M' or 'F'
+    public double weight; // in pounds
     private List<Double> weightHistory;
 
     private List<Date> weightDates;

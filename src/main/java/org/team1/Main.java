@@ -1,30 +1,24 @@
 package org.team1;
 
-import java.sql.SQLOutput;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
-
-import static org.team1.WorkoutType.RUN;
 
 public class Main {
     private static final WorkoutManager workoutManager = new WorkoutManager();
     private static User user;
-    private static char sex;
-    private static double weight;
 
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
 
         // Ask for user's sex
         System.out.println("Enter your sex (M/F): ");
-        sex = scnr.next().toUpperCase().charAt(0);
+        char sex = scnr.next().toUpperCase().charAt(0);
 
         // Ask for users weight
         System.out.println("Enter your weight in pounds: ");
-        weight = scnr.nextDouble();
+        double weight = scnr.nextDouble();
 
         // Create a new user
         user = new User(sex, weight);
@@ -32,11 +26,14 @@ public class Main {
         // Prompt user by asking if they want to enter a workout
         System.out.println("Welcome to workout log! Would you like to log a workout? (Y/N)");
 
-        if (scnr.next().equalsIgnoreCase("Y")) {
+        while (scnr.next().equalsIgnoreCase("Y")) {
+
             logWorkout(scnr);
-        } else {
-            System.out.println("Goodbye!");
+
+            System.out.println("Welcome to workout log! Would you like to log a workout? (Y/N)");
         }
+
+        System.out.println("Goodbye!");
 
     }
     public static void logWorkout(Scanner scnr) {
@@ -47,9 +44,12 @@ public class Main {
         int workoutTypeChoice = scnr.nextInt();
         WorkoutType selectedWorkoutType = getWorkoutTypeFromChoice(workoutTypeChoice);
 
-        System.out.println("Enter date of the workout (yyyy-MM-dd): ");
-        String dateString = scnr.next();
-        Date workoutDate = parseDate(dateString);
+        LocalDate workoutDate = null;
+        while (workoutDate == null) {
+            System.out.println("Enter date of the workout (MM/dd/yyyy): ");
+            String dateString = scnr.next();
+            workoutDate = parseDate(dateString);
+        }
 
         System.out.println("Enter duration minutes: ");
         int minutesDuration = scnr.nextInt();
@@ -58,7 +58,7 @@ public class Main {
         int secondsDuration = scnr.nextInt();
 
         // Calculate calories based on user input
-        int calculatedCalories = CalorieCalculator.calculateCalories(selectedWorkoutType, sex, weight, minutesDuration, secondsDuration);
+        int calculatedCalories = CalorieCalculator.calculateCalories(selectedWorkoutType, user.sex, user.weight, minutesDuration, secondsDuration);
 
         // Create a new workout
         Workout newWorkout = new Workout(selectedWorkoutType, workoutDate, calculatedCalories, minutesDuration, secondsDuration);
@@ -68,10 +68,14 @@ public class Main {
 
         System.out.println("Workout logged successfully!");
 
+        displayWorkouts(workoutDate);
+
+    }
+
+    private static void displayWorkouts(LocalDate workoutDate) {
         // Display daily and monthly workouts
         displayDailyWorkouts(workoutDate);
         displayMonthlyWorkouts(workoutDate);
-
     }
 
     private static WorkoutType getWorkoutTypeFromChoice(int choice) {
@@ -85,35 +89,39 @@ public class Main {
         }
     }
 
-    private static Date parseDate(String dateString) {
+    private static LocalDate parseDate(String dateString) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            return dateFormat.parse(dateString);
-        } catch(ParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            // Parse the input date and then format it to the desired output format
+            return LocalDate.parse(LocalDate.parse(dateString, inputFormatter).format(outputFormatter));
+        } catch (Exception e) {
+            System.out.println("Invalid date format. Please use MM/dd/yyyy");
+            return null; // Return null for an invalid date
         }
     }
 
-    private static void displayDailyWorkouts(Date date) {
+    private static void displayDailyWorkouts(LocalDate date) {
         String dayKey = formatDateKey(date);
         List<Workout> workoutsForDay = workoutManager.getWorkoutsForDay(dayKey);
 
         System.out.println("Daily workouts for " + dayKey + ": " + workoutsForDay);
     }
-    private static void displayMonthlyWorkouts(Date date) {
+    private static void displayMonthlyWorkouts(LocalDate date) {
         String monthKey = formatMonthKey(date);
         List<Workout> workoutsForMonth =  workoutManager.getWorkoutsForMonth(monthKey);
 
         System.out.println("Monthly Workouts for " + monthKey +  ": " + workoutsForMonth);
     }
 
-    private static String formatDateKey(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static String formatDateKey(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return dateFormat.format(date);
     }
 
-    private static String formatMonthKey(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+    private static String formatMonthKey(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM");
         return dateFormat.format(date);
     }
 }

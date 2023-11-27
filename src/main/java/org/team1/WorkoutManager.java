@@ -18,7 +18,8 @@
  */
 package org.team1;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class WorkoutManager {
@@ -60,13 +61,13 @@ public class WorkoutManager {
         return monthlyWorkouts;
     }
 
-    private String formatDateKey(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String formatDateKey(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return dateFormat.format(date);
     }
 
-    private String formatMonthKey(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+    private String formatMonthKey(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM");
         return dateFormat.format(date);
     }
 }
