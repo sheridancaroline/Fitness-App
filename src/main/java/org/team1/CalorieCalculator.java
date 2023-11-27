@@ -27,7 +27,7 @@ public class CalorieCalculator {
 
     private static final double DEFAULT_WEIGHT = 150.0;
 
-    public static int calculateCalories(WorkoutType workoutType, char sex, double weight, int minutes, int seconds) {
+    public static int calculateCalories(WorkoutType workoutType, Sex sex, double weight, int minutes, int seconds) {
         // Use default weight if weight is not provided
         if (weight <= 0) {
             weight = DEFAULT_WEIGHT;
@@ -38,9 +38,9 @@ public class CalorieCalculator {
         // Determine calories per minute based on workout type and sex
 
         if (workoutType == WorkoutType.RUN) {
-            caloriesPerMinute = (sex == 'M') ? CALORIES_PER_MIN_RUNNING_MALE : CALORIES_PER_MIN_RUNNING_FEMALE;
+            caloriesPerMinute = (sex == Sex.MALE) ? CALORIES_PER_MIN_RUNNING_MALE : CALORIES_PER_MIN_RUNNING_FEMALE;
         } else if (workoutType == WorkoutType.WALK) {
-            caloriesPerMinute = (sex == 'M') ? CALORIES_PER_MIN_WALKING_MALE : CALORIES_PER_MIN_WALKING_FEMALE;
+            caloriesPerMinute = (sex == Sex.FEMALE) ? CALORIES_PER_MIN_WALKING_MALE : CALORIES_PER_MIN_WALKING_FEMALE;
         } else {
             throw new IllegalArgumentException("Invalid workout type");
         }

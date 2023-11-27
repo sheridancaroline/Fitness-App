@@ -13,8 +13,17 @@ public class Main {
         Scanner scnr = new Scanner(System.in);
 
         // Ask for user's sex
+        Sex sex = null;
         System.out.println("Enter your sex (M/F): ");
-        char sex = scnr.next().toUpperCase().charAt(0);
+        char userInputSex = scnr.next().toUpperCase().charAt(0);
+
+        if (userInputSex == 'M' || userInputSex == 'm') {
+            sex = Sex.MALE;
+        }
+        else if (userInputSex == 'F' || userInputSex == 'f') {
+            sex = Sex.FEMALE;
+        }
+
 
         // Ask for users weight
         System.out.println("Enter your weight in pounds: ");
@@ -58,7 +67,7 @@ public class Main {
         int secondsDuration = scnr.nextInt();
 
         // Calculate calories based on user input
-        int calculatedCalories = CalorieCalculator.calculateCalories(selectedWorkoutType, user.sex, user.weight, minutesDuration, secondsDuration);
+        int calculatedCalories = CalorieCalculator.calculateCalories(selectedWorkoutType, user.getSex(), user.getWeight(), minutesDuration, secondsDuration);
 
         // Create a new workout
         Workout newWorkout = new Workout(selectedWorkoutType, workoutDate, calculatedCalories, minutesDuration, secondsDuration);

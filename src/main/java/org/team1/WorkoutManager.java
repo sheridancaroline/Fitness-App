@@ -29,6 +29,15 @@ public class WorkoutManager {
     public WorkoutManager() {
         this.monthlyWorkouts = new HashMap<>();
         this.dailyWorkouts = new HashMap<>();
+        initializeHardcodedWorkouts();
+    }
+
+    private void initializeHardcodedWorkouts() {
+        Workout workout1 = new Workout(WorkoutType.RUN, LocalDate.now(), 200, 30, 0);
+        Workout workout2 = new Workout(WorkoutType.WALK, LocalDate.now(), 100, 20, 0);
+
+        addWorkout(workout1);
+        addWorkout(workout2);
     }
 
     public void addWorkout(Workout workout) {
