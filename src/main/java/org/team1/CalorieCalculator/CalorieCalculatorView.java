@@ -67,6 +67,7 @@ public class CalorieCalculatorView {
     /** Buttons */
     private Button calculateButton;
     private Button clearButton;
+    private Button addButton;
 
     /** ComboBoxes */
     private ComboBox<WorkoutType> activityComboBox;
@@ -122,6 +123,9 @@ public class CalorieCalculatorView {
     }
     public Button getClearButton() {
         return clearButton;
+    }
+    public Button getAddButton() {
+        return addButton;
     }
 
 
@@ -180,7 +184,9 @@ public class CalorieCalculatorView {
         calculateButton = new Button("Calculate");
         //Clear Calories Button
         clearButton = new Button("Clear ");
-        buttonSection.getChildren().addAll(clearButton, calculateButton);
+        //Clear Calories Button
+        addButton = new Button("Add to Chart");
+        buttonSection.getChildren().addAll(clearButton, calculateButton, addButton);
         //distanceSection.setSpacing(20);
 
         root.getChildren().addAll(activitySection, durationSection, speedSection, distanceSection,buttonSection);

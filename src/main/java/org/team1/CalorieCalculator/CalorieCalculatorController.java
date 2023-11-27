@@ -3,17 +3,25 @@ package org.team1.CalorieCalculator;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import org.team1.LineChartStats;
 import org.team1.Sex;
 import org.team1.User;
 import org.team1.WorkoutType;
+import org.team1.LineChartStats;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CalorieCalculatorController {
     private CalorieCalculatorModel theModel;
     private CalorieCalculatorView theView;
+    private LineChartStats theChart;
+    double calculatedCalories;
 
     public CalorieCalculatorController(CalorieCalculatorModel theModel, CalorieCalculatorView theView) {
         this.theModel = theModel;
         this.theView = theView;
+        //this.theChart = theChart;
 
         initEventHandlers();
         //initBindings();
@@ -25,6 +33,7 @@ public class CalorieCalculatorController {
         //theView.getComboBoxDistance().setOnAction(e -> handleOptionSelected(theView.getDistanceComboBox(), "Selected Distance"));
         theView.getCalculateButton().setOnAction(e -> handleCalculateButton());
         theView.getClearButton().setOnAction(e -> handleClearButton());
+        //theView.getAddButton().setOnAction(e -> handleAddButton());
     }
 //    private void handleOptionSelected(ComboBox<String> comboBox, String message) {
 //        String selectedValue = comboBox.getValue();
@@ -44,7 +53,7 @@ public class CalorieCalculatorController {
         User user = new User(Sex.MALE, 82);
 
         // Calculate calories based on the model
-        double calculatedCalories = theModel.calculateCalories(user, selectedActivity, hours, minutes, speed, speedUnit, distance, distanceUnit);
+        calculatedCalories = theModel.calculateCalories(user, selectedActivity, hours, minutes, speed, speedUnit, distance, distanceUnit);
 
         // Display/print to console
         System.out.println("Calculated Calories: " + calculatedCalories);
@@ -56,6 +65,11 @@ public class CalorieCalculatorController {
         theView.minutesTextField.clear();
 
     }
+//    private void handleAddButton() {
+//        DateTimeFormatter dateFormat= DateTimeFormatter.ofPattern("MM/dd");
+//        String currentDate = LocalDate.now().format(dateFormat);
+//        LineChartStats.updateLineChart(currentDate, calculatedCalories );
+//    }
 
 
     private double parseDouble(String text) {

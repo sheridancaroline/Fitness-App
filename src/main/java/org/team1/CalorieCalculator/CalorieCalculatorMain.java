@@ -24,7 +24,7 @@ public class CalorieCalculatorMain extends Application {
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(this.theView.getRoot(),650,300);
 //        scene.getStylesheets().add(
-//                getClass().getResource("/lab10/tempconvertermvc.css")
+//                getClass().getResource("caloriecalc.css")
 //                        .toExternalForm());
         primaryStage.setTitle("Calories burned calculator");
         primaryStage.setScene(scene);

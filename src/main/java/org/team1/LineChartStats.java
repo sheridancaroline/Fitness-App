@@ -72,7 +72,7 @@ public class LineChartStats extends Application {
         stage.show();
     }
 
-    private void updateChart() {
+    public void updateChart() {
         updateRoot = new VBox();
         Stage updateStage = new Stage();
         updateStage.setTitle("Update Calorie Tracker");
@@ -99,6 +99,7 @@ public class LineChartStats extends Application {
                 System.out.println("Please enter a valid number for calories");
             }
         });
+
 
 
 
