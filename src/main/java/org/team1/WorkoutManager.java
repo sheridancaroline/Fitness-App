@@ -35,9 +35,11 @@ public class WorkoutManager {
     private void initializeHardcodedWorkouts() {
         Workout workout1 = new Workout(WorkoutType.RUN, LocalDate.now(), 200, 30, 0);
         Workout workout2 = new Workout(WorkoutType.WALK, LocalDate.now(), 100, 20, 0);
+        Workout workout3 = new Workout(WorkoutType.RUN, LocalDate.of(2023, 11, 22), 60, 10, 0);
 
         addWorkout(workout1);
         addWorkout(workout2);
+        addWorkout(workout3);
     }
 
     public void addWorkout(Workout workout) {
