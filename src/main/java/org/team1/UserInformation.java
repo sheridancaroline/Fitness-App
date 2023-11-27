@@ -68,7 +68,7 @@ public class UserInformation implements Serializable {
     }
 
     public String toString(){
-        String information = String.format("Username: %s \nPassword: %s \nPast Workouts: %s :"
+        String information = String.format("Username: %s \nPassword: %s \nPast Workouts: %s "
                 ,  username, password, pastWorkouts);
         return information;
     }

@@ -41,7 +41,11 @@ public class FitnessAppView {
 
     private TextField textFieldUsername;
 
+    private TextField textFieldUsername2;
+
     private TextField textFieldPassword;
+
+    private TextField textFieldPassword2;
 
     private TextField textFieldConfirmPassword;
 
@@ -52,6 +56,7 @@ public class FitnessAppView {
     private Button btnGuest;
 
     private Button btnCreateNewAccount;
+    private Button btnVerifyUsername;
 
 
     public FitnessAppView(FitnessAppModel theModel){
@@ -62,13 +67,19 @@ public class FitnessAppView {
 
         initSceneGraph();
         initStyling();
+
+
     }
 
     public VBox getLoginRoot() {
+
+        root = loginRoot;
         return loginRoot;
     }
 
     public VBox getSignupRoot() {
+
+        root = signupRoot;
         return signupRoot;
     }
 
@@ -76,13 +87,23 @@ public class FitnessAppView {
         return root;
     }
 
-    public TextField getTextFieldUsername() {
-        return textFieldUsername;
+    public String getTextFieldUsername() {
+        return textFieldUsername.getText();
     }
 
-    public TextField getTextFieldPassword() {
-        return textFieldPassword;
+    public String getTextFieldUsername2() {
+        return textFieldUsername2.getText();
     }
+
+    public String getTextFieldPassword() {
+        return textFieldPassword.getText();
+    }
+
+    public String getTextFieldPassword2() {
+        return textFieldPassword2.getText();
+    }
+
+    public String getTextFieldConfirmPassword() { return textFieldConfirmPassword.getText(); }
 
     public Button getBtnLogin() {
         return btnLogin;
@@ -95,6 +116,10 @@ public class FitnessAppView {
     public Button getBtnGuest() {
         return btnGuest;
     }
+
+    public Button getBtnCreateNewAccount() { return btnCreateNewAccount; }
+
+    public Button getBtnVerifyUsername() { return btnVerifyUsername; }
 
     public Scene getSignupScene(){
         return new Scene(getSignupRoot());
@@ -176,20 +201,21 @@ public class FitnessAppView {
         VBox userInformationBox = new VBox();
 
         Label lblUsername = new Label("Username");
-        Button btnVerifyUsername = new Button("Verify");
-        textFieldUsername = new TextField();
+        btnVerifyUsername = new Button("Verify");
+        textFieldUsername2 = new TextField();
 
 
         Label lblPassword = new Label("Password");
-        textFieldPassword = new TextField();
+        textFieldPassword2 = new TextField();
 
         Label lblConfirmPassword = new Label("Confirm Password");
         textFieldConfirmPassword = new TextField();
 
         btnCreateNewAccount = new Button("Create a new account");
+        btnCreateNewAccount.setDisable(true);
 
-        userInformationBox.getChildren().addAll(lblUsername, textFieldUsername, btnVerifyUsername);
-        userInformationBox.getChildren().addAll(lblPassword, textFieldPassword);
+        userInformationBox.getChildren().addAll(lblUsername, textFieldUsername2, btnVerifyUsername);
+        userInformationBox.getChildren().addAll(lblPassword, textFieldPassword2);
         userInformationBox.getChildren().addAll(lblConfirmPassword, textFieldConfirmPassword);
         userInformationBox.getChildren().addAll(new Separator(), btnCreateNewAccount);
 

@@ -34,10 +34,14 @@ public class FitnessAppModel {
 
     private ArrayList<UserInformation> userInformations;
 
+    private String username;
+
 
     public FitnessAppModel(){
 
         this.userInformations = deserializeUserInformation();
+
+        this.username = null;
 
         System.out.println(userInformations);
 
@@ -80,13 +84,38 @@ public class FitnessAppModel {
 
     public boolean verifyLogin(String username, String password){
         for (int i = 0; i < userInformations.size(); i++){
-            System.out.println(userInformations.get(i).getUsername());
-            System.out.println(userInformations.get(i).getPassword());
             if (userInformations.get(i).getUsername().equals(username) && userInformations.get(i).getPassword().equals(password)){
+                this.username = username;
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean verifyUsername(String username){
+        for (int i = 0; i < userInformations.size(); i++){
+            if (userInformations.get(i).getUsername().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void createNewAccount(String username, String password){
+        UserInformation userinformation = new UserInformation(username, password);
+        userInformations.add(userinformation);
+
+        this.username = username;
+
+        try{
+            SerializationUtil.serialize(userInformations, FILE_NAME);
+            System.out.println("success");
+        }
+        catch (IOException e){
+            e.printStackTrace();
+            return;
+        }
+
     }
 
 
