@@ -32,11 +32,14 @@ public class UserInformation implements Serializable {
 
     private String password;
 
+    private Gender gender;
+
     private TreeMap<LocalDate, ArrayList<Workouts>> pastWorkouts;
 
-    public UserInformation(String username, String password){
+    public UserInformation(String username, String password, Gender gender){
         this.username = username;
         this.password = password;
+        this.gender = gender;
         this.pastWorkouts = new TreeMap<>();
 
     }
@@ -47,6 +50,10 @@ public class UserInformation implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public Gender getGender(){
+        return gender;
     }
 
     public TreeMap<LocalDate, ArrayList<Workouts>> getPastWorkouts() {
@@ -68,8 +75,8 @@ public class UserInformation implements Serializable {
     }
 
     public String toString(){
-        String information = String.format("Username: %s \nPassword: %s \nPast Workouts: %s "
-                ,  username, password, pastWorkouts);
+        String information = String.format("Username: %s \nPassword: %s \nSex: %s \nPast Workouts: %s "
+                ,  username, password, gender, pastWorkouts);
         return information;
     }
 
@@ -85,7 +92,7 @@ public class UserInformation implements Serializable {
         System.out.println(day2);
 
 
-        UserInformation userinformation = new UserInformation("rohbot", "1234");
+        UserInformation userinformation = new UserInformation("rohbot", "1234", Gender.MALE);
 
         userinformation.addWorkout(day0);
         userinformation.addWorkout(day1);

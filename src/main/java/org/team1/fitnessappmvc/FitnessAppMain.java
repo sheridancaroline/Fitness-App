@@ -38,6 +38,8 @@ public class FitnessAppMain extends Application {
     /**
      * Initializes the model, view, and controller when the application starts.
      *
+     * @author Dong Hyun Roh
+     *
      * @throws Exception if an error occurs during initialization.
      */
     @Override
@@ -52,6 +54,8 @@ public class FitnessAppMain extends Application {
     /**
      * Our standard main program for a JavaFX application
      *
+     * @author Dong Hyun Roh
+     *
      * @param args command line args
      */
     public static void main(String[] args) {
@@ -62,6 +66,8 @@ public class FitnessAppMain extends Application {
     /**
      * The entry point for the JavaFX application.
      * Starts the application by setting up the primary stage.
+     *
+     * @author Dong Hyun Roh
      *
      * @param primaryStage The primary stage of the application.
      */

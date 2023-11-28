@@ -18,11 +18,9 @@
  */
 package org.team1.fitnessappmvc;
 
-import org.team1.Activity;
-import org.team1.SerializationUtil;
+import javafx.beans.property.SimpleBooleanProperty;
+import org.team1.*;
 import org.team1.UserInformation;
-import org.team1.UserInformation;
-import org.team1.Workouts;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -34,13 +32,20 @@ import java.util.ArrayList;
  */
 public class FitnessAppModel {
 
-    public static final String FILE_NAME = "userInformations.ser";
+    public static final String FILE_NAME = "userInformation.ser";
 
     private ArrayList<UserInformation> userInformations;
 
     private String username;
 
+    private SimpleBooleanProperty isSetForMale;
 
+    private SimpleBooleanProperty isSetForFemale;
+
+
+    /**
+     * @author Dong Hyun Roh
+     */
     public FitnessAppModel(){
 
         this.userInformations = deserializeUserInformation();
@@ -55,7 +60,7 @@ public class FitnessAppModel {
 //        Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
 //        Workouts day2 = new Workouts(LocalDate.of(2022,12,1), Activity.WALKING,5.5,6,70,900);
 //
-//        UserInformation userinformation = new UserInformation("rohbot", "1234");
+//        UserInformation userinformation = new UserInformation("rohbot", "1234", Gender.MALE);
 //
 //        userinformation.addWorkout(day0);
 //        userinformation.addWorkout(day1);
@@ -74,6 +79,11 @@ public class FitnessAppModel {
     }
 
 
+    /**
+     * @author Dong Hyun Roh
+     *
+     * @return
+     */
     public ArrayList<UserInformation> deserializeUserInformation(){
 
         ArrayList<UserInformation> userInformations = null;
@@ -88,6 +98,13 @@ public class FitnessAppModel {
     }
 
 
+    /**
+     * @author Dong Hyun Roh
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public boolean verifyLogin(String username, String password){
         for (int i = 0; i < userInformations.size(); i++){
             if (userInformations.get(i).getUsername().equals(username) && userInformations.get(i).getPassword().equals(password)){
@@ -101,6 +118,8 @@ public class FitnessAppModel {
 
     /**
      * Verifies if the username already exists during account creation.
+     *
+     * @author Dong Hyun Roh
      *
      * @param username The username entered by the user.
      * @return true if the username is available, false if it's already taken.
@@ -118,11 +137,14 @@ public class FitnessAppModel {
     /**
      * Creates a new user account with the provided username and password.
      *
+     * @author Dong Hyun Roh
+     *
      * @param username The username for the new account.
      * @param password The password for the new account.
+     * @param gender The gender of the user
      */
-    public void createNewAccount(String username, String password){
-        UserInformation userinformation = new UserInformation(username, password);
+    public void createNewAccount(String username, String password, Gender gender){
+        UserInformation userinformation = new UserInformation(username, password, gender);
         userInformations.add(userinformation);
 
         this.username = username;

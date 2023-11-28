@@ -120,6 +120,10 @@ public class FitnessAppView {
 
     public Button getBtnVerifyUsername() { return btnVerifyUsername; }
 
+    public RadioButton getRbMale() { return rbMale; }
+
+    public RadioButton getRbFemale() { return rbFemale; }
+
     public Scene getSignupScene(){
         return new Scene(getSignupRoot());
     }
@@ -128,6 +132,9 @@ public class FitnessAppView {
         return new Scene(getLoginRoot());
     }
 
+    /**
+     * @author Dong Hyun Roh
+     */
     private void initStyling() {
 
         loginRoot.setAlignment(Pos.CENTER);
@@ -152,6 +159,9 @@ public class FitnessAppView {
         initSignupPage();
     }
 
+    /**
+     * @author Dong Hyun Roh
+     */
     private void initLoginPage(){
 
         loginRoot = new VBox();
@@ -186,6 +196,9 @@ public class FitnessAppView {
         loginRoot.getChildren().add(btnGuest);
     }
 
+    /**
+     * @author Dong Hyun Roh
+     */
     public void initSignupPage(){
 
         signupRoot = new VBox();
@@ -207,6 +220,19 @@ public class FitnessAppView {
         Label lblConfirmPassword = new Label("Confirm Password");
         textFieldConfirmPassword = new TextField();
 
+        // radio button group to allow the user to select gender
+        ToggleGroup group = new ToggleGroup();
+        rbMale = new RadioButton("Male");
+        rbFemale = new RadioButton("Female");
+        rbMale.setToggleGroup(group);
+        rbFemale.setToggleGroup(group);
+        rbMale.setSelected(true);
+
+        VBox genderBox = new VBox();
+        genderBox.getChildren().addAll(rbMale, rbFemale);
+
+        signupRoot.getChildren().add(genderBox);
+
         btnCreateNewAccount = new Button("Create a new account");
         btnCreateNewAccount.setDisable(true);
 
@@ -216,9 +242,6 @@ public class FitnessAppView {
         userInformationBox.getChildren().addAll(new Separator(), btnCreateNewAccount);
 
         signupRoot.getChildren().add(userInformationBox);
-
-
     }
-
 
 }

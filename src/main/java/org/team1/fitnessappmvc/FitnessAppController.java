@@ -22,6 +22,7 @@ package org.team1.fitnessappmvc;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import org.team1.Gender;
 
 
 /**
@@ -43,6 +44,8 @@ public class FitnessAppController {
      * Constructs a controller that connects the model and the
      * view for the fitness application.
      *
+     * @author Dong Hyun Roh
+     *
      * @param theModel The model component of the application.
      * @param theView  The view component of the application.
      */
@@ -62,6 +65,8 @@ public class FitnessAppController {
 
     /**
      * Initializes event handlers for login, signup, and scene change actions.
+     *
+     * @author Dong Hyun Roh
      */
     private void initEventHandlers() {
 
@@ -78,6 +83,8 @@ public class FitnessAppController {
 
     /**
      * Sets up event handlers for components in the login page
+     *
+     * @author Dong Hyun Roh
      */
     private void loginEventHandlers() {
 
@@ -112,6 +119,8 @@ public class FitnessAppController {
 
     /**
      * Sets up event handlers for signup-related actions.
+     *
+     * @author Dong Hyun Roh
      */
     private void signupEventHandlers() {
 
@@ -146,7 +155,14 @@ public class FitnessAppController {
             }
             // Create a new account with provided username and password
             else {
-                theModel.createNewAccount(theView.getTextFieldUsername2(), theView.getTextFieldPassword2());
+                Gender gender = null;
+                if (theView.getRbMale().isSelected()){
+                    gender = Gender.MALE;
+                }
+                else{
+                    gender = Gender.FEMALE;
+                }
+                theModel.createNewAccount(theView.getTextFieldUsername2(), theView.getTextFieldPassword2(), gender);
                 System.out.println("Created a new account");
             }
         });
@@ -155,6 +171,8 @@ public class FitnessAppController {
 
     /**
      * Handles various scene changes
+     *
+     * @author Dong Hyun Roh
      */
     private void handleSceneChange() {
 
