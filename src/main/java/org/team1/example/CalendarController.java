@@ -20,21 +20,18 @@ package org.team1.example;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import org.team1.Activity;
+import org.team1.Workouts;
+import javafx.scene.input.MouseEvent;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -52,10 +49,13 @@ public class CalendarController implements Initializable {
     @FXML
     private FlowPane calendar;
 
+    private Map<LocalDate, List<Workouts>> workoutsMap;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
+        workoutsMap = getWorkoutsMonth(dateFocus);
         drawCalendar();
     }
 
@@ -84,7 +84,7 @@ public class CalendarController implements Initializable {
         double spacingV = calendar.getVgap();
 
         //List of activities for a given month
-        Map<Integer, List<CalendarActivity>> calendarActivityMap = getCalendarActivitiesMonth(dateFocus);
+        Map<LocalDate, List<Workouts>> workoutsMap = getWorkoutsMonth(dateFocus);
 
         int monthMaxDate = dateFocus.getMonth().maxLength();
         //Check for leap year
@@ -116,9 +116,10 @@ public class CalendarController implements Initializable {
                         date.setTranslateY(textTranslationY);
                         stackPane.getChildren().add(date);
 
-                        List<CalendarActivity> calendarActivities = calendarActivityMap.get(currentDate);
-                        if (calendarActivities != null) {
-                            createCalendarActivity(calendarActivities, rectangleHeight, rectangleWidth, stackPane);
+                        LocalDate calendarDate = LocalDate.of(dateFocus.getYear(), dateFocus.getMonth(), currentDate);
+                        List<Workouts> workouts = workoutsMap.get(calendarDate);
+                        if (workouts != null) {
+                            createWorkoutsUI(workouts, rectangleHeight, rectangleWidth, stackPane);
                         }
                     }
                     if (today.getYear() == dateFocus.getYear() && today.getMonth() == dateFocus.getMonth() && today.getDayOfMonth() == currentDate) {
@@ -130,61 +131,86 @@ public class CalendarController implements Initializable {
         }
     }
 
-    private void createCalendarActivity(List<CalendarActivity> calendarActivities, double rectangleHeight, double rectangleWidth, StackPane stackPane) {
-        VBox calendarActivityBox = new VBox();
-        for (int k = 0; k < calendarActivities.size(); k++) {
-            if (k >= 2) {
-                Text moreActivities = new Text("...");
-                calendarActivityBox.getChildren().add(moreActivities);
-                moreActivities.setOnMouseClicked(mouseEvent -> {
-                    //On ... click print all activities for given date
-                    System.out.println(calendarActivities);
-                });
-                break;
-            }
-            Text text = new Text(calendarActivities.get(k).getClientName() + ", " + calendarActivities.get(k).getDate().toLocalTime());
-            calendarActivityBox.getChildren().add(text);
-            text.setOnMouseClicked(mouseEvent -> {
-                //On Text clicked
-                System.out.println(text.getText());
-            });
+
+    private void createWorkoutsUI(List<Workouts> workouts, double rectangleHeight, double rectangleWidth, StackPane stackPane) {
+        VBox workoutsBox = new VBox();
+
+        for (Workouts workout : workouts) {
+            Text text = new Text(workout.getActivity().toString());
+            text.setUserData(workout); // Store Workouts object in the userData property
+            workoutsBox.getChildren().add(text);
+
+            text.setOnMouseClicked(this::handleWorkoutTextClick); // Set mouse click event handler
         }
-        calendarActivityBox.setTranslateY((rectangleHeight / 2) * 0.20);
-        calendarActivityBox.setMaxWidth(rectangleWidth * 0.8);
-        calendarActivityBox.setMaxHeight(rectangleHeight * 0.65);
-        calendarActivityBox.setStyle("-fx-background-color:GRAY");
-        stackPane.getChildren().add(calendarActivityBox);
+
+        workoutsBox.setTranslateY((rectangleHeight / 2) * 0.20);
+        workoutsBox.setMaxWidth(rectangleWidth * 0.8);
+        workoutsBox.setMaxHeight(rectangleHeight * 0.65);
+        workoutsBox.setStyle("-fx-background-color:GRAY");
+        stackPane.getChildren().add(workoutsBox);
     }
 
-    private Map<Integer, List<CalendarActivity>> createCalendarMap(List<CalendarActivity> calendarActivities) {
-        Map<Integer, List<CalendarActivity>> calendarActivityMap = new HashMap<>();
+    private void handleWorkoutTextClick(MouseEvent event) {
+        if (event.getSource() instanceof Text) {
+            Text text = (Text) event.getSource();
+            Object userData = text.getUserData();
 
-        for (CalendarActivity activity : calendarActivities) {
-            int activityDate = activity.getDate().getDayOfMonth();
-            if (!calendarActivityMap.containsKey(activityDate)) {
-                calendarActivityMap.put(activityDate, List.of(activity));
+            if (userData instanceof Workouts) {
+                Workouts clickedWorkout = (Workouts) userData;
+                LocalDate workoutDate = clickedWorkout.getDate();
+                List<Workouts> workoutsForDate = getWorkoutsForDate(workoutDate);
+
+                if (workoutsForDate != null && !workoutsForDate.isEmpty()) {
+                    for (Workouts workout : workoutsForDate) {
+                        System.out.println(workout);
+                    }
+                } else {
+                    System.out.println("No workouts found for the clicked date.");
+                }
+            }
+        }
+    }
+
+    private List<Workouts> getWorkoutsForDate(LocalDate date) {
+        // Retrieve workouts associated with the given date from workoutsMap
+        return workoutsMap.get(date);
+    }
+
+
+
+    private Map<LocalDate, List<Workouts>> createWorkoutsMap(List<Workouts> workoutsList) {
+        Map<LocalDate, List<Workouts>> workoutsMap = new HashMap<>();
+
+        for (Workouts workout : workoutsList) {
+            LocalDate workoutDate = workout.getDate();
+            if (!workoutsMap.containsKey(workoutDate)) {
+                workoutsMap.put(workoutDate, new ArrayList<>(List.of(workout)));
             } else {
-                List<CalendarActivity> OldListByDate = calendarActivityMap.get(activityDate);
-
-                List<CalendarActivity> newList = new ArrayList<>(OldListByDate);
-                newList.add(activity);
-                calendarActivityMap.put(activityDate, newList);
+                List<Workouts> oldListByDate = workoutsMap.get(workoutDate);
+                oldListByDate.add(workout);
+                workoutsMap.put(workoutDate, oldListByDate);
             }
         }
-        return calendarActivityMap;
+        return workoutsMap;
     }
 
-    private Map<Integer, List<CalendarActivity>> getCalendarActivitiesMonth(ZonedDateTime dateFocus) {
-        List<CalendarActivity> calendarActivities = new ArrayList<>();
-        int year = dateFocus.getYear();
-        int month = dateFocus.getMonth().getValue();
+    private Map<LocalDate, List<Workouts>> getWorkoutsMonth(ZonedDateTime dateFocus) {
+        List<Workouts> workoutsList = new ArrayList<>();
 
-        Random random = new Random();
-        for (int i = 0; i < 50; i++) {
-            ZonedDateTime time = ZonedDateTime.of(year, month, random.nextInt(27) + 1, 16, 0, 0, 0, dateFocus.getZone());
-            calendarActivities.add(new CalendarActivity(time, "Hans", 111111));
-        }
+        Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
+        Workouts day2 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
+        Workouts day3 = new Workouts(LocalDate.of(2023,12,1), Activity.RUNNING,5.5,6,70,900);
+        Workouts day4 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
+        Workouts day5 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
+        Workouts day6 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
+        workoutsList.add(day1);
+        workoutsList.add(day2);
+        workoutsList.add(day3);
+        workoutsList.add(day4);
+        workoutsList.add(day5);
+        workoutsList.add(day6);
 
-        return createCalendarMap(calendarActivities);
+        return createWorkoutsMap(workoutsList);
     }
+
 }

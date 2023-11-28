@@ -32,7 +32,7 @@ import java.util.ArrayList;
  */
 public class FitnessAppModel {
 
-    public static final String FILE_NAME = "userInformation.ser";
+    public static final String FILE_NAME = "userInformations.ser";
 
     private ArrayList<UserInformation> userInformations;
 

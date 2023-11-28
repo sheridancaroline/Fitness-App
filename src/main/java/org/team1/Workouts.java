@@ -50,6 +50,10 @@ public class Workouts implements Serializable {
         return date;
     }
 
+    public Activity getActivity() {
+        return activity;
+    }
+
     public String toString(){
 
         String information = String.format("Activity: %s \nSpeed: %.2f \nDistance: %.2f \nBodyWeight: %.2f " +
