@@ -19,10 +19,15 @@
  */
 package org.team1.fitnessappmvc;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.team1.Gender;
+
+import java.io.IOException;
 
 
 /**
@@ -103,6 +108,20 @@ public class FitnessAppController {
                 // Verify login credentials
                 if (theModel.verifyLogin(theView.getTextFieldUsername(), theView.getTextFieldPassword())){
                     System.out.println("Login success");
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/org.team1.example/Calendar.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
                 }
                 // Display an error alert when login verification fails.
                 else{
@@ -111,6 +130,8 @@ public class FitnessAppController {
                     alert.setHeaderText("Login failed");
                     alert.setContentText("Make sure your username and password are correct");
                     alert.show();
+
+
                 }
             }
         });
@@ -181,6 +202,10 @@ public class FitnessAppController {
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.setScene(theView.getSignupScene());
             stage.show();
+
+        });
+
+        this.theView.getBtnLogin().setOnAction(event -> {
 
         });
     }

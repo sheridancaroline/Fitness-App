@@ -51,11 +51,14 @@ public class CalendarController implements Initializable {
 
     private Map<LocalDate, List<Workouts>> workoutsMap;
 
+    /**
+     * Initializes the calendar view with the current date and associated workouts.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
-        workoutsMap = getWorkoutsMonth(dateFocus);
+        workoutsMap = getWorkoutsMonth();
         drawCalendar();
     }
 
@@ -73,6 +76,10 @@ public class CalendarController implements Initializable {
         drawCalendar();
     }
 
+    /**
+     * Draws the calendar view based on the current date and associated workouts.
+     * The calendar displays dates and their corresponding workouts, if any.
+     */
     private void drawCalendar() {
         year.setText(String.valueOf(dateFocus.getYear()));
         month.setText(String.valueOf(dateFocus.getMonth()));
@@ -84,7 +91,7 @@ public class CalendarController implements Initializable {
         double spacingV = calendar.getVgap();
 
         //List of activities for a given month
-        Map<LocalDate, List<Workouts>> workoutsMap = getWorkoutsMonth(dateFocus);
+        Map<LocalDate, List<Workouts>> workoutsMap = getWorkoutsMonth();
 
         int monthMaxDate = dateFocus.getMonth().maxLength();
         //Check for leap year
@@ -132,6 +139,14 @@ public class CalendarController implements Initializable {
     }
 
 
+    /**
+     * Creates UI elements for displaying workouts associated with a specific date.
+     *
+     * @param workouts       List of workouts for the date
+     * @param rectangleHeight Height of the rectangle UI element
+     * @param rectangleWidth  Width of the rectangle UI element
+     * @param stackPane       StackPane for placing the workout UI elements
+     */
     private void createWorkoutsUI(List<Workouts> workouts, double rectangleHeight, double rectangleWidth, StackPane stackPane) {
         VBox workoutsBox = new VBox();
 
@@ -150,6 +165,11 @@ public class CalendarController implements Initializable {
         stackPane.getChildren().add(workoutsBox);
     }
 
+    /**
+     * Handles the mouse click event on workout text elements to display the workouts for the clicked date.
+     *
+     * @param event Mouse click event triggering the display of workouts
+     */
     private void handleWorkoutTextClick(MouseEvent event) {
         if (event.getSource() instanceof Text) {
             Text text = (Text) event.getSource();
@@ -171,13 +191,24 @@ public class CalendarController implements Initializable {
         }
     }
 
+    /**
+     * Retrieves workouts associated with a specific date.
+     *
+     * @param date Date for which workouts need to be retrieved
+     * @return List of workouts for the specified date
+     */
     private List<Workouts> getWorkoutsForDate(LocalDate date) {
         // Retrieve workouts associated with the given date from workoutsMap
         return workoutsMap.get(date);
     }
 
 
-
+    /**
+     * Creates a map of workouts grouped by dates from the provided workouts list.
+     *
+     * @param workoutsList List of workouts to be grouped by dates
+     * @return Map containing workouts grouped by dates
+     */
     private Map<LocalDate, List<Workouts>> createWorkoutsMap(List<Workouts> workoutsList) {
         Map<LocalDate, List<Workouts>> workoutsMap = new HashMap<>();
 
@@ -194,7 +225,12 @@ public class CalendarController implements Initializable {
         return workoutsMap;
     }
 
-    private Map<LocalDate, List<Workouts>> getWorkoutsMonth(ZonedDateTime dateFocus) {
+    /**
+     * Creates a map of workouts grouped by dates for a given month.
+     *
+     * @return Map containing workouts grouped by dates for the specified month
+     */
+    private Map<LocalDate, List<Workouts>> getWorkoutsMonth() {
         List<Workouts> workoutsList = new ArrayList<>();
 
         Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
@@ -211,6 +247,7 @@ public class CalendarController implements Initializable {
         workoutsList.add(day6);
 
         return createWorkoutsMap(workoutsList);
+
     }
 
 }

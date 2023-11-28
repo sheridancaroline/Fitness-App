@@ -25,6 +25,8 @@ import org.team1.UserInformation;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The model class handling user information and login-related
@@ -35,6 +37,8 @@ public class FitnessAppModel {
     public static final String FILE_NAME = "userInformations.ser";
 
     private ArrayList<UserInformation> userInformations;
+
+    private Map<LocalDate, List<Workouts>> workoutsMap;
 
     private String username;
 
