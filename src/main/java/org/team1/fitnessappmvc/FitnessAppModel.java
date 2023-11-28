@@ -12,7 +12,7 @@
  * Package: org.team1.fitnessappmvc
  * Class: FitnessAppModel
  *
- * Description:
+ * Description: This is the "model" for our fitness application
  *
  * ****************************************
  */
@@ -28,6 +28,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * The model class handling user information and login-related
+ * functionalities for the fitness application.
+ */
 public class FitnessAppModel {
 
     public static final String FILE_NAME = "userInformations.ser";
@@ -69,6 +73,7 @@ public class FitnessAppModel {
 
     }
 
+
     public ArrayList<UserInformation> deserializeUserInformation(){
 
         ArrayList<UserInformation> userInformations = null;
@@ -82,6 +87,7 @@ public class FitnessAppModel {
         return userInformations;
     }
 
+
     public boolean verifyLogin(String username, String password){
         for (int i = 0; i < userInformations.size(); i++){
             if (userInformations.get(i).getUsername().equals(username) && userInformations.get(i).getPassword().equals(password)){
@@ -92,6 +98,13 @@ public class FitnessAppModel {
         return false;
     }
 
+
+    /**
+     * Verifies if the username already exists during account creation.
+     *
+     * @param username The username entered by the user.
+     * @return true if the username is available, false if it's already taken.
+     */
     public boolean verifyUsername(String username){
         for (int i = 0; i < userInformations.size(); i++){
             if (userInformations.get(i).getUsername().equals(username)){
@@ -101,6 +114,13 @@ public class FitnessAppModel {
         return true;
     }
 
+
+    /**
+     * Creates a new user account with the provided username and password.
+     *
+     * @param username The username for the new account.
+     * @param password The password for the new account.
+     */
     public void createNewAccount(String username, String password){
         UserInformation userinformation = new UserInformation(username, password);
         userInformations.add(userinformation);
@@ -115,10 +135,7 @@ public class FitnessAppModel {
             e.printStackTrace();
             return;
         }
-
     }
-
-
 
 
 }

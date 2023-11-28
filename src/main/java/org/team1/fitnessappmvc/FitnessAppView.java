@@ -21,13 +21,13 @@ package org.team1.fitnessappmvc;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * This is the "view" in the MVC design for the fitness application.
+ * Initializes all nodes for the scene graph for this view.
+ */
 public class FitnessAppView {
 
     /** The model that contains the data and logic behind this view */
@@ -35,30 +35,31 @@ public class FitnessAppView {
 
     private VBox root;
 
+    // Controls used in the login page
     private VBox loginRoot;
-
-    private VBox signupRoot;
-
     private TextField textFieldUsername;
-
-    private TextField textFieldUsername2;
-
     private TextField textFieldPassword;
-
-    private TextField textFieldPassword2;
-
-    private TextField textFieldConfirmPassword;
-
     private Button btnLogin;
-
     private Button btnSignup;
-
     private Button btnGuest;
 
+
+    // Controls used in the signup page
+    private VBox signupRoot;
+    private TextField textFieldUsername2;
+    private TextField textFieldPassword2;
+    private TextField textFieldConfirmPassword;
     private Button btnCreateNewAccount;
     private Button btnVerifyUsername;
+    private RadioButton rbMale;
+    private RadioButton rbFemale;
 
 
+    /**
+     * Constructs the FitnessAppView, initializing with the given model.
+     *
+     * @param theModel The model associated with this view.
+     */
     public FitnessAppView(FitnessAppModel theModel){
 
         this.theModel = theModel;
@@ -67,8 +68,6 @@ public class FitnessAppView {
 
         initSceneGraph();
         initStyling();
-
-
     }
 
     public VBox getLoginRoot() {
@@ -137,20 +136,20 @@ public class FitnessAppView {
         loginRoot.setPadding(new Insets(40,40,40,40));
         loginRoot.setSpacing(10);
 
-
         signupRoot.setAlignment(Pos.CENTER);
 
         signupRoot.setPrefSize(350,500);
         signupRoot.setPadding(new Insets(40,40,40,40));
         signupRoot.setSpacing(10);
-
     }
 
+    /**
+     * Initialize the entire scene graph
+     */
     private void initSceneGraph() {
 
         initLoginPage();
         initSignupPage();
-
     }
 
     private void initLoginPage(){
@@ -185,8 +184,6 @@ public class FitnessAppView {
         btnGuest = new Button("Continue as a guest");
 
         loginRoot.getChildren().add(btnGuest);
-
-
     }
 
     public void initSignupPage(){
@@ -203,7 +200,6 @@ public class FitnessAppView {
         Label lblUsername = new Label("Username");
         btnVerifyUsername = new Button("Verify");
         textFieldUsername2 = new TextField();
-
 
         Label lblPassword = new Label("Password");
         textFieldPassword2 = new TextField();

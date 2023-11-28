@@ -12,16 +12,20 @@
  * Package: org.team1.fitnessappmvc
  * Class: FitnessAppModel
  *
- * Description:
+ * Description: Class file to present fitness application
  *
  * ****************************************
  */
 package org.team1.fitnessappmvc;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+/**
+ * The main class of the Fitness Application. Extends the JavaFX Application
+ * class and serves as the entry point for the application.
+ */
 public class FitnessAppMain extends Application {
 
     private FitnessAppModel theModel;
@@ -30,19 +34,37 @@ public class FitnessAppMain extends Application {
 
     private FitnessAppController theController;
 
+
+    /**
+     * Initializes the model, view, and controller when the application starts.
+     *
+     * @throws Exception if an error occurs during initialization.
+     */
     @Override
     public void init() throws Exception {
         super.init();
         this.theModel = new FitnessAppModel();
         this.theView = new FitnessAppView(theModel);
         this.theController = new FitnessAppController(theModel, theView);
-
     }
 
+
+    /**
+     * Our standard main program for a JavaFX application
+     *
+     * @param args command line args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+
+    /**
+     * The entry point for the JavaFX application.
+     * Starts the application by setting up the primary stage.
+     *
+     * @param primaryStage The primary stage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
 
@@ -51,12 +73,4 @@ public class FitnessAppMain extends Application {
         primaryStage.sizeToScene();
         primaryStage.show();
     }
-
-//    private Scene createLoginScene(){
-//        return new Scene(this.theView.getLoginRoot());
-//    }
-//
-//    private Scene createSignupScene(){
-//        return new Scene(this.theView.getSignupRoot());
-//    }
 }
