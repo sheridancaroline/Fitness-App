@@ -1,9 +1,11 @@
 package org.team1;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -14,9 +16,16 @@ import java.util.List;
 public class WorkoutCalendarApp extends Application {
     private static final WorkoutManager workoutManager = new WorkoutManager();
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    private static User user;
+    private TextArea textArea;
 
     public static void main(String[] args) {
+        user = createUser(); // Create the user object
         launch(args);
+    }
+
+    private static User createUser() {
+        return new User(Sex.FEMALE, 130);
     }
 
     @Override
@@ -28,12 +37,65 @@ public class WorkoutCalendarApp extends Application {
 
         // Listener for date selection
         datePicker.setOnAction(event -> displayWorkoutsForSelectedDate(datePicker.getValue(), textArea));
+        
+        Button addButton = new Button("+");
+        addButton.setOnAction(event -> showAddWorkoutDialog(datePicker.getValue()));
 
         VBox vbox = new VBox(datePicker, textArea);
-        Scene scene = new Scene(vbox, 300, 200);
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(vbox);
+        borderPane.setBottom(addButton);
+        BorderPane.setMargin(addButton, new Insets(10));
+
+        Scene scene = new Scene(borderPane, 300, 200);
+
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void showAddWorkoutDialog(LocalDate selectedDate) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Add Workout");
+
+        // Create components for the dialog
+        ComboBox<WorkoutType> typeComboBox = new ComboBox<>();
+        typeComboBox.getItems().addAll(WorkoutType.values());
+        typeComboBox.setPromptText("Select Workout Type");
+
+        Spinner<Integer> minutesSpinner = new Spinner<>(0, 59, 0);
+        Spinner<Integer> secondsSpinner = new Spinner<>(0, 59, 0);
+
+        // Layout components in the dialog
+        VBox content = new VBox(new Label("Workout Date: " + selectedDate.format(dateFormatter)),
+                typeComboBox,
+                new Label("Duration:"),
+                new HBox(new Label("Minutes:"), minutesSpinner, new Label("Seconds:"), secondsSpinner));
+
+        dialog.getDialogPane().setContent(content);
+
+        // Add buttons to the dialog
+        ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButton, ButtonType.CANCEL);
+
+        // Handle button actions
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButton) {
+                // Add the workout to the manager
+                WorkoutType selectedType = typeComboBox.getValue();
+                int minutes = minutesSpinner.getValue();
+                int seconds = secondsSpinner.getValue();
+                int calculatedCalories = CalorieCalculator.calculateCalories(selectedType, user.getSex(), user.getWeight(), minutes, seconds);
+                Workout newWorkout = new Workout(selectedType, selectedDate, calculatedCalories, minutes, seconds);
+                workoutManager.addWorkout(newWorkout);
+
+                // Update the display
+                displayWorkoutsForSelectedDate(selectedDate, textArea);
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
     }
 
     private void displayWorkoutsForSelectedDate(LocalDate selectedDate, TextArea textArea) {
