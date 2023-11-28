@@ -7,4 +7,10 @@ module csci205_final_project {
     requires javafx.fxml;
 
     exports org.team1.fitnessappmvc;
+
+    // Delete
+    exports org.team1;
+    exports org.team1.git;
+    exports org.team1.example;
+    opens org.team1.example to javafx.fxml;
 }
