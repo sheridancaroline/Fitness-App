@@ -17,34 +17,42 @@
  * ****************************************
  */
 package org.team1;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class WeightLossChatbot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Hi there! What's your name? ");
-        String name = scanner.nextLine();
+        try {
+            System.out.print("Hi there! What's your name? ");
+            String name = scanner.nextLine();
 
-        System.out.print("Would you prefer running or walking? ");
-        String workoutChoice = scanner.nextLine().toLowerCase();
+            System.out.print("Would you prefer running or walking? ");
+            String workoutChoice = scanner.nextLine().toLowerCase();
 
-        System.out.print("How far are you willing to go (in miles)? ");
-        double distance = scanner.nextDouble();
+            System.out.print("How far are you willing to go (in miles)? ");
+            double distance = scanner.nextDouble();
 
+            System.out.print("At what max speed are you willing to go (in miles per hour)? *Top walking speed is around 3mph ");
+            double speed = scanner.nextDouble();
 
-        System.out.print("At what max speed are you willing to go (in miles per hour)? *Top walking speed is around 3mph ");
-        double speed = scanner.nextDouble();
+            System.out.print("How many pounds do you want to lose? ");
+            double pounds = scanner.nextDouble();
+            double calorieInput = pounds * 3500;
+            double[] suggestedWorkout = suggestWorkout(distance, speed, calorieInput);
 
-        System.out.print("How many pounds do you want to lose? ");
-        double pounds = scanner.nextDouble();
-        double calorieInput = pounds * 3500;
-        double[] suggestedWorkout = suggestWorkout(distance, speed, calorieInput);
-
-        System.out.println("\nHi " + name + "! Based on your inputs, here's a suggested workout:");
-        System.out.println("Workout: " + workoutChoice);
-        System.out.println("Distance: " + String.format("%.2f", suggestedWorkout[0]) + " miles");
-        System.out.println("Speed: " + String.format("%.2f", suggestedWorkout[1]) + " miles per hour");
+            System.out.println("\nHi " + name + "! Based on your inputs, here's a suggested workout:");
+            System.out.println("Workout: " + workoutChoice);
+            System.out.println("Distance: " + String.format("%.2f", suggestedWorkout[0]) + " miles");
+            System.out.println("Speed: " + String.format("%.2f", suggestedWorkout[1]) + " miles per hour");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter valid numeric values.");
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
     }
 
     private static double[] suggestWorkout(double distance, double speed, double calorieInput) {
