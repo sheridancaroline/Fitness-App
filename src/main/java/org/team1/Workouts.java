@@ -72,11 +72,4 @@ public class Workouts implements Serializable {
 
     }
 
-
-
-
-
-
-
-
 }

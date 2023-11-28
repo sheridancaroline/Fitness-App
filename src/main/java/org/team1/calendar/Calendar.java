@@ -16,7 +16,7 @@
  *
  * ****************************************
  */
-package org.team1.example;
+package org.team1.calendar;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +37,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 
-public class CalendarController implements Initializable {
+public class Calendar implements Initializable {
 
     ZonedDateTime dateFocus;
     ZonedDateTime today;

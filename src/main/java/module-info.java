@@ -11,6 +11,6 @@ module csci205_final_project {
     // Delete
     exports org.team1;
     exports org.team1.git;
-    exports org.team1.example;
-    opens org.team1.example to javafx.fxml;
+    exports org.team1.calendar;
+    opens org.team1.calendar to javafx.fxml;
 }

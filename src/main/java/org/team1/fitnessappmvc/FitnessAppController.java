@@ -49,7 +49,6 @@ public class FitnessAppController {
      * Constructs a controller that connects the model and the
      * view for the fitness application.
      *
-     * @author Dong Hyun Roh
      *
      * @param theModel The model component of the application.
      * @param theView  The view component of the application.
@@ -110,7 +109,7 @@ public class FitnessAppController {
                     System.out.println("Login success");
 
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/org.team1.example/Calendar.fxml"));
+                    loader.setLocation(getClass().getResource("/calendar/Calendar.fxml"));
                     Parent root = null;
                     try {
                         root = loader.load();

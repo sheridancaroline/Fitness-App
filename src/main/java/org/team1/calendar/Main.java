@@ -1,4 +1,4 @@
-package org.team1.example;
+package org.team1.calendar;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ public class Main extends Application {
         theModel = new FitnessAppModel();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/org.team1.example/Calendar.fxml"));
+        loader.setLocation(getClass().getResource("/calendar/Calendar.fxml"));
         Parent root = loader.load();
         // Set up the stage and show it
         primaryStage.setTitle("Hello FXML");

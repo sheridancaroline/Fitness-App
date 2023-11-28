@@ -59,7 +59,7 @@ public class FitnessAppModel {
 
         System.out.println(userInformations);
 
-        System.out.println(userInformations.get(0));
+
 
 //        this.userInformations = new ArrayList<>();
 //
