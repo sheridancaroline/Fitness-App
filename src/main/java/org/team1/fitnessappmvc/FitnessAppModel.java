@@ -38,9 +38,9 @@ public class FitnessAppModel {
 
     private ArrayList<UserInformation> userInformations;
 
-    private Map<LocalDate, List<Workouts>> workoutsMap;
+    private Map<LocalDate, ArrayList<Workouts>> workoutsMap;
 
-    private String username;
+    private UserInformation userInformation;
 
     private SimpleBooleanProperty isSetForMale;
 
@@ -54,9 +54,12 @@ public class FitnessAppModel {
 
         this.userInformations = deserializeUserInformation();
 
-        this.username = null;
+        this.userInformation = null;
+
 
         System.out.println(userInformations);
+
+        System.out.println(userInformations.get(0));
 
 //        this.userInformations = new ArrayList<>();
 //
@@ -112,7 +115,7 @@ public class FitnessAppModel {
     public boolean verifyLogin(String username, String password){
         for (int i = 0; i < userInformations.size(); i++){
             if (userInformations.get(i).getUsername().equals(username) && userInformations.get(i).getPassword().equals(password)){
-                this.username = username;
+                this.userInformation = userInformations.get(i);
                 return true;
             }
         }
@@ -150,8 +153,7 @@ public class FitnessAppModel {
     public void createNewAccount(String username, String password, Gender gender){
         UserInformation userinformation = new UserInformation(username, password, gender);
         userInformations.add(userinformation);
-
-        this.username = username;
+        this.userInformation = userinformation;
 
         try{
             SerializationUtil.serialize(userInformations, FILE_NAME);
@@ -161,6 +163,12 @@ public class FitnessAppModel {
             e.printStackTrace();
             return;
         }
+    }
+
+    public Map<LocalDate, ArrayList<Workouts>> getWorkouts() {
+
+        return  this.userInformation.getPastWorkouts();
+
     }
 
 

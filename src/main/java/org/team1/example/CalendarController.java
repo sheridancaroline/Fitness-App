@@ -30,6 +30,8 @@ import javafx.scene.text.Text;
 import org.team1.Activity;
 import org.team1.Workouts;
 import javafx.scene.input.MouseEvent;
+import org.team1.fitnessappmvc.FitnessAppModel;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -40,6 +42,8 @@ public class CalendarController implements Initializable {
     ZonedDateTime dateFocus;
     ZonedDateTime today;
 
+    private FitnessAppModel theModel;
+
     @FXML
     private Text year;
 
@@ -49,7 +53,7 @@ public class CalendarController implements Initializable {
     @FXML
     private FlowPane calendar;
 
-    private Map<LocalDate, List<Workouts>> workoutsMap;
+    private Map<LocalDate, ArrayList<Workouts>> workoutsMap;
 
     /**
      * Initializes the calendar view with the current date and associated workouts.
@@ -59,6 +63,8 @@ public class CalendarController implements Initializable {
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
         workoutsMap = getWorkoutsMonth();
+        //workoutsMap = theModel.getWorkouts();
+        //theModel = new FitnessAppModel();
         drawCalendar();
     }
 
@@ -91,7 +97,7 @@ public class CalendarController implements Initializable {
         double spacingV = calendar.getVgap();
 
         //List of activities for a given month
-        Map<LocalDate, List<Workouts>> workoutsMap = getWorkoutsMonth();
+        //Map<LocalDate, List<Workouts>> workoutsMap = getWorkoutsMonth();
 
         int monthMaxDate = dateFocus.getMonth().maxLength();
         //Check for leap year
@@ -209,15 +215,15 @@ public class CalendarController implements Initializable {
      * @param workoutsList List of workouts to be grouped by dates
      * @return Map containing workouts grouped by dates
      */
-    private Map<LocalDate, List<Workouts>> createWorkoutsMap(List<Workouts> workoutsList) {
-        Map<LocalDate, List<Workouts>> workoutsMap = new HashMap<>();
+    private Map<LocalDate, ArrayList<Workouts>> createWorkoutsMap(List<Workouts> workoutsList) {
+        Map<LocalDate, ArrayList<Workouts>> workoutsMap = new HashMap<>();
 
         for (Workouts workout : workoutsList) {
             LocalDate workoutDate = workout.getDate();
             if (!workoutsMap.containsKey(workoutDate)) {
                 workoutsMap.put(workoutDate, new ArrayList<>(List.of(workout)));
             } else {
-                List<Workouts> oldListByDate = workoutsMap.get(workoutDate);
+                ArrayList<Workouts> oldListByDate = workoutsMap.get(workoutDate);
                 oldListByDate.add(workout);
                 workoutsMap.put(workoutDate, oldListByDate);
             }
@@ -230,7 +236,7 @@ public class CalendarController implements Initializable {
      *
      * @return Map containing workouts grouped by dates for the specified month
      */
-    private Map<LocalDate, List<Workouts>> getWorkoutsMonth() {
+    private Map<LocalDate, ArrayList<Workouts>> getWorkoutsMonth() {
         List<Workouts> workoutsList = new ArrayList<>();
 
         Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
