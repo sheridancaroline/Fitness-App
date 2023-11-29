@@ -22,6 +22,7 @@ package org.team1.CalorieCalculator;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
@@ -33,7 +34,7 @@ import org.team1.Sex;
 import org.team1.WorkoutType;
 import org.team1.User;
 
-public class CalorieCalculatorView {
+public class CalorieCalculatorView extends Node {
     /** The model that contains the data and logic behind this view */
     private CalorieCalculatorModel theModel;
 
@@ -81,7 +82,7 @@ public class CalorieCalculatorView {
     public CalorieCalculatorView(CalorieCalculatorModel theModel) {
         this.theModel = theModel;
         root = new VBox();
-        this.user = new User(Sex.MALE, 82);
+        this.user = new User(Sex.MALE, 82, 5);
         initSceneGraph();
         initStyling();
     }

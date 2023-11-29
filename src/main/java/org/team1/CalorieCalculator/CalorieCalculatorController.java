@@ -1,21 +1,15 @@
 package org.team1.CalorieCalculator;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import org.team1.LineChartStats;
+import org.team1.LineChartStats.LineChartStatsMain;
 import org.team1.Sex;
 import org.team1.User;
 import org.team1.WorkoutType;
-import org.team1.LineChartStats;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class CalorieCalculatorController {
     private CalorieCalculatorModel theModel;
     private CalorieCalculatorView theView;
-    private LineChartStats theChart;
+    private LineChartStatsMain theChart;
     double calculatedCalories;
 
     public CalorieCalculatorController(CalorieCalculatorModel theModel, CalorieCalculatorView theView) {
@@ -35,11 +29,7 @@ public class CalorieCalculatorController {
         theView.getClearButton().setOnAction(e -> handleClearButton());
         //theView.getAddButton().setOnAction(e -> handleAddButton());
     }
-//    private void handleOptionSelected(ComboBox<String> comboBox, String message) {
-//        String selectedValue = comboBox.getValue();
-//        System.out.println(message + ": " + selectedValue);
-//        // You can perform additional actions based on the selected value if needed
-//    }
+
     private void handleCalculateButton() {
         WorkoutType selectedActivity = theView.getComboBoxActivity();
         double speed = parseDouble(theView.getTextFieldSpeed());
@@ -50,7 +40,7 @@ public class CalorieCalculatorController {
         double minutes = parseDouble(theView.getTextFieldMinutes());
 
         // Assume we have a 'User' instance obtained from initial login!! this should be temporary
-        User user = new User(Sex.MALE, 82);
+        User user = new User(Sex.MALE, 82,2.5);
 
         // Calculate calories based on the model
         calculatedCalories = theModel.calculateCalories(user, selectedActivity, hours, minutes, speed, speedUnit, distance, distanceUnit);
