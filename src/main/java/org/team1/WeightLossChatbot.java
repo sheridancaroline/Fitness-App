@@ -26,7 +26,7 @@ public class WeightLossChatbot {
 
         String name = askForStringInput("Hi there! What's your name? ", scanner);
 
-        String workoutChoice = askForStringInput("Would you prefer running or walking? ", scanner).toLowerCase();
+        String workoutChoice = askForWorkoutChoice("Would you prefer running or walking? ", scanner).toLowerCase();
 
         double distance = askForDoubleInput("How far are you willing to go (in miles)? ", scanner);
 
@@ -56,6 +56,20 @@ public class WeightLossChatbot {
             } catch (Exception e) {
                 System.out.println("Invalid input. Please try again.");
                 scanner.nextLine(); // Consume the invalid input to prevent an infinite loop
+            }
+        } while (!isValid);
+        return input;
+    }
+
+    private static String askForWorkoutChoice(String prompt, Scanner scanner) {
+        String input = "";
+        boolean isValid = false;
+        do {
+            input = askForStringInput(prompt, scanner).toLowerCase();
+            if (input.equals("walking") || input.equals("running")) {
+                isValid = true;
+            } else {
+                System.out.println("Invalid input. Please enter either 'walking' or 'running'.");
             }
         } while (!isValid);
         return input;
