@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.team1.Gender;
+import org.team1.git.WorkoutType;
 
 import java.io.IOException;
 
@@ -188,6 +189,48 @@ public class FitnessAppController {
         });
     }
 
+    private void calorieCalculatorEventHandlers() {
+        theView.getCalculateButton().setOnAction(e -> handleCalculateButton());
+        theView.getClearButton().setOnAction(e -> handleClearButton());
+
+    }
+
+    private void handleCalculateButton() {
+        WorkoutType selectedActivity = theView.getComboBoxActivity();
+        double speed = parseDouble(theView.getTextFieldSpeed());
+        String speedUnit = theView.getComboBoxSpeed();
+        double distance = parseDouble(theView.getTextFieldDistance());
+        String distanceUnit = theView.getComboBoxDistance();
+        double hours = parseDouble(theView.getTextFieldHours());
+        double minutes = parseDouble(theView.getTextFieldMinutes());
+
+        // Assume we have a 'User' instance obtained from initial login!! this should be temporary
+        //User user = new User(Sex.MALE, 82);
+
+        // Calculate calories based on the model
+        //Double calculatedCalories = theModel.calculateCalories(user, selectedActivity, hours, minutes, speed, speedUnit, distance, distanceUnit);
+
+        // Display/print to console
+        //System.out.println("Calculated Calories: " + calculatedCalories);
+    }
+    private void handleClearButton() {
+        theView.speedTextField.clear();
+        theView.distanceTextField.clear();
+        theView.hoursTextField.clear();
+        theView.minutesTextField.clear();
+
+    }
+
+    private double parseDouble(String text) {
+        try {
+            return Double.parseDouble(text);
+        } catch (NumberFormatException e) {
+            // Default value for invalid input
+            return 0.0;
+        }
+    }
+
+
 
     /**
      * Handles various scene changes
@@ -204,8 +247,11 @@ public class FitnessAppController {
 
         });
 
-        this.theView.getBtnLogin().setOnAction(event -> {
+        this.theView.getBtnGuest().setOnAction(event -> {
 
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
+            stage.show();
         });
     }
 }
