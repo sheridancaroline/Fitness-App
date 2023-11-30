@@ -11,53 +11,109 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.team1.CalorieCalculator.CalorieCalculatorController;
+import org.team1.CalorieCalculator.CalorieCalculatorModel;
+import org.team1.CalorieCalculator.CalorieCalculatorView;
+import org.team1.LineChartStats.LineChartStatsController;
+import org.team1.LineChartStats.LineChartStatsModel;
+import org.team1.LineChartStats.LineChartStatsView;
 
 public class FitnessAppView extends Application {
-    private BorderPane layout;
-    private final Node CalorieCalculatorPage = new CalorieCalculatorPage();
-    private final Node viewTwo = new ViewTwo();
+    /** Primary stage for layout */
+    private Stage stage;
+    /** Primary scene for layout */
+    private Scene scene;
 
-//    public static void main(String[] args) {
-//        launch(args);
-//    }
+    /** Menu bar to be displayed for layout */
+    private MenuBar menuBar;
 
-    public void start(Stage stage) throws Exception {
-        // View menu
-        MenuItem viewOneMenuItem = new MenuItem("Calorie Calculator");
-        viewOneMenuItem.setOnAction(e -> setView(CalorieCalculatorPage));
-        MenuItem viewTwoMenuItem = new MenuItem("Your Stats");
-        viewTwoMenuItem.setOnAction(e -> setView(viewTwo));
-        Menu viewMenu = new Menu(
-                "View", null,
-                viewOneMenuItem, viewTwoMenuItem
-        );
+    /** CalorieCalculator Model*/
+    private CalorieCalculatorModel theModel;
 
-        // File menu
-        MenuItem exitMenuItem = new MenuItem("Exit");
-        exitMenuItem.setOnAction(e -> Platform.exit());
-        Menu fileMenu = new Menu(
-                "File", null,
-                exitMenuItem
-        );
+    /** CalorieCalculator View*/
+    private CalorieCalculatorView theView;
 
-        MenuBar menuBar = new MenuBar(
-                fileMenu, viewMenu
-        );
-        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
+    /** CalorieCalculator Controller*/
+    private CalorieCalculatorController theController;
 
-        // Layout scene
-        layout = new BorderPane();
-        layout.setTop(menuBar);
-        setView(CalorieCalculatorPage);
+    /** LineChartStats View*/
+    private LineChartStatsView lineView;
 
-        stage.setScene(
-                new Scene(layout, 300, 200)
-        );
-        stage.show();
+    /** LineChartStats Model*/
+    private LineChartStatsModel lineModel;
+
+    /** LineChartStats Controller*/
+    private LineChartStatsController lineController;
+
+    @Override
+    public void init() throws Exception {
+        super.init();
     }
 
-    private void setView(Node view) {
-        layout.setCenter(view);
+
+    /**
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     * @throws Exception
+     */
+    public void start(Stage stage) throws Exception {
+         //Initialize instances for the Calorie Calculator
+        this.stage = stage;
+
+        this.theModel = new CalorieCalculatorModel();
+        this.theView = new CalorieCalculatorView(theModel);
+        this.theController = new CalorieCalculatorController(theModel, theView);
+        this.lineModel = new LineChartStatsModel();
+        this.lineView = new LineChartStatsView(lineModel);
+        this.lineController = new LineChartStatsController( lineModel, lineView);
+
+        // Create menu bar
+        menuBar = createMenuBar();
+
+        // Set the initial scene
+        setScene(createSceneOne());
+
+        // Set up the stage
+        stage.setTitle("Fitness App");
+        stage.show();
+
+
+    }
+    private MenuBar createMenuBar() {
+        MenuItem viewOneMenuItem = new MenuItem("Calorie Calculator");
+        viewOneMenuItem.setOnAction(e -> setScene(createSceneOne()));
+
+        MenuItem viewTwoMenuItem = new MenuItem("Your Stats");
+        viewTwoMenuItem.setOnAction(e -> setScene(createSceneTwo()));
+
+        Menu viewMenu = new Menu("View", null, viewOneMenuItem, viewTwoMenuItem);
+
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        exitMenuItem.setOnAction(e -> Platform.exit());
+        Menu fileMenu = new Menu("File", null, exitMenuItem);
+
+        MenuBar menuBar = new MenuBar(fileMenu, viewMenu);
+        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
+        return menuBar;
+    }
+
+    private void setScene(BorderPane root) {
+        scene = new Scene(root, 650, 300);
+        root.setTop(menuBar);
+        stage.setScene(scene);
+    }
+
+    private BorderPane createSceneOne() {
+        BorderPane layoutSceneOne = new BorderPane(theView.getRoot());
+        return layoutSceneOne;
+    }
+
+    private BorderPane createSceneTwo() {
+        BorderPane layoutSceneTwo = new BorderPane(lineView.getChartRoot());
+        return layoutSceneTwo;
     }
 
     public static void main(String[] args) {
@@ -65,17 +121,5 @@ public class FitnessAppView extends Application {
     }
 }
 
-class CalorieCalculatorPage extends StackPane {
-    public CalorieCalculatorPage() {
-        setStyle("-fx-background-color: lightblue; -fx-font-size: 30px;");
-        getChildren().add(new Label("View One"));
-    }
-}
 
-class ViewTwo extends StackPane {
-    public ViewTwo() {
-        setStyle("-fx-background-color: cornsilk; -fx-font-size: 30px;");
-        getChildren().add(new Label("View Two"));
-    }
-}
 

@@ -7,4 +7,5 @@ module csci205_final_project {
     requires javafx.fxml;
     exports org.team1;
     exports org.team1.CalorieCalculator;
+    exports org.team1.LineChartStats;
 }

@@ -1,55 +1,60 @@
-package org.team1;
+package org.team1.LineChartStats;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
-public class LineChartStats extends Application {
-    private LineChart<String,Number> lineChart;
+public class LineChartStatsView extends Node {
+    private LineChart<String, Number> lineChart;
+    Axis<String> xAxis = new CategoryAxis();
+    Axis<Number> yAxis = new NumberAxis();
     private XYChart.Series series;
+
     private VBox chartRoot;
     private VBox updateRoot;
 
     private TextField updateCals;
     private Label updateCalsLabel;
-    private Button updateButton;
+    Button updateButton;
     private Button updateSaveButton;
 
+    public VBox getChartRoot() {
+        return chartRoot;
+    }
 
-    @Override public void start(Stage stage) {
-        stage.setTitle("Tracker");
-
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Date");
-
+    public LineChartStatsView(LineChartStatsModel theModel) {
         chartRoot = new VBox();
+        initSceneGraph();
+//        initStyling();
+    }
+
+    private void initSceneGraph() {
         updateButton = new Button("UPDATE");
         chartRoot.getChildren().add(updateButton);
 
-        lineChart = new LineChart<>(xAxis,yAxis);
+
+        lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("Calorie Tracker");
 
         chartRoot.getChildren().add(lineChart);
 
         series = new XYChart.Series();
         series.setName("Calories");
-
         series.getData().add(new XYChart.Data("1/12", 362));
         series.getData().add(new XYChart.Data("5/13", 222));
         series.getData().add(new XYChart.Data("9/14", 156));
@@ -60,62 +65,57 @@ public class LineChartStats extends Application {
         series.getData().add(new XYChart.Data("10/19", 45));
         series.getData().add(new XYChart.Data("10/20", 430));
 
-
-
-        Scene scene  = new Scene(chartRoot,800,600);
-        //String currentDate = new DatePicker(LocalDate.now()).getValue().toString();
-        updateButton.setOnAction(e ->  updateChart());
-
         lineChart.getData().add(series);
 
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void updateChart() {
+        // Initialize updateRoot
         updateRoot = new VBox();
-        Stage updateStage = new Stage();
-        updateStage.setTitle("Update Calorie Tracker");
-        updateStage.setScene(new Scene(updateRoot,400,300));
-
-        //String currentDate = new DatePicker(LocalDate.now()).getValue().toString();
-        DateTimeFormatter dateFormat= DateTimeFormatter.ofPattern("MM/dd");
-        String currentDate = LocalDate.now().format(dateFormat);
-
         updateCals = new TextField();
         updateCals.setPromptText("Calories");
         updateCals.setFocusTraversable(false);
 
-        updateCalsLabel = new Label("Caloies");
+        updateCalsLabel = new Label("Calories");
 
         updateSaveButton = new Button("SAVE");
         updateSaveButton.setOnAction(e -> {
-            //String currentCals = updateCals.getText();
             try {
                 double currentCals = Double.parseDouble(updateCals.getText());
-                updateLineChart(currentDate, currentCals);
-                updateStage.close();
+                updateLineChart(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd")), currentCals);
             } catch (NumberFormatException ex) {
                 System.out.println("Please enter a valid number for calories");
             }
         });
 
-
-
-
         updateRoot.getChildren().addAll(updateCals, updateCalsLabel, updateSaveButton);
 
+    }
+
+    public void updateChart() {
+        Stage updateStage = new Stage();
+        updateStage.setTitle("Update Calorie Tracker");
+        updateStage.setScene(new Scene(updateRoot, 400, 300));
         updateStage.show();
-
-
-    }
-    private void updateLineChart(String date, double calories) {
-        // XYChart.Data<String, Number> newData = new XYChart.Data<>(calories, date);
-        series.getData().add(new XYChart.Data(date, calories));
-
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public void updateLineChart(String date, double calories) {
+        List<XYChart.Data<String, Number>> dataList = series.getData();
+
+        // Check if a data point with the same date already exists
+        for (int i = 0; i < dataList.size(); i++) {
+            XYChart.Data<String, Number> data = dataList.get(i);
+            if (data.getXValue().equals(date)) {
+                // Update the existing data point
+                Number existingCalories = data.getYValue();
+                double updatedCalories = existingCalories.doubleValue() + calories;
+                data.setYValue(updatedCalories);
+
+                // Make sure we exit the method after updating
+                return;
+            }
+        }
+        //  no existing data point with the same date  ->  add a new data point
+        dataList.add(new XYChart.Data<>(date, calories));
+
     }
 }
+
+

@@ -1,0 +1,9 @@
+/*CSS file for our Calorie Calculator  Program
+ */
+
+.root {
+    -fx-pref-width: 300;
+    -fx-pref-height: 150;
+    -fx-padding: 15 px;
+
+}
