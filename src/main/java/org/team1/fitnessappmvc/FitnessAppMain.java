@@ -19,6 +19,7 @@
 package org.team1.fitnessappmvc;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
@@ -71,7 +72,7 @@ public class FitnessAppMain extends Application {
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Fitness Application");
-        primaryStage.setScene(theView.getLoginScene());
+        primaryStage.setScene(new Scene(theView.getLoginRoot()));
         primaryStage.sizeToScene();
         primaryStage.show();
     }

@@ -59,15 +59,7 @@ public class FitnessAppView {
 
 
 
-
     private VBox calorieCalculatorRoot;
-    private HBox activitySection;
-    private HBox speedSection;
-    private HBox weightSection;
-    private HBox heightSection;
-    private HBox durationSection;
-    private HBox buttonSection;
-
 
     /** TextField */
     public TextField speedTextField;
@@ -75,15 +67,6 @@ public class FitnessAppView {
     public TextField heightTextField;
     public TextField hoursTextField;
     public TextField minutesTextField;
-
-    /** Labels */
-    private Label activityLabel;
-    private Label speedLabel;
-    private Label weightLabel;
-    private Label heightLabel;
-    private Label durationLabel;
-    private Label hoursLabel;
-    private Label minutesLabel;
 
     /** Buttons */
     private Button calculateButton;
@@ -167,14 +150,6 @@ public class FitnessAppView {
 
     public RadioButton getRbFemale() { return rbFemale; }
 
-    public Scene getSignupScene(){
-        return new Scene(getSignupRoot());
-    }
-
-    public Scene getLoginScene(){
-        return new Scene(getLoginRoot());
-    }
-
 
 
     public VBox getCalorieCalculatorRoot() {
@@ -217,12 +192,6 @@ public class FitnessAppView {
 
         calorieCalculatorRoot.setPadding(new Insets(10,5,10,5));
         calorieCalculatorRoot.setAlignment(Pos.CENTER);
-
-        activitySection.setSpacing(10);
-        durationSection.setSpacing(10);
-        speedSection.setSpacing(10);
-        weightSection.setSpacing(10);
-        heightSection.setSpacing(10);
     }
 
     /**
@@ -324,24 +293,24 @@ public class FitnessAppView {
         this.calorieCalculatorRoot = new VBox();
 
         // Activity
-        activitySection= new HBox();
+        HBox activitySection= new HBox();
         activityComboBox = activityDropDownOptions("Select Activity");
-        activityLabel = new Label("Activity: ");
+        Label activityLabel = new Label("Activity:  ");
         activitySection.getChildren().addAll(activityLabel, activityComboBox);
 
 
         // Speed/Pace
-        speedSection= new HBox();
+        HBox speedSection= new HBox();
         speedTextField = new TextField();
         speedComboBox = dropDownOptions("Select Unit", "Miles per Hour", "Meters per Second", "Kilometers per Hour");
         speedComboBox.getSelectionModel().selectFirst();
-        speedLabel = new Label("Speed/Pace: ");
+        Label speedLabel = new Label("Speed/Pace:  ");
         speedSection.getChildren().addAll(speedLabel, speedTextField, speedComboBox);
 
 
         // Duration
-        durationSection= new HBox();
-        durationLabel = new Label("Duration: ");
+        HBox durationSection= new HBox();
+        Label durationLabel = new Label("Duration:  ");
         hoursTextField = new TextField();
         hoursTextField.setPromptText("hours");
 
@@ -351,25 +320,25 @@ public class FitnessAppView {
 
 
         // Weight
-        weightSection= new HBox();
+        HBox weightSection= new HBox();
         weightTextField = new TextField();
         weightComboBox = dropDownOptions( "Select Unit","Kilograms(kg)", "Pound (lb)");
         weightComboBox.getSelectionModel().selectFirst();
-        weightLabel = new Label("Current Weight: ");
+        Label weightLabel = new Label("Current Weight:  ");
         weightSection.getChildren().addAll(weightLabel, weightTextField, weightComboBox);
 
 
         // Height
-        heightSection= new HBox();
+        HBox heightSection= new HBox();
         heightTextField = new TextField();
         heightComboBox = dropDownOptions( "Select Unit","inches(in)", "centimeters(cm)");
         heightComboBox.getSelectionModel().selectFirst();
-        heightLabel = new Label("Current Height: ");
+        Label heightLabel = new Label("Current Height:  ");
         heightSection.getChildren().addAll(heightLabel, heightTextField, heightComboBox);
 
 
         //Calculate Calories Button
-        buttonSection= new HBox();
+        HBox buttonSection= new HBox();
         calculateButton = new Button("Calculate");
         //Clear Calories Button
         clearButton = new Button("Clear ");
@@ -379,8 +348,6 @@ public class FitnessAppView {
 
 
         calorieCalculatorRoot.getChildren().addAll(activitySection, durationSection, speedSection, weightSection, heightSection, buttonSection);
-
-
     }
 
     //format of all drop down options

@@ -249,7 +249,7 @@ public class FitnessAppController {
         this.theView.getBtnSignup().setOnAction(event -> {
 
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(theView.getSignupScene());
+            stage.setScene(new Scene (theView.getSignupRoot()));
             stage.show();
 
         });
