@@ -42,7 +42,8 @@ public class CalorieCalculatorView extends Node {
     private VBox root;
     private HBox activitySection;
     private HBox speedSection;
-    private HBox distanceSection;
+    private HBox weightSection;
+    private HBox heightSection;
     private HBox durationSection;
     private HBox buttonSection;
 
@@ -53,14 +54,16 @@ public class CalorieCalculatorView extends Node {
 
     /** TextField */
     public TextField speedTextField;
-    public TextField distanceTextField;
+    public TextField weightTextField;
+    public TextField heightTextField;
     public TextField hoursTextField;
     public TextField minutesTextField;
 
     /** Labels */
     private Label activityLabel;
     private Label speedLabel;
-    private Label distanceLabel;
+    private Label weightLabel;
+    private Label heightLabel;
     private Label durationLabel;
     private Label hoursLabel;
     private Label minutesLabel;
@@ -73,7 +76,8 @@ public class CalorieCalculatorView extends Node {
     /** ComboBoxes */
     private ComboBox<WorkoutType> activityComboBox;
     private ComboBox<String> speedComboBox;
-    private ComboBox<String> distanceComboBox;
+    private ComboBox<String> weightComboBox;
+    private ComboBox<String> heightComboBox;
 
     /**
      * Initialize Calculator view
@@ -104,12 +108,18 @@ public class CalorieCalculatorView extends Node {
         return speedComboBox.getValue();
     }
 
-    public String getTextFieldDistance() {
-        return distanceTextField.getText();
+    public String getTextFieldWeight() {
+        return weightTextField.getText();
+    }
+    public String getTextFieldHeight() {
+        return heightTextField.getText();
     }
 
-    public String getComboBoxDistance() {
-        return distanceComboBox.getValue();
+    public String getComboBoxWeight() {
+        return weightComboBox.getValue();
+    }
+    public String getComboBoxHeight() {
+        return heightComboBox.getValue();
     }
 
     public String getTextFieldHours() {
@@ -157,6 +167,7 @@ public class CalorieCalculatorView extends Node {
         speedSection= new HBox();
         speedTextField = new TextField();
         speedComboBox = dropDownOptions("Select Unit", "Miles per Hour", "Meters per Second", "Kilometers per Hour");
+        speedComboBox.getSelectionModel().selectFirst();
         speedLabel = new Label("Speed/Pace: ");
         speedSection.getChildren().addAll(speedLabel, speedTextField, speedComboBox);
         speedSection.setSpacing(10);
@@ -172,13 +183,23 @@ public class CalorieCalculatorView extends Node {
         durationSection.getChildren().addAll(durationLabel, hoursTextField, minutesTextField);
 
 
-        // Distance
-        distanceSection= new HBox();
-        distanceTextField = new TextField();
-        distanceComboBox = dropDownOptions("Select Unit", "Miles", "Meters", "Kilometers");
-        distanceLabel = new Label("Distance: ");
-        distanceSection.getChildren().addAll(distanceLabel, distanceTextField, distanceComboBox);
-        distanceSection.setSpacing(10);
+        // Weight
+        weightSection= new HBox();
+        weightTextField = new TextField();
+        weightComboBox = dropDownOptions( "Select Unit","Kilograms(kg)", "Pound (lb)");
+        weightComboBox.getSelectionModel().selectFirst();
+        weightLabel = new Label("Current Weight: ");
+        weightSection.getChildren().addAll(weightLabel, weightTextField, weightComboBox);
+        weightSection.setSpacing(10);
+
+        // Height
+        heightSection= new HBox();
+        heightTextField = new TextField();
+        heightComboBox = dropDownOptions( "Select Unit","inches(in)", "centimeters(cm)");
+        heightComboBox.getSelectionModel().selectFirst();
+        heightLabel = new Label("Current Height: ");
+        heightSection.getChildren().addAll(heightLabel, heightTextField, heightComboBox);
+        heightSection.setSpacing(10);
 
         //Calculate Calories Button
         buttonSection= new HBox();
@@ -190,7 +211,7 @@ public class CalorieCalculatorView extends Node {
         buttonSection.getChildren().addAll(clearButton, calculateButton, addButton);
         //distanceSection.setSpacing(20);
 
-        root.getChildren().addAll(activitySection, durationSection, speedSection, distanceSection,buttonSection);
+        root.getChildren().addAll(activitySection, durationSection, speedSection, weightSection, heightSection, buttonSection);
     }
 
 

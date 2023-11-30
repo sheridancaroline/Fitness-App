@@ -48,26 +48,28 @@ public class CalorieCalculatorController {
     }
 
     private void handleCalculateButton() {
-        WorkoutType selectedActivity = theView.getComboBoxActivity();
+        //WorkoutType selectedActivity = theView.getComboBoxActivity();
         double speed = parseDouble(theView.getTextFieldSpeed());
         String speedUnit = theView.getComboBoxSpeed();
-        double distance = parseDouble(theView.getTextFieldDistance());
-        String distanceUnit = theView.getComboBoxDistance();
+        double weight = parseDouble(theView.getTextFieldWeight());
+        String weightUnit = theView.getComboBoxWeight();
+        double height = parseDouble(theView.getTextFieldHeight());
+        String heightUnit = theView.getComboBoxHeight();
         double hours = parseDouble(theView.getTextFieldHours());
         double minutes = parseDouble(theView.getTextFieldMinutes());
 
         // Assume we have a 'User' instance obtained from initial login!! this should be temporary
-        User user = new User(Sex.MALE, 82,2.5);
+        //User user = new User(Sex.MALE, 82,2.5);
 
         // Calculate calories based on the model
-        calculatedCalories = theModel.calculateCalories(user, selectedActivity, hours, minutes, speed, speedUnit, distance, distanceUnit);
+        calculatedCalories = theModel.calculateCalories( hours, minutes, speed, speedUnit, weight, weightUnit, height, heightUnit);
 
         // Display/print to console
         System.out.println("Calculated Calories: " + calculatedCalories);
     }
     private void handleClearButton() {
         theView.speedTextField.clear();
-        theView.distanceTextField.clear();
+        theView.weightTextField.clear();
         theView.hoursTextField.clear();
         theView.minutesTextField.clear();
 
