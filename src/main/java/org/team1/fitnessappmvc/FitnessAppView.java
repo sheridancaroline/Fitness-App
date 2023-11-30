@@ -20,7 +20,6 @@ package org.team1.fitnessappmvc;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -54,6 +53,8 @@ public class FitnessAppView {
     private TextField textFieldConfirmPassword;
     private Button btnCreateNewAccount;
     private Button btnVerifyUsername;
+
+    private Button btnViewCalendar;
     private RadioButton rbMale;
     private RadioButton rbFemale;
 
@@ -78,6 +79,14 @@ public class FitnessAppView {
     private ComboBox<String> speedComboBox;
     private ComboBox<String> weightComboBox;
     private ComboBox<String> heightComboBox;
+
+    /** Menu bar to be displayed for layout */
+    private MenuBar menuBar;
+
+    private MenuItem menuItem1;
+
+    private MenuItem menuItem2;
+
 
 
 
@@ -138,6 +147,8 @@ public class FitnessAppView {
         return btnSignup;
     }
 
+    public Button getBtnViewCalendar() {return btnViewCalendar; }
+
     public Button getBtnGuest() {
         return btnGuest;
     }
@@ -156,6 +167,7 @@ public class FitnessAppView {
         root = calorieCalculatorRoot;
         return root;
     }
+
     public Activity getComboBoxActivity() { return activityComboBox.getValue(); }
     public String getTextFieldSpeed() { return speedTextField.getText(); }
     public String getComboBoxSpeed() { return speedComboBox.getValue(); }
@@ -169,6 +181,11 @@ public class FitnessAppView {
     public Button getClearButton() { return clearButton; }
     public Button getAddButton() { return addButton;}
 
+    public MenuBar getMenuBar() {return menuBar;}
+
+    public MenuItem getMenuItem1() { return menuItem1; }
+
+    public MenuItem getMenuItem2() { return menuItem2; }
 
     /**
      * @author Dong Hyun Roh
@@ -292,6 +309,13 @@ public class FitnessAppView {
     public void initCalorieCalculatorPage(){
         this.calorieCalculatorRoot = new VBox();
 
+        btnViewCalendar = new Button("View Calendar");
+
+        calorieCalculatorRoot.getChildren().add(btnViewCalendar);
+
+//        menuBar = createMenuBar();
+//        this.calorieCalculatorRoot.getChildren().add(menuBar);
+
         // Activity
         HBox activitySection= new HBox();
         activityComboBox = activityDropDownOptions("Select Activity");
@@ -364,6 +388,33 @@ public class FitnessAppView {
         comboBox.setPromptText(promptText);
         return comboBox;
     }
+
+//    private MenuBar createMenuBar() {
+//        menuItem1 = new MenuItem("Calorie Calculator");
+//        menuItem2 = new MenuItem("Calendar");
+//
+//        menuBar = new MenuBar((Menu) menuItem1, (Menu) menuItem2);
+//        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
+//        return menuBar;
+//    }
+
+    private MenuBar createMenuBar() {
+        Menu menu1 = new Menu("Calorie Calculator");
+        Menu menu2 = new Menu("Calendar");
+
+        MenuItem menuItem1 = new MenuItem("Item 1");
+        MenuItem menuItem2 = new MenuItem("Item 2");
+
+        menu1.getItems().add(menuItem1);
+        menu2.getItems().add(menuItem2);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(menu1, menu2);
+        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
+
+        return menuBar;
+    }
+
 
 
 }

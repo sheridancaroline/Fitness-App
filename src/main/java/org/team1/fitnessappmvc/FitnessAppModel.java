@@ -77,6 +77,10 @@ public class FitnessAppModel {
 
     }
 
+    public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
     public void serializeUserInformation(ArrayList<UserInformation> userInformations){
         try{
             SerializationUtil.serialize(userInformations, FILE_NAME);

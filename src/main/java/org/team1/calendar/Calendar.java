@@ -63,10 +63,6 @@ public class Calendar implements Initializable {
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
         workoutsMap = getWorkoutsMonth();
-        //workoutsMap = theModel.getWorkouts();
-//        theModel = new FitnessAppModel();
-//
-//        System.out.println(theModel.getWorkouts());
 
         drawCalendar();
     }

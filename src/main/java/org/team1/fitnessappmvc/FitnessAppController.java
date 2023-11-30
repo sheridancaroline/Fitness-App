@@ -87,6 +87,12 @@ public class FitnessAppController {
         signupEventHandlers();
 
         calorieCalculatorEventHandlers();
+
+//        theView.getMenuItem1().setOnAction(event -> {
+//            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//            stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
+//            stage.show();
+//        });
     }
 
 
@@ -113,18 +119,10 @@ public class FitnessAppController {
                 if (theModel.verifyLogin(theView.getTextFieldUsername(), theView.getTextFieldPassword())){
                     System.out.println("Login success");
 
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/calendar/Calendar.fxml"));
-                    Parent root = null;
-                    try {
-                        root = loader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
                     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                    stage.setScene(new Scene(root));
+                    stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
                     stage.show();
+
 
                 }
                 // Display an error alert when login verification fails.
@@ -197,6 +195,27 @@ public class FitnessAppController {
         theView.getCalculateButton().setOnAction(e -> handleCalculateButton());
         theView.getClearButton().setOnAction(e -> handleClearButton());
 
+        theView.getBtnViewCalendar().setOnAction(event -> {
+            if(theModel.getUserInformation() != null){
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/calendar/Calendar.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }
+            else {
+                System.out.println("You have to create an account");
+            }
+
+        });
+
     }
 
     private void handleCalculateButton() {
@@ -260,6 +279,10 @@ public class FitnessAppController {
             stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
             stage.show();
         });
+    }
+
+    private void sceneChangeToCalorieCalculator(){
+
     }
 }
 
