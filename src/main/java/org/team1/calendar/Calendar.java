@@ -64,7 +64,10 @@ public class Calendar implements Initializable {
         today = ZonedDateTime.now();
         workoutsMap = getWorkoutsMonth();
         //workoutsMap = theModel.getWorkouts();
-        //theModel = new FitnessAppModel();
+//        theModel = new FitnessAppModel();
+//
+//        System.out.println(theModel.getWorkouts());
+
         drawCalendar();
     }
 
@@ -142,6 +145,7 @@ public class Calendar implements Initializable {
                 calendar.getChildren().add(stackPane);
             }
         }
+
     }
 
 

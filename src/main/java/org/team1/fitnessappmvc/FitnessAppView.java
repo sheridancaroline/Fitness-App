@@ -24,7 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.team1.git.WorkoutType;
+import org.team1.Activity;
+
 
 /**
  * This is the "view" in the MVC design for the fitness application.
@@ -56,29 +57,30 @@ public class FitnessAppView {
     private RadioButton rbMale;
     private RadioButton rbFemale;
 
-    /** Layouts*/
+
+
+
     private VBox calorieCalculatorRoot;
     private HBox activitySection;
     private HBox speedSection;
-    private HBox distanceSection;
+    private HBox weightSection;
+    private HBox heightSection;
     private HBox durationSection;
     private HBox buttonSection;
-
-    //TODO this creates a new user for the MVP , we
-    // have to figure out how to let it be jyst one user from the log in
-    //private User user;
 
 
     /** TextField */
     public TextField speedTextField;
-    public TextField distanceTextField;
+    public TextField weightTextField;
+    public TextField heightTextField;
     public TextField hoursTextField;
     public TextField minutesTextField;
 
     /** Labels */
     private Label activityLabel;
     private Label speedLabel;
-    private Label distanceLabel;
+    private Label weightLabel;
+    private Label heightLabel;
     private Label durationLabel;
     private Label hoursLabel;
     private Label minutesLabel;
@@ -89,9 +91,10 @@ public class FitnessAppView {
     private Button addButton;
 
     /** ComboBoxes */
-    private ComboBox<WorkoutType> activityComboBox;
+    private ComboBox<Activity> activityComboBox;
     private ComboBox<String> speedComboBox;
-    private ComboBox<String> distanceComboBox;
+    private ComboBox<String> weightComboBox;
+    private ComboBox<String> heightComboBox;
 
 
 
@@ -178,11 +181,13 @@ public class FitnessAppView {
         root = calorieCalculatorRoot;
         return root;
     }
-    public WorkoutType getComboBoxActivity() { return activityComboBox.getValue(); }
+    public Activity getComboBoxActivity() { return activityComboBox.getValue(); }
     public String getTextFieldSpeed() { return speedTextField.getText(); }
     public String getComboBoxSpeed() { return speedComboBox.getValue(); }
-    public String getTextFieldDistance() { return distanceTextField.getText(); }
-    public String getComboBoxDistance() { return distanceComboBox.getValue(); }
+    public String getTextFieldWeight() { return weightTextField.getText(); }
+    public String getComboBoxWeight() { return weightComboBox.getValue(); }
+    public String getTextFieldHeight() { return heightTextField.getText(); }
+    public String getComboBoxHeight() { return heightComboBox.getValue(); }
     public String getTextFieldHours() { return hoursTextField.getText(); }
     public String getTextFieldMinutes() { return minutesTextField.getText();}
     public Button getCalculateButton() { return calculateButton; }
@@ -212,6 +217,12 @@ public class FitnessAppView {
 
         calorieCalculatorRoot.setPadding(new Insets(10,5,10,5));
         calorieCalculatorRoot.setAlignment(Pos.CENTER);
+
+        activitySection.setSpacing(10);
+        durationSection.setSpacing(10);
+        speedSection.setSpacing(10);
+        weightSection.setSpacing(10);
+        heightSection.setSpacing(10);
     }
 
     /**
@@ -323,9 +334,10 @@ public class FitnessAppView {
         speedSection= new HBox();
         speedTextField = new TextField();
         speedComboBox = dropDownOptions("Select Unit", "Miles per Hour", "Meters per Second", "Kilometers per Hour");
+        speedComboBox.getSelectionModel().selectFirst();
         speedLabel = new Label("Speed/Pace: ");
         speedSection.getChildren().addAll(speedLabel, speedTextField, speedComboBox);
-        speedSection.setSpacing(10);
+
 
         // Duration
         durationSection= new HBox();
@@ -337,13 +349,24 @@ public class FitnessAppView {
         minutesTextField.setPromptText("minutes");
         durationSection.getChildren().addAll(durationLabel, hoursTextField, minutesTextField);
 
-        // Distance
-        distanceSection= new HBox();
-        distanceTextField = new TextField();
-        distanceComboBox = dropDownOptions("Select Unit", "Miles", "Meters", "Kilometers");
-        distanceLabel = new Label("Distance: ");
-        distanceSection.getChildren().addAll(distanceLabel, distanceTextField, distanceComboBox);
-        distanceSection.setSpacing(10);
+
+        // Weight
+        weightSection= new HBox();
+        weightTextField = new TextField();
+        weightComboBox = dropDownOptions( "Select Unit","Kilograms(kg)", "Pound (lb)");
+        weightComboBox.getSelectionModel().selectFirst();
+        weightLabel = new Label("Current Weight: ");
+        weightSection.getChildren().addAll(weightLabel, weightTextField, weightComboBox);
+
+
+        // Height
+        heightSection= new HBox();
+        heightTextField = new TextField();
+        heightComboBox = dropDownOptions( "Select Unit","inches(in)", "centimeters(cm)");
+        heightComboBox.getSelectionModel().selectFirst();
+        heightLabel = new Label("Current Height: ");
+        heightSection.getChildren().addAll(heightLabel, heightTextField, heightComboBox);
+
 
         //Calculate Calories Button
         buttonSection= new HBox();
@@ -353,9 +376,10 @@ public class FitnessAppView {
         //Clear Calories Button
         addButton = new Button("Add to Chart");
         buttonSection.getChildren().addAll(clearButton, calculateButton, addButton);
-        //distanceSection.setSpacing(20);
 
-        calorieCalculatorRoot.getChildren().addAll(activitySection, durationSection, speedSection, distanceSection,buttonSection);
+
+        calorieCalculatorRoot.getChildren().addAll(activitySection, durationSection, speedSection, weightSection, heightSection, buttonSection);
+
 
     }
 
@@ -366,9 +390,10 @@ public class FitnessAppView {
         comboBox.setPromptText(promptText);
         return comboBox;
     }
-    private ComboBox<WorkoutType> activityDropDownOptions(String promptText) {
-        ComboBox<WorkoutType> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(WorkoutType.values());
+
+    private ComboBox<Activity> activityDropDownOptions(String promptText) {
+        ComboBox<Activity> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(Activity.values());
         comboBox.setPromptText(promptText);
         return comboBox;
     }

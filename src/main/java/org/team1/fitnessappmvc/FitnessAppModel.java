@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The model class handling user information and login-related
@@ -56,10 +57,7 @@ public class FitnessAppModel {
 
         this.userInformation = null;
 
-
         System.out.println(userInformations);
-
-
 
 //        this.userInformations = new ArrayList<>();
 //
@@ -73,16 +71,21 @@ public class FitnessAppModel {
 //        userinformation.addWorkout(day1);
 //        userinformation.addWorkout(day2);
 //        userInformations.add(userinformation);
-//
-//        try{
-//            SerializationUtil.serialize(userInformations, FILE_NAME);
-//            System.out.println("success");
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//            return;
-//        }
 
+//        serializeUserInformation(userInformations);
+
+
+    }
+
+    public void serializeUserInformation(ArrayList<UserInformation> userInformations){
+        try{
+            SerializationUtil.serialize(userInformations, FILE_NAME);
+            System.out.println("success");
+        }
+        catch (IOException e){
+            e.printStackTrace();
+            return;
+        }
     }
 
 
@@ -166,9 +169,24 @@ public class FitnessAppModel {
     }
 
     public Map<LocalDate, ArrayList<Workouts>> getWorkouts() {
+        System.out.println(userInformation);
 
         return  this.userInformation.getPastWorkouts();
 
+    }
+
+    /**
+     * @author Amanda
+     *
+     * @param hours
+     * @param minutes
+     * @param speedPace
+     * @param weight
+     * @param height
+     * @return
+     */
+    public double calculateCalories(double hours, double minutes, double speedPace, double weight, double height){
+        return CalorieCalculator.calculateCalories( hours, minutes, speedPace, weight, height);
     }
 
 

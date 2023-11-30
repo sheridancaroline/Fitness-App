@@ -25,8 +25,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import org.team1.Activity;
+import org.team1.ConversionUtil;
 import org.team1.Gender;
-import org.team1.git.WorkoutType;
+
 
 import java.io.IOException;
 
@@ -83,6 +85,8 @@ public class FitnessAppController {
 
         // Sets up handling for signup-related events.
         signupEventHandlers();
+
+        calorieCalculatorEventHandlers();
     }
 
 
@@ -196,30 +200,34 @@ public class FitnessAppController {
     }
 
     private void handleCalculateButton() {
-        WorkoutType selectedActivity = theView.getComboBoxActivity();
-        double speed = parseDouble(theView.getTextFieldSpeed());
-        String speedUnit = theView.getComboBoxSpeed();
-        double distance = parseDouble(theView.getTextFieldDistance());
-        String distanceUnit = theView.getComboBoxDistance();
+        double speed = ConversionUtil.convertSpeedToMeters(parseDouble(theView.getTextFieldSpeed()), theView.getComboBoxSpeed());
+        double weight = ConversionUtil.convertWeightToKg(parseDouble(theView.getTextFieldWeight()), theView.getComboBoxWeight());
+        double height = ConversionUtil.convertHeightToMeters(parseDouble(theView.getTextFieldHeight()), theView.getComboBoxHeight());
         double hours = parseDouble(theView.getTextFieldHours());
         double minutes = parseDouble(theView.getTextFieldMinutes());
 
-        // Assume we have a 'User' instance obtained from initial login!! this should be temporary
-        //User user = new User(Sex.MALE, 82);
-
         // Calculate calories based on the model
-        //Double calculatedCalories = theModel.calculateCalories(user, selectedActivity, hours, minutes, speed, speedUnit, distance, distanceUnit);
+        double calculatedCalories = theModel.calculateCalories( hours, minutes, speed, weight, height);
 
         // Display/print to console
-        //System.out.println("Calculated Calories: " + calculatedCalories);
+        System.out.println("Calculated Calories: " + calculatedCalories);
+
     }
     private void handleClearButton() {
         theView.speedTextField.clear();
-        theView.distanceTextField.clear();
+        theView.weightTextField.clear();
+        theView.heightTextField.clear();
         theView.hoursTextField.clear();
         theView.minutesTextField.clear();
 
     }
+
+    private void handleAddButton() {
+
+        //theChart.updateLineChart(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd")), calculatedCalories);
+
+    }
+
 
     private double parseDouble(String text) {
         try {
@@ -229,7 +237,6 @@ public class FitnessAppController {
             return 0.0;
         }
     }
-
 
 
     /**

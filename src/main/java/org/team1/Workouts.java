@@ -20,7 +20,6 @@ package org.team1;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Workouts implements Serializable {
 
