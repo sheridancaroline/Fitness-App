@@ -34,6 +34,7 @@ public class FitnessAppView extends Application {
     private BorderPane layout;
     private final Node CalorieCalculatorPage = new CalorieCalculatorPage();
     private final Node viewTwo = new ViewTwo();
+    private final WorkoutCalendarApp workoutCalendarApp = new WorkoutCalendarApp();
 
 //    public static void main(String[] args) {
 //        launch(args);
@@ -45,6 +46,10 @@ public class FitnessAppView extends Application {
         viewOneMenuItem.setOnAction(e -> setView(CalorieCalculatorPage));
         MenuItem viewTwoMenuItem = new MenuItem("Your Stats");
         viewTwoMenuItem.setOnAction(e -> setView(viewTwo));
+
+        MenuItem viewThreeMenuItem = new MenuItem("Workout Calendar");
+        viewThreeMenuItem.setOnAction(e -> setView(workoutCalendarApp.getRoot()));
+
         Menu viewMenu = new Menu(
                 "View", null,
                 viewOneMenuItem, viewTwoMenuItem

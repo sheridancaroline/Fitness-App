@@ -18,6 +18,7 @@ public class WorkoutCalendarApp extends Application {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
     private static User user;
     private TextArea textArea;
+    private BorderPane root;
 
     public static void main(String[] args) {
         user = createUser(); // Create the user object
@@ -33,7 +34,7 @@ public class WorkoutCalendarApp extends Application {
         primaryStage.setTitle("Workout Calendar");
 
         DatePicker datePicker = new DatePicker();
-        TextArea textArea = new TextArea();
+        textArea = new TextArea();
 
         // Listener for date selection
         datePicker.setOnAction(event -> displayWorkoutsForSelectedDate(datePicker.getValue(), textArea));
@@ -42,12 +43,12 @@ public class WorkoutCalendarApp extends Application {
         addButton.setOnAction(event -> showAddWorkoutDialog(datePicker.getValue()));
 
         VBox vbox = new VBox(datePicker, textArea);
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(vbox);
-        borderPane.setBottom(addButton);
+        root = new BorderPane();
+        root.setCenter(vbox);
+        root.setBottom(addButton);
         BorderPane.setMargin(addButton, new Insets(10));
 
-        Scene scene = new Scene(borderPane, 300, 200);
+        Scene scene = new Scene(root, 300, 200);
 
 
         primaryStage.setScene(scene);
@@ -89,7 +90,7 @@ public class WorkoutCalendarApp extends Application {
                 Workout newWorkout = new Workout(selectedType, selectedDate, calculatedCalories, minutes, seconds);
                 workoutManager.addWorkout(newWorkout);
 
-                // Update the display
+                // Immediately update the display in the textArea
                 displayWorkoutsForSelectedDate(selectedDate, textArea);
             }
             return null;
@@ -117,6 +118,9 @@ public class WorkoutCalendarApp extends Application {
                     workout.getCaloriesBurned());
             textArea.appendText(workoutBlock);
         }
+    }
+    public BorderPane getRoot() {
+        return root;
     }
 }
 
