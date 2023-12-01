@@ -13,11 +13,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Workout calendar that allows user to select a date and view the workouts for the selected date as well as add workouts
+ */
 public class WorkoutCalendarApp extends Application {
+
+    /** Create a new workout manager so the calendar can access the daily and monthly workouts to display */
     private static final WorkoutManager workoutManager = new WorkoutManager();
+
+    /** Create a new date formatter to ensure the dates of the workouts are formatted the same as the selected dates from the calendar */
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+    /** Instantiate a User */
     private static User user;
+
+    /** Instantiate a text area */
     private TextArea textArea;
+
+    /** Instantiate a border pane to be the root*/
     private BorderPane root;
 
     public static void main(String[] args) {
@@ -25,6 +38,10 @@ public class WorkoutCalendarApp extends Application {
         launch(args);
     }
 
+    /**
+     * Create a standard user to calculate the calories for the workouts inputted
+     * @return the User created
+     */
     private static User createUser() {
         return new User(Sex.FEMALE, 130);
     }
@@ -42,6 +59,7 @@ public class WorkoutCalendarApp extends Application {
         Button addButton = new Button("+");
         addButton.setOnAction(event -> showAddWorkoutDialog(datePicker.getValue()));
 
+        // Border Pane as root
         VBox vbox = new VBox(datePicker, textArea);
         root = new BorderPane();
         root.setCenter(vbox);
@@ -50,11 +68,14 @@ public class WorkoutCalendarApp extends Application {
 
         Scene scene = new Scene(root, 300, 200);
 
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    /**
+     * Sets up the function of the calendar that allows the user to add a workout once they select a date
+     * @param selectedDate the date the user selects that the workout will be added to
+     */
     private void showAddWorkoutDialog(LocalDate selectedDate) {
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle("Add Workout");
@@ -99,6 +120,11 @@ public class WorkoutCalendarApp extends Application {
         dialog.showAndWait();
     }
 
+    /**
+     * Display the workouts for the selected date, updates after a workout is added
+     * @param selectedDate the date of the workouts to be displayed
+     * @param textArea the location where workouts are displayed
+     */
     private void displayWorkoutsForSelectedDate(LocalDate selectedDate, TextArea textArea) {
         String formattedDate = selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         textArea.clear();
@@ -119,6 +145,7 @@ public class WorkoutCalendarApp extends Application {
             textArea.appendText(workoutBlock);
         }
     }
+
     public BorderPane getRoot() {
         return root;
     }

@@ -24,12 +24,18 @@ import org.team1.Sex;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 public class User {
-    //TODO change sex from string to char
     private Sex sex; // 'MALE' or 'FEMALE'
     private double weight; // in pounds
     private List<Double> weightHistory;
     private List<Date> weightDates;
+
+    /**
+     * Create an instance of a user
+     * @param sex M or F
+     * @param weight in pounds
+     */
     public User(Sex sex, double weight) {
         this.sex = sex;
         this.weight = weight;
@@ -50,6 +56,11 @@ public class User {
     public List<Date> getWeightDates() {
         return new ArrayList<>(weightDates); // Return copy
     }
+
+    /**
+     * Allows the user to update their weight and store past weights
+     * @param newWeight the updated weight
+     */
     public void updateWeight(double newWeight) {
         this.weight = newWeight;
         this.weightHistory.add(newWeight);

@@ -19,14 +19,30 @@
 package org.team1;
 
 public class CalorieCalculator {
+    /** Magic number for the average calories per minute burned while running for a male of default weight (150 lbs)*/
     private static final double CALORIES_PER_MIN_RUNNING_MALE = 10.0;
+
+    /** Magic number for the average calories per minute burned while running for a female of default weight (150 lbs)*/
     private static final double CALORIES_PER_MIN_RUNNING_FEMALE = 8.5;
 
+    /** Magic number for the average calories per minute burned while walking for a male of default weight (150 lbs)*/
     private static final double CALORIES_PER_MIN_WALKING_MALE = 5.0;
+
+    /** Magic number for the average calories per minute burned while walking for a female of default weight (150 lbs)*/
     private static final double CALORIES_PER_MIN_WALKING_FEMALE = 4.0;
 
+    /** The default weight the averages are based off of */
     private static final double DEFAULT_WEIGHT = 150.0;
 
+    /**
+     * Calculate the calories burned based on the type of workout, the duration of the workout, and the sex and weight of the user
+     * @param workoutType run or walk
+     * @param sex M or F
+     * @param weight in lbs
+     * @param minutes duration
+     * @param seconds duration
+     * @return calories burned
+     */
     public static int calculateCalories(WorkoutType workoutType, Sex sex, double weight, int minutes, int seconds) {
         // Use default weight if weight is not provided
         if (weight <= 0) {

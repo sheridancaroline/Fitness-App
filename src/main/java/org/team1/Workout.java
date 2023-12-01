@@ -32,6 +32,15 @@ public class Workout {
 
     public int secondsDuration;
 
+    /**
+     * Create an instance of a workout
+     * @param workoutType walk or run
+     * @param date the date of the workout
+     * @param caloriesBurned the calories burned during the workout
+     * @param minutesDuration the minutes spent doing the workout
+     * @param secondsDuration the seconds spent doing the workout
+     */
+
     public Workout(WorkoutType workoutType, LocalDate date, int caloriesBurned, int minutesDuration, int secondsDuration) {
         this.workoutType = workoutType;
         this.date = date;
@@ -60,6 +69,10 @@ public class Workout {
         return secondsDuration;
     }
 
+    /**
+     * The string representation of the workout object
+     * @return String workout
+     */
     public String toString() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
