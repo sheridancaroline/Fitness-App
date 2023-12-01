@@ -1,29 +1,12 @@
-/* *****************************************
- * CSCI 205 - Software Engineering and Design
- * Fall 2023
- * Instructor: Prof. Brian King
- *
- * Name: Amanda Agambire
- * Section: 01
- * Date: 11/15/23
- * Time: 6:37 PM
- *
- * Project: csci205_final_project
- * Package: org.team1
- * Class: Workout
- *
- * Description:
- *
- * ****************************************
- */
 package org.team1;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Workout {
     public WorkoutType workoutType;
 
-    public Date date;
+    public LocalDate date;
 
     public int caloriesBurned;
 
@@ -31,10 +14,10 @@ public class Workout {
 
     public int secondsDuration;
 
-    public Workout(WorkoutType workoutType, Date date, int caloriesBurned, int minutesDuration, int secondsDuration) {
+    public Workout(WorkoutType workoutType, LocalDate date, int minutesDuration, int secondsDuration) {
         this.workoutType = workoutType;
         this.date = date;
-        this.caloriesBurned = caloriesBurned;
+        //this.caloriesBurned = caloriesBurned;
         this.minutesDuration = minutesDuration;
         this.secondsDuration = secondsDuration;
     }
@@ -43,7 +26,7 @@ public class Workout {
         return workoutType;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -60,7 +43,7 @@ public class Workout {
     }
 
     public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
         // Format the workout information
         String formattedDate = dateFormat.format(date);
@@ -68,6 +51,10 @@ public class Workout {
         String formattedDuration = String.format("%d:%02d", minutesDuration, secondsDuration);
         String formattedCalories = Integer.toString(caloriesBurned);
 
-        return formattedDate + ", " + formattedType + ", " + formattedDuration + ", " + formattedCalories;
+        return "[" + formattedDate + ", " + formattedType + ", " + formattedDuration + ", " + formattedCalories + "]";
     }
 }
+
+
+
+

@@ -1,5 +1,9 @@
 package org.team1.CalorieCalculator;
 
+
+/**
+ * @author amandaagambire
+ */
 public class ConversionUtil {
     public static double convertSpeedToMeters(double speed, String unit) {
         switch (unit) {

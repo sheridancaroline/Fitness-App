@@ -2,14 +2,11 @@ package org.team1;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.team1.CalorieCalculator.CalorieCalculatorController;
 import org.team1.CalorieCalculator.CalorieCalculatorModel;
@@ -18,7 +15,7 @@ import org.team1.LineChartStats.LineChartStatsController;
 import org.team1.LineChartStats.LineChartStatsModel;
 import org.team1.LineChartStats.LineChartStatsView;
 
-public class FitnessAppView extends Application {
+public class FitnessAppCombinedView extends Application {
     /** Primary stage for layout */
     private Stage stage;
     /** Primary scene for layout */
@@ -45,6 +42,10 @@ public class FitnessAppView extends Application {
     /** LineChartStats Controller*/
     private LineChartStatsController lineController;
 
+
+
+    private org.team1.WorkoutCalendarApp calender;
+
     @Override
     public void init() throws Exception {
         super.init();
@@ -69,6 +70,8 @@ public class FitnessAppView extends Application {
         this.lineModel = new LineChartStatsModel();
         this.lineView = new LineChartStatsView(lineModel);
         this.lineController = new LineChartStatsController( lineModel, lineView);
+        this.calender = new org.team1.WorkoutCalendarApp();
+        calender.start(new Stage());
 
         // Create menu bar
         menuBar = createMenuBar();
@@ -89,7 +92,10 @@ public class FitnessAppView extends Application {
         MenuItem viewTwoMenuItem = new MenuItem("Your Stats");
         viewTwoMenuItem.setOnAction(e -> setScene(createSceneTwo()));
 
-        Menu viewMenu = new Menu("View", null, viewOneMenuItem, viewTwoMenuItem);
+        MenuItem viewThreeMenuItem = new MenuItem("Calender");
+        viewThreeMenuItem.setOnAction(e -> setScene(createSceneThree()));
+
+        Menu viewMenu = new Menu("View", null, viewOneMenuItem, viewTwoMenuItem, viewThreeMenuItem);
 
         MenuItem exitMenuItem = new MenuItem("Exit");
         exitMenuItem.setOnAction(e -> Platform.exit());
@@ -107,13 +113,17 @@ public class FitnessAppView extends Application {
     }
 
     private BorderPane createSceneOne() {
-        BorderPane layoutSceneOne = new BorderPane(theView.getRoot());
-        return layoutSceneOne;
+        return new BorderPane(theView.getRoot());
     }
 
     private BorderPane createSceneTwo() {
-        BorderPane layoutSceneTwo = new BorderPane(lineView.getChartRoot());
-        return layoutSceneTwo;
+
+        return new BorderPane(lineView.getChartRoot());
+    }
+    private BorderPane createSceneThree() {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(calender.getRoot());
+        return borderPane;
     }
 
     public static void main(String[] args) {

@@ -25,6 +25,7 @@ public class CalorieCalculatorController {
     double calculatedCalories;
 
     /**
+     * @author amandaagambire
      * create instances of the calorie calculator model and view
      * @param theModel CalorieCalculator Model
      * @param theView CalorieCalculator View
@@ -39,7 +40,8 @@ public class CalorieCalculatorController {
     }
 
     /**
-     * Assign ac
+     * @author amandaagambire
+     * Assign Handlers to the buttons
      */
     private void initEventHandlers() {
         theView.getCalculateButton().setOnAction(e -> handleCalculateButton());
@@ -47,6 +49,11 @@ public class CalorieCalculatorController {
         //theView.getAddButton().setOnAction(e -> handleAddButton());
     }
 
+    /**
+     * @author Amanda Agambire
+     * handle the calculate button to get the
+     * variables for the calorie formula
+     */
     private void handleCalculateButton() {
         //WorkoutType selectedActivity = theView.getComboBoxActivity();
         double speed = parseDouble(theView.getTextFieldSpeed());
@@ -67,6 +74,11 @@ public class CalorieCalculatorController {
         // Display/print to console
         System.out.println("Calculated Calories: " + calculatedCalories);
     }
+
+    /**
+     * @author Amanda Agambire
+     * Clear the text fields when clear button clicked
+     */
     private void handleClearButton() {
         theView.speedTextField.clear();
         theView.weightTextField.clear();
@@ -74,13 +86,23 @@ public class CalorieCalculatorController {
         theView.minutesTextField.clear();
 
     }
-    private void handleAddButton() {
 
+    /**
+     * @author Amanda Agambire
+     *  Add the calculated calories to the line chart
+     */
+    private void handleAddButton() {
         theChart.updateLineChart(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd")), calculatedCalories);
 
     }
 
 
+    /**
+     * @author Amanda Agambire
+     * take user input by converting a string to double
+     * @param text - input
+     * @return double value
+     */
     private double parseDouble(String text) {
         try {
             return Double.parseDouble(text);

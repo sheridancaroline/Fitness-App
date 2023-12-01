@@ -4,6 +4,7 @@ import org.team1.User;
 import org.team1.WorkoutType;
 
 /**
+ * @author amandaagambire
  * Calulate the user's calories burnt based on their input
  * @see <a href = "https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/">
  *     https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/ </a>

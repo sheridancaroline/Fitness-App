@@ -141,7 +141,10 @@ public class CalorieCalculatorView extends Node {
 
 
 
-    /** Initialize the styling for the content in the scene graph*/
+    /**
+     * @author Amanda Agambire
+     * Initialize the styling for the content in the scene graph
+     * */
     private void initStyling() {
         root.setSpacing(5);
         root.setPrefWidth(250);
@@ -152,7 +155,8 @@ public class CalorieCalculatorView extends Node {
     }
 
 
-    /** Initializing Scene Graph contents*/
+    /** @author Amanda Agambire
+     * Initializing Scene Graph contents*/
     private void initSceneGraph() {
         root = new VBox();
 
@@ -217,12 +221,26 @@ public class CalorieCalculatorView extends Node {
 
 
     //format of all drop down options
+
+    /**
+     * @author Amanda Agambire
+     * format a combobox for all variables and their unit oo\ptions
+     * @param promptText - initial option
+     * @param items - other unit options
+     * @return
+     */
     private ComboBox<String> dropDownOptions(String promptText, String... items) {
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.getItems().addAll(items);
         comboBox.setPromptText(promptText);
         return comboBox;
     }
+
+    /**
+     * @author Amanda Agambire
+     * @param promptText initial option
+     * @return
+     */
     private ComboBox<WorkoutType> activityDropDownOptions(String promptText) {
         ComboBox<WorkoutType> comboBox = new ComboBox<>();
         comboBox.getItems().addAll(WorkoutType.values());

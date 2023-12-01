@@ -1,33 +1,29 @@
-/* *****************************************
- * CSCI 205 - Software Engineering and Design
- * Fall 2023
- * Instructor: Prof. Brian King
- *
- * Name: Amanda Agambire
- * Section: 01
- * Date: 11/16/23
- * Time: 1:06 PM
- *
- * Project: csci205_final_project
- * Package: org.team1
- * Class: WorkoutManager
- *
- * Description:
- *
- * ****************************************
- */
 package org.team1;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import org.team1.Workout;
+import org.team1.WorkoutType;
 
 public class WorkoutManager {
-    private Map<String, List<Workout>> monthlyWorkouts;
-    private Map<String, List<Workout>> dailyWorkouts;
+    private Map<String, List<org.team1.Workout>> monthlyWorkouts;
+    private Map<String, List<org.team1.Workout>> dailyWorkouts;
 
     public WorkoutManager() {
         this.monthlyWorkouts = new HashMap<>();
         this.dailyWorkouts = new HashMap<>();
+        initializeHardcodedWorkouts();
+    }
+
+    private void initializeHardcodedWorkouts() {
+        Workout workout1 = new Workout(WorkoutType.RUNNING, LocalDate.now(), 200, 30);
+        Workout workout2 = new Workout(WorkoutType.WALKING, LocalDate.now(), 100, 20);
+        Workout workout3 = new Workout(WorkoutType.RUNNING, LocalDate.of(2023, 11, 22), 60, 10);
+
+        addWorkout(workout1);
+        addWorkout(workout2);
+        addWorkout(workout3);
     }
 
     public void addWorkout(Workout workout) {
@@ -60,14 +56,15 @@ public class WorkoutManager {
         return monthlyWorkouts;
     }
 
-    private String formatDateKey(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String formatDateKey(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return dateFormat.format(date);
     }
 
-    private String formatMonthKey(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+    private String formatMonthKey(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM");
         return dateFormat.format(date);
     }
 }
+
 
