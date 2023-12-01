@@ -37,7 +37,7 @@ public class UserInformation implements Serializable {
 
     private Gender gender;
 
-    private TreeMap<LocalDate, ArrayList<Workouts>> pastWorkouts;
+    private TreeMap<LocalDate, ArrayList<Workout>> pastWorkouts;
 
     /**
      * Constructor for UserInformation class.
@@ -71,11 +71,11 @@ public class UserInformation implements Serializable {
         return gender;
     }
 
-    public TreeMap<LocalDate, ArrayList<Workouts>> getPastWorkouts() {
+    public TreeMap<LocalDate, ArrayList<Workout>> getPastWorkouts() {
         return pastWorkouts;
     }
 
-    public void addWorkout(Workouts workout){
+    public void addWorkout(Workout workout){
 
         LocalDate workoutDate = workout.getDate();
 
@@ -83,7 +83,7 @@ public class UserInformation implements Serializable {
             pastWorkouts.get(workoutDate).add(workout);
         }
         else {
-            ArrayList<Workouts> newWorkoutList = new ArrayList<>();
+            ArrayList<Workout> newWorkoutList = new ArrayList<>();
             newWorkoutList.add(workout);
             pastWorkouts.put(workoutDate, newWorkoutList);
         }

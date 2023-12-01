@@ -18,7 +18,7 @@
  */
 package org.team1;
 
-public enum Activity {
+public enum WorkoutType {
     RUNNING,
     WALKING
 }

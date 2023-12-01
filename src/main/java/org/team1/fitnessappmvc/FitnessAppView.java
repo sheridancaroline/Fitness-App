@@ -24,7 +24,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.team1.Activity;
+import org.team1.WorkoutType;
 
 
 /**
@@ -67,7 +67,7 @@ public class FitnessAppView {
     private Button calculateButton;
     private Button clearButton;
     private Button addButton;
-    private ComboBox<Activity> activityComboBox;
+    private ComboBox<WorkoutType> activityComboBox;
     private ComboBox<String> speedComboBox;
     private ComboBox<String> weightComboBox;
     private ComboBox<String> heightComboBox;
@@ -150,7 +150,7 @@ public class FitnessAppView {
 
 
     /** Getter methods for controls for calorie calculator page */
-    public Activity getComboBoxActivity() { return activityComboBox.getValue(); }
+    public WorkoutType getComboBoxActivity() { return activityComboBox.getValue(); }
     public String getTextFieldSpeed() { return speedTextField.getText(); }
     public String getComboBoxSpeed() { return speedComboBox.getValue(); }
     public String getTextFieldWeight() { return weightTextField.getText(); }
@@ -427,9 +427,9 @@ public class FitnessAppView {
     }
 
 
-    private ComboBox<Activity> activityDropDownOptions(String promptText) {
-        ComboBox<Activity> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(Activity.values());
+    private ComboBox<WorkoutType> activityDropDownOptions(String promptText) {
+        ComboBox<WorkoutType> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(WorkoutType.values());
         comboBox.setPromptText(promptText);
         return comboBox;
     }

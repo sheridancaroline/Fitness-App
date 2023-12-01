@@ -21,11 +21,11 @@ package org.team1;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Workouts implements Serializable {
+public class Workout implements Serializable {
 
     private LocalDate date;
 
-    private Activity activity;
+    private WorkoutType workoutType;
 
     private double speed;
 
@@ -35,10 +35,10 @@ public class Workouts implements Serializable {
 
     private double caloriesBurned;
 
-    public Workouts(LocalDate date, Activity activity, double speed, double duration, double bodyWeight, double caloriesBurned){
+    public Workout(LocalDate date, WorkoutType workoutType, double speed, double duration, double bodyWeight, double caloriesBurned){
 
         this.date = date;
-        this.activity = activity;
+        this.workoutType = workoutType;
         this.speed = speed;
         this.duration = duration;
         this.bodyWeight = bodyWeight;
@@ -49,8 +49,8 @@ public class Workouts implements Serializable {
         return date;
     }
 
-    public Activity getWorkoutType() {
-        return activity;
+    public WorkoutType getWorkoutType() {
+        return workoutType;
     }
 
     public double getCaloriesBurned() {return caloriesBurned;}
@@ -62,16 +62,16 @@ public class Workouts implements Serializable {
         int[] durationConverted = ConversionUtil.convertToHousrAndMinutes(duration);
 
         String information = String.format("Activity: %s \nSpeed: %.2f \nDuration: %d Hours  %d Minutes \nBodyWeight: %.2f " +
-                "\nCalories Burned: %.2f",  activity, speed, durationConverted[0], durationConverted[1], bodyWeight, caloriesBurned);
+                "\nCalories Burned: %.2f", workoutType, speed, durationConverted[0], durationConverted[1], bodyWeight, caloriesBurned);
         return information;
     }
 
     public static void main(String[] args){
-        Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,60,70,900);
+        Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,60,70,900);
         System.out.println(day1);
         System.out.println(day1.date);
 
-        Workouts day2 = new Workouts(LocalDate.of(2022,12,1), Activity.WALKING,5.5,6,70,900);
+        Workout day2 = new Workout(LocalDate.of(2022,12,1), WorkoutType.WALKING,5.5,6,70,900);
         System.out.println(day2);
         System.out.println(day2.date);
 

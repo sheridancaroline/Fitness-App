@@ -32,7 +32,7 @@ import java.util.ArrayList;
  */
 public class FitnessAppModel {
 
-    public static final String FILE_NAME = "userInformation.ser";
+    public static final String FILE_NAME = "userInformations.ser";
 
     private ArrayList<UserInformation> userInformations;
 
@@ -52,9 +52,9 @@ public class FitnessAppModel {
 
 //        this.userInformations = new ArrayList<>();
 //
-//        Workouts day0 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,60,70,900);
-//        Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
-//        Workouts day2 = new Workouts(LocalDate.of(2022,12,1), Activity.WALKING,5.5,30,70,900);
+//        Workout day0 = new Workout(LocalDate.of(2023,12,1), WorkoutType.WALKING,5.5,60,70,900);
+//        Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,6,70,900);
+//        Workout day2 = new Workout(LocalDate.of(2022,12,1), WorkoutType.WALKING,5.5,30,70,900);
 //
 //        UserInformation userinformation = new UserInformation("rohbot", "1234", Gender.MALE);
 //
@@ -179,15 +179,14 @@ public class FitnessAppModel {
     /**
      * @author Amanda
      *
-     * @param hours
-     * @param minutes
+     * @param durationInMins
      * @param speedPace
      * @param weight
      * @param height
      * @return
      */
-    public double calculateCalories(double hours, double minutes, double speedPace, double weight, double height){
-        return CalorieCalculator.calculateCalories( hours, minutes, speedPace, weight, height);
+    public double calculateCalories(double durationInMins, double speedPace, double weight, double height){
+        return CalorieCalculator.calculateCalories( durationInMins, speedPace, weight, height);
     }
 
 

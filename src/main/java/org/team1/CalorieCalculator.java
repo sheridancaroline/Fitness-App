@@ -36,12 +36,10 @@ public class CalorieCalculator {
 
     }
 
-    public static double calculateCalories(double hours, double minutes, double speedMeterPerSecond, double weightInKg, double heightInMeter) {
-
-        double workoutDuration = minutes + (hours * 60);
+    public static double calculateCalories(double durationInMins, double speedMeterPerSecond, double weightInKg, double heightInMeter) {
 
         double caloriesPerMin = ((0.035 * weightInKg) + (Math.pow(speedMeterPerSecond, 2)) / heightInMeter) * (0.029) * (weightInKg);
-        return caloriesPerMin * workoutDuration;
+        return caloriesPerMin * durationInMins;
 
     }
 }

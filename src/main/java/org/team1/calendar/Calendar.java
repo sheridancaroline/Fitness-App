@@ -27,8 +27,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import org.team1.Activity;
-import org.team1.Workouts;
+import org.team1.WorkoutType;
+import org.team1.Workout;
 import javafx.scene.input.MouseEvent;
 import org.team1.fitnessappmvc.FitnessAppModel;
 
@@ -53,7 +53,7 @@ public class Calendar implements Initializable {
     @FXML
     private FlowPane calendar;
 
-    private Map<LocalDate, ArrayList<Workouts>> workoutsMap;
+    private Map<LocalDate, ArrayList<Workout>> workoutsMap;
 
     /**
      * Initializes the calendar view with the current date and associated workouts.
@@ -129,7 +129,7 @@ public class Calendar implements Initializable {
                         stackPane.getChildren().add(date);
 
                         LocalDate calendarDate = LocalDate.of(dateFocus.getYear(), dateFocus.getMonth(), currentDate);
-                        List<Workouts> workouts = workoutsMap.get(calendarDate);
+                        List<Workout> workouts = workoutsMap.get(calendarDate);
                         if (workouts != null) {
                             createWorkoutsUI(workouts, rectangleHeight, rectangleWidth, stackPane);
                         }
@@ -153,10 +153,10 @@ public class Calendar implements Initializable {
      * @param rectangleWidth  Width of the rectangle UI element
      * @param stackPane       StackPane for placing the workout UI elements
      */
-    private void createWorkoutsUI(List<Workouts> workouts, double rectangleHeight, double rectangleWidth, StackPane stackPane) {
+    private void createWorkoutsUI(List<Workout> workouts, double rectangleHeight, double rectangleWidth, StackPane stackPane) {
         VBox workoutsBox = new VBox();
 
-        for (Workouts workout : workouts) {
+        for (Workout workout : workouts) {
             Text text = new Text(workout.getWorkoutType().toString());
             text.setUserData(workout); // Store Workouts object in the userData property
             workoutsBox.getChildren().add(text);
@@ -181,13 +181,13 @@ public class Calendar implements Initializable {
             Text text = (Text) event.getSource();
             Object userData = text.getUserData();
 
-            if (userData instanceof Workouts) {
-                Workouts clickedWorkout = (Workouts) userData;
+            if (userData instanceof Workout) {
+                Workout clickedWorkout = (Workout) userData;
                 LocalDate workoutDate = clickedWorkout.getDate();
-                List<Workouts> workoutsForDate = getWorkoutsForDate(workoutDate);
+                List<Workout> workoutForDate = getWorkoutsForDate(workoutDate);
 
-                if (workoutsForDate != null && !workoutsForDate.isEmpty()) {
-                    for (Workouts workout : workoutsForDate) {
+                if (workoutForDate != null && !workoutForDate.isEmpty()) {
+                    for (Workout workout : workoutForDate) {
                         System.out.println(workout);
                     }
                 } else {
@@ -203,7 +203,7 @@ public class Calendar implements Initializable {
      * @param date Date for which workouts need to be retrieved
      * @return List of workouts for the specified date
      */
-    private List<Workouts> getWorkoutsForDate(LocalDate date) {
+    private List<Workout> getWorkoutsForDate(LocalDate date) {
         // Retrieve workouts associated with the given date from workoutsMap
         return workoutsMap.get(date);
     }
@@ -212,18 +212,18 @@ public class Calendar implements Initializable {
     /**
      * Creates a map of workouts grouped by dates from the provided workouts list.
      *
-     * @param workoutsList List of workouts to be grouped by dates
+     * @param workoutList List of workouts to be grouped by dates
      * @return Map containing workouts grouped by dates
      */
-    private Map<LocalDate, ArrayList<Workouts>> createWorkoutsMap(List<Workouts> workoutsList) {
-        Map<LocalDate, ArrayList<Workouts>> workoutsMap = new HashMap<>();
+    private Map<LocalDate, ArrayList<Workout>> createWorkoutsMap(List<Workout> workoutList) {
+        Map<LocalDate, ArrayList<Workout>> workoutsMap = new HashMap<>();
 
-        for (Workouts workout : workoutsList) {
+        for (Workout workout : workoutList) {
             LocalDate workoutDate = workout.getDate();
             if (!workoutsMap.containsKey(workoutDate)) {
                 workoutsMap.put(workoutDate, new ArrayList<>(List.of(workout)));
             } else {
-                ArrayList<Workouts> oldListByDate = workoutsMap.get(workoutDate);
+                ArrayList<Workout> oldListByDate = workoutsMap.get(workoutDate);
                 oldListByDate.add(workout);
                 workoutsMap.put(workoutDate, oldListByDate);
             }
@@ -236,23 +236,23 @@ public class Calendar implements Initializable {
      *
      * @return Map containing workouts grouped by dates for the specified month
      */
-    private Map<LocalDate, ArrayList<Workouts>> getWorkoutsMonth() {
-        List<Workouts> workoutsList = new ArrayList<>();
+    private Map<LocalDate, ArrayList<Workout>> getWorkoutsMonth() {
+        List<Workout> workoutList = new ArrayList<>();
 
-        Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
-        Workouts day2 = new Workouts(LocalDate.of(2023,11,1), Activity.WALKING,5.5,6,70,900);
-        Workouts day3 = new Workouts(LocalDate.of(2023,11,2), Activity.RUNNING,5.5,6,70,900);
-        Workouts day4 = new Workouts(LocalDate.of(2023,11,25), Activity.WALKING,5.5,6,70,900);
-        Workouts day5 = new Workouts(LocalDate.of(2023,11,25), Activity.WALKING,5.5,6,70,900);
+        Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,6,70,900);
+        Workout day2 = new Workout(LocalDate.of(2023,11,1), WorkoutType.WALKING,5.5,6,70,900);
+        Workout day3 = new Workout(LocalDate.of(2023,11,2), WorkoutType.RUNNING,5.5,6,70,900);
+        Workout day4 = new Workout(LocalDate.of(2023,11,25), WorkoutType.WALKING,5.5,6,70,900);
+        Workout day5 = new Workout(LocalDate.of(2023,11,25), WorkoutType.WALKING,5.5,6,70,900);
 
-        workoutsList.add(day1);
-        workoutsList.add(day2);
-        workoutsList.add(day3);
-        workoutsList.add(day4);
-        workoutsList.add(day5);
+        workoutList.add(day1);
+        workoutList.add(day2);
+        workoutList.add(day3);
+        workoutList.add(day4);
+        workoutList.add(day5);
 
 
-        return createWorkoutsMap(workoutsList);
+        return createWorkoutsMap(workoutList);
 
     }
 

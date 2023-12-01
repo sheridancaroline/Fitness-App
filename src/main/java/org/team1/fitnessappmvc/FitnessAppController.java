@@ -26,12 +26,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.team1.ChatBot;
-import org.team1.ConversionUtil;
-import org.team1.Gender;
-import org.team1.Workouts;
-
+import org.team1.*;
+import javafx.scene.control.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -99,7 +98,63 @@ public class FitnessAppController {
                         "use this feature", Alert.AlertType.WARNING);
             }
         });
+
+        theView.getBtnAdd().setOnAction(event -> {
+            showAddWorkoutDialog(theView.getDatePicker().getValue());
+        });
     }
+
+    private void showAddWorkoutDialog(LocalDate selectedDate) {
+
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Add Workout");
+
+        // Create components for the dialog
+        ComboBox<WorkoutType> typeComboBox = new ComboBox<>();
+        typeComboBox.getItems().addAll(WorkoutType.values());
+        typeComboBox.setPromptText("Select Workout Type");
+
+        Spinner<Integer> hoursSpinner = new Spinner<>(0, 10, 0);
+        Spinner<Integer> minutesSpinner = new Spinner<>(0, 59, 0);
+
+        // Layout components in the dialog
+        VBox content = new VBox(new Label("Workout Date: " + selectedDate),
+                typeComboBox,
+                new Label("Duration:"),
+                new HBox(new Label("Hours:"), hoursSpinner, new Label("Minutes:"), minutesSpinner));
+
+        dialog.getDialogPane().setContent(content);
+
+        // Add buttons to the dialog
+        ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButton, ButtonType.CANCEL);
+
+        // Handle button actions
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButton) {
+                // Add the workout to the manager
+                WorkoutType selectedType = typeComboBox.getValue();
+                int hours = hoursSpinner.getValue();
+                int minutes = minutesSpinner.getValue();
+                int duration = minutes + hours * 60;
+                double speed = 6;
+                double weight = 50;
+                double height = 172;
+                double calculatedCalories = CalorieCalculator.calculateCalories(duration, speed, weight, height);
+                //double durationInMins, double speedMeterPerSecond, double weightInKg, double heightInMeter
+                Workout newWorkout = new Workout(selectedDate, selectedType, speed, duration, weight, calculatedCalories);
+                theModel.getUserInformation().addWorkout(newWorkout);
+
+
+                // Immediately update the display in the textArea
+                displayWorkoutsForSelectedDate(selectedDate, theView.getTextArea());
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
+    }
+
 
 
     /**
@@ -115,12 +170,12 @@ public class FitnessAppController {
         textArea.appendText("Workouts:\n");
 
         // Get the workouts for the selected date
-        List<Workouts> workouts = theModel.getUserInformation().getPastWorkouts().get(selectedDate);
+        List<Workout> workouts = theModel.getUserInformation().getPastWorkouts().get(selectedDate);
                 //workoutManager.getWorkoutsForDay(formattedDate);
 
 
         // Display each workout in a formatted block
-        for (Workouts workout : workouts) {
+        for (Workout workout : workouts) {
 
             int[] hoursAndMinutes = ConversionUtil.convertToHousrAndMinutes(workout.getDuration());
 
@@ -282,7 +337,7 @@ public class FitnessAppController {
         double minutes = parseDouble(theView.getTextFieldMinutes());
 
         // Calculate calories based on the model
-        double calculatedCalories = theModel.calculateCalories( hours, minutes, speed, weight, height);
+        double calculatedCalories = theModel.calculateCalories( hours * 60 + minutes, speed, weight, height);
 
         // Display the result
         showAlert("Calculation result", "Calculated Calories: " + calculatedCalories, Alert.AlertType.INFORMATION);
