@@ -39,9 +39,9 @@ public class Workout implements Serializable {
 
         this.date = date;
         this.workoutType = workoutType;
-        this.speed = speed;
-        this.duration = duration;
-        this.bodyWeight = bodyWeight;
+        this.speed = speed; // in m/s
+        this.duration = duration; // in mins
+        this.bodyWeight = bodyWeight; // in kg
         this.caloriesBurned = caloriesBurned;
     }
 
@@ -74,6 +74,8 @@ public class Workout implements Serializable {
         Workout day2 = new Workout(LocalDate.of(2022,12,1), WorkoutType.WALKING,5.5,6,70,900);
         System.out.println(day2);
         System.out.println(day2.date);
+
+
 
     }
 

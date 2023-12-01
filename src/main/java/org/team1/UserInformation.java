@@ -37,6 +37,10 @@ public class UserInformation implements Serializable {
 
     private Gender gender;
 
+    private double weight;
+
+    private double height;
+
     private TreeMap<LocalDate, ArrayList<Workout>> pastWorkouts;
 
     /**
@@ -46,10 +50,13 @@ public class UserInformation implements Serializable {
      * @param password user's password
      * @param gender user's gender
      */
-    public UserInformation(String username, String password, Gender gender){
+    public UserInformation(String username, String password, Gender gender, double weightInKg, double heightInCm){
         this.username = username;
         this.password = password;
         this.gender = gender;
+        this.weight = weightInKg;
+        this.height = heightInCm;
+
         this.pastWorkouts = new TreeMap<>();
     }
 
@@ -70,6 +77,10 @@ public class UserInformation implements Serializable {
     public Gender getGender(){
         return gender;
     }
+
+    public double getWeight() { return weight; }
+
+    public double getHeight() { return height; }
 
     public TreeMap<LocalDate, ArrayList<Workout>> getPastWorkouts() {
         return pastWorkouts;

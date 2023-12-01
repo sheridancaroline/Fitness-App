@@ -32,7 +32,7 @@ import java.util.ArrayList;
  */
 public class FitnessAppModel {
 
-    public static final String FILE_NAME = "userInformations.ser";
+    public static final String FILE_NAME = "userInformation.ser";
 
     private ArrayList<UserInformation> userInformations;
 
@@ -52,11 +52,15 @@ public class FitnessAppModel {
 
 //        this.userInformations = new ArrayList<>();
 //
+//        //LocalDate date, WorkoutType workoutType, double speed, double duration, double bodyWeight, double caloriesBurned
+//
 //        Workout day0 = new Workout(LocalDate.of(2023,12,1), WorkoutType.WALKING,5.5,60,70,900);
 //        Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,6,70,900);
 //        Workout day2 = new Workout(LocalDate.of(2022,12,1), WorkoutType.WALKING,5.5,30,70,900);
 //
-//        UserInformation userinformation = new UserInformation("rohbot", "1234", Gender.MALE);
+//
+//        //String username, String password, Gender gender, double weightInKg, double heightInCm
+//        UserInformation userinformation = new UserInformation("rohbot", "1234", Gender.MALE, 76, 176);
 //
 //        userinformation.addWorkout(day0);
 //        userinformation.addWorkout(day1);
@@ -81,9 +85,17 @@ public class FitnessAppModel {
         return userInformation;
     }
 
+
+    public void updateUserInformation(){
+        serializeUserInformation(null);
+    }
+
+
     public void serializeUserInformation(UserInformation userInformation){
 
-        userInformations.add(userInformation);
+        if (userInformation != null){
+            userInformations.add(userInformation);
+        }
 
         try{
             SerializationUtil.serialize(userInformations, FILE_NAME);
@@ -160,8 +172,8 @@ public class FitnessAppModel {
      * @param password The password for the new account.
      * @param gender The gender of the user
      */
-    public void createNewAccount(String username, String password, Gender gender){
-        UserInformation userinformation = new UserInformation(username, password, gender);
+    public void createNewAccount(String username, String password, Gender gender, double weight, double height){
+        UserInformation userinformation = new UserInformation(username, password, gender, weight, height);
         userInformations.add(userinformation);
         this.userInformation = userinformation;
 
@@ -186,7 +198,7 @@ public class FitnessAppModel {
      * @return
      */
     public double calculateCalories(double durationInMins, double speedPace, double weight, double height){
-        return CalorieCalculator.calculateCalories( durationInMins, speedPace, weight, height);
+        return CalorieCalculator.calculateCalories( durationInMins, speedPace, weight, height/100);
     }
 
 

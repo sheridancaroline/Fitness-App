@@ -137,13 +137,19 @@ public class FitnessAppController {
                 int hours = hoursSpinner.getValue();
                 int minutes = minutesSpinner.getValue();
                 int duration = minutes + hours * 60;
-                double speed = 6;
-                double weight = 50;
-                double height = 172;
-                double calculatedCalories = CalorieCalculator.calculateCalories(duration, speed, weight, height);
-                //double durationInMins, double speedMeterPerSecond, double weightInKg, double heightInMeter
+
+                // TODO add speed
+                double speed = 0;
+
+                // TODO show
+                double weight = theModel.getUserInformation().getWeight();
+                double heightInCm = theModel.getUserInformation().getHeight();
+                double heightInM = (double) heightInCm/100;
+                double calculatedCalories = CalorieCalculator.calculateCalories(duration, speed, weight, heightInM);
                 Workout newWorkout = new Workout(selectedDate, selectedType, speed, duration, weight, calculatedCalories);
+
                 theModel.getUserInformation().addWorkout(newWorkout);
+                theModel.updateUserInformation();
 
 
                 // Immediately update the display in the textArea
@@ -200,7 +206,8 @@ public class FitnessAppController {
         // Action on login button click
         this.theView.getBtnLogin().setOnAction(event -> {
             if (handleLogin()){
-                changeScene(event, new Scene(theView.getCalorieCalculatorRoot()));
+                changeScene(event, new Scene(theView.getCalendarRoot()));
+                //changeScene(event, new Scene(theView.getCalorieCalculatorRoot()));
             }
         });
 
@@ -250,6 +257,11 @@ public class FitnessAppController {
      */
     private void signupEventHandlers() {
 
+        this.theView.getBtnReturnToLoginPage().setOnAction(event -> {
+            changeScene(event, new Scene(theView.getLoginRoot()));
+            //changeScene(event, new Scene(theView.getCalendarRoot()));
+        });
+
         // Action on verify username button click
         this.theView.getBtnVerifyUsername().setOnAction(event -> {
 
@@ -272,6 +284,10 @@ public class FitnessAppController {
         // Action on create new account button click
         this.theView.getBtnCreateNewAccount().setOnAction(event -> {
 
+            if (theView.getTextFieldWeight2().isEmpty() || theView.getTextFieldHeight2().isEmpty()){
+                showAlert("Form Incomplete", "Make sure to enter both your weight and height"
+                        , Alert.AlertType.WARNING);
+            }
             // Check if passwords are empty or mismatched
             if (theView.getTextFieldPassword2().isEmpty() || theView.getTextFieldConfirmPassword().isEmpty()){
                 showAlert("Confirm your password", "Make sure to confirm your password"
@@ -291,7 +307,8 @@ public class FitnessAppController {
                     gender = Gender.FEMALE;
                 }
 
-                theModel.createNewAccount(theView.getTextFieldUsername2(), theView.getTextFieldPassword2(), gender);
+                theModel.createNewAccount(theView.getTextFieldUsername2(), theView.getTextFieldPassword2(),
+                        gender, parseDoubleInput(theView.getTextFieldWeight2()), parseDoubleInput(theView.getTextFieldHeight2()));
                 showAlert("Success", "Created a new account", Alert.AlertType.INFORMATION);
             }
         });

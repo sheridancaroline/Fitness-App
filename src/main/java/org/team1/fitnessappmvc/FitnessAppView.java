@@ -53,8 +53,11 @@ public class FitnessAppView {
     private TextField textFieldConfirmPassword;
     private Button btnCreateNewAccount;
     private Button btnVerifyUsername;
+    private Button btnReturnToLoginPage;
     private RadioButton rbMale;
     private RadioButton rbFemale;
+    private TextField textFieldWeight;
+    private TextField textFieldHeight;
 
 
     /** Controls used in the calorie calculator page */
@@ -134,9 +137,12 @@ public class FitnessAppView {
     /** Getter methods for controls for signup page */
     public String getTextFieldUsername2() { return textFieldUsername2.getText(); }
     public String getTextFieldPassword2() { return textFieldPassword2.getText(); }
+    public String getTextFieldWeight2() { return textFieldWeight.getText(); }
+    public String getTextFieldHeight2() { return textFieldHeight.getText(); }
     public String getTextFieldConfirmPassword() { return textFieldConfirmPassword.getText(); }
     public Button getBtnCreateNewAccount() { return btnCreateNewAccount; }
     public Button getBtnVerifyUsername() { return btnVerifyUsername; }
+    public Button getBtnReturnToLoginPage() { return btnReturnToLoginPage; }
     public RadioButton getRbMale() { return rbMale; }
     public RadioButton getRbFemale() { return rbFemale; }
 
@@ -232,8 +238,9 @@ public class FitnessAppView {
 
         VBox vbox = new VBox(datePicker, textArea);
         calendarRoot.setCenter(vbox);
-        calendarRoot.setBottom(addButton);
+        calendarRoot.setBottom(btnAdd);
         BorderPane.setMargin(btnAdd, new Insets(10));
+
     }
 
     /**
@@ -305,22 +312,14 @@ public class FitnessAppView {
 
         signupRoot = new VBox();
 
-        Label lblSignupHeading = new Label("Signup");
-        lblSignupHeading.setId("lblSignupHeading");
+        btnReturnToLoginPage = new Button("Return to Login Page");
 
+        Label lblSignupHeading = new Label("Signup");
+
+        signupRoot.getChildren().add(btnReturnToLoginPage);
         signupRoot.getChildren().add(lblSignupHeading);
 
         VBox userInformationBox = new VBox();
-
-        Label lblUsername = new Label("Username");
-        btnVerifyUsername = new Button("Verify");
-        textFieldUsername2 = new TextField();
-
-        Label lblPassword = new Label("Password");
-        textFieldPassword2 = new TextField();
-
-        Label lblConfirmPassword = new Label("Confirm Password");
-        textFieldConfirmPassword = new TextField();
 
         // radio button group to allow the user to select gender
         ToggleGroup group = new ToggleGroup();
@@ -332,8 +331,28 @@ public class FitnessAppView {
 
         VBox genderBox = new VBox();
         genderBox.getChildren().addAll(rbMale, rbFemale);
-
         signupRoot.getChildren().add(genderBox);
+
+        Label lblWeight = new Label("Weight");
+        textFieldWeight = new TextField();
+        textFieldWeight.setPromptText("Enter in kg");
+        Label lblHeight = new Label("Height");
+        textFieldHeight = new TextField();
+        textFieldHeight.setText("Enter in cm");
+
+        userInformationBox.getChildren().addAll(lblWeight, textFieldWeight);
+        userInformationBox.getChildren().addAll(lblHeight, textFieldHeight);
+
+
+        Label lblUsername = new Label("Username");
+        btnVerifyUsername = new Button("Verify");
+        textFieldUsername2 = new TextField();
+
+        Label lblPassword = new Label("Password");
+        textFieldPassword2 = new TextField();
+
+        Label lblConfirmPassword = new Label("Confirm Password");
+        textFieldConfirmPassword = new TextField();
 
         btnCreateNewAccount = new Button("Create a new account");
         btnCreateNewAccount.setDisable(true);
@@ -443,20 +462,20 @@ public class FitnessAppView {
 //        return menuBar;
 //    }
 
-    private MenuBar createMenuBar() {
-        Menu menu1 = new Menu("Calorie Calculator");
-        Menu menu2 = new Menu("Calendar");
-
-        MenuItem menuItem1 = new MenuItem("Item 1");
-        MenuItem menuItem2 = new MenuItem("Item 2");
-
-        menu1.getItems().add(menuItem1);
-        menu2.getItems().add(menuItem2);
-
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(menu1, menu2);
-        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
-
-        return menuBar;
-    }
+//    private MenuBar createMenuBar() {
+//        Menu menu1 = new Menu("Calorie Calculator");
+//        Menu menu2 = new Menu("Calendar");
+//
+//        MenuItem menuItem1 = new MenuItem("Item 1");
+//        MenuItem menuItem2 = new MenuItem("Item 2");
+//
+//        menu1.getItems().add(menuItem1);
+//        menu2.getItems().add(menuItem2);
+//
+//        MenuBar menuBar = new MenuBar();
+//        menuBar.getMenus().addAll(menu1, menu2);
+//        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
+//
+//        return menuBar;
+//    }
 }
