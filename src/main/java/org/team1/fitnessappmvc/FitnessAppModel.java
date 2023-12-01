@@ -18,16 +18,12 @@
  */
 package org.team1.fitnessappmvc;
 
-import javafx.beans.property.SimpleBooleanProperty;
+
 import org.team1.*;
 import org.team1.UserInformation;
-
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+
 
 /**
  * The model class handling user information and login-related
@@ -39,13 +35,7 @@ public class FitnessAppModel {
 
     private ArrayList<UserInformation> userInformations;
 
-    private Map<LocalDate, ArrayList<Workouts>> workoutsMap;
-
     private UserInformation userInformation;
-
-    private SimpleBooleanProperty isSetForMale;
-
-    private SimpleBooleanProperty isSetForFemale;
 
 
     /**
@@ -81,7 +71,10 @@ public class FitnessAppModel {
         return userInformation;
     }
 
-    public void serializeUserInformation(ArrayList<UserInformation> userInformations){
+    public void serializeUserInformation(UserInformation userInformation){
+
+        userInformations.add(userInformation);
+
         try{
             SerializationUtil.serialize(userInformations, FILE_NAME);
             System.out.println("success");
@@ -172,12 +165,6 @@ public class FitnessAppModel {
         }
     }
 
-    public Map<LocalDate, ArrayList<Workouts>> getWorkouts() {
-        System.out.println(userInformation);
-
-        return  this.userInformation.getPastWorkouts();
-
-    }
 
     /**
      * @author Amanda

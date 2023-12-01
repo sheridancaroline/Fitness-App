@@ -240,17 +240,17 @@ public class Calendar implements Initializable {
         List<Workouts> workoutsList = new ArrayList<>();
 
         Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
-        Workouts day2 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
-        Workouts day3 = new Workouts(LocalDate.of(2023,12,1), Activity.RUNNING,5.5,6,70,900);
-        Workouts day4 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
-        Workouts day5 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
-        Workouts day6 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
+        Workouts day2 = new Workouts(LocalDate.of(2023,11,1), Activity.WALKING,5.5,6,70,900);
+        Workouts day3 = new Workouts(LocalDate.of(2023,11,2), Activity.RUNNING,5.5,6,70,900);
+        Workouts day4 = new Workouts(LocalDate.of(2023,11,25), Activity.WALKING,5.5,6,70,900);
+        Workouts day5 = new Workouts(LocalDate.of(2023,11,25), Activity.WALKING,5.5,6,70,900);
+
         workoutsList.add(day1);
         workoutsList.add(day2);
         workoutsList.add(day3);
         workoutsList.add(day4);
         workoutsList.add(day5);
-        workoutsList.add(day6);
+
 
         return createWorkoutsMap(workoutsList);
 

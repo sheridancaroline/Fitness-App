@@ -53,8 +53,6 @@ public class FitnessAppMain extends Application {
     /**
      * Our standard main program for a JavaFX application
      *
-     * @author Dong Hyun Roh
-     *
      * @param args command line args
      */
     public static void main(String[] args) {

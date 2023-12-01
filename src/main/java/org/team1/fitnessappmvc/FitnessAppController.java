@@ -24,11 +24,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.team1.Activity;
+import org.team1.ChatBot;
 import org.team1.ConversionUtil;
 import org.team1.Gender;
-
 
 import java.io.IOException;
 
@@ -52,7 +52,6 @@ public class FitnessAppController {
      * Constructs a controller that connects the model and the
      * view for the fitness application.
      *
-     *
      * @param theModel The model component of the application.
      * @param theView  The view component of the application.
      */
@@ -60,13 +59,8 @@ public class FitnessAppController {
         this.theModel = theModel;
         this.theView = theView;
 
-        // Initialize event handlers and bindings upon controller creation.
+        // Initialize event handlers upon controller creation.
         initEventHandlers();
-        initBindings();
-    }
-
-
-    private void initBindings() {
     }
 
 
@@ -88,11 +82,38 @@ public class FitnessAppController {
 
         calorieCalculatorEventHandlers();
 
-//        theView.getMenuItem1().setOnAction(event -> {
-//            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//            stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
-//            stage.show();
-//        });
+        chatBotEventHandlers();
+    }
+
+
+    /**
+     * @author Donovan
+     */
+    private void chatBotEventHandlers() {
+
+        theView.getSubmitButton().setOnAction(event -> {
+
+            String name = theView.getNameInput().getText();
+            double timeLimit = parseDoubleInput(theView.getTimeLimitInput().getText());
+            double pounds = parseDoubleInput(theView.getPoundsInput().getText());
+            double timePeriod = parseDoubleInput(theView.getTimePeriodInput().getText());
+
+            if (timeLimit <= 0 || pounds <= 0 || timePeriod <= 0) {
+                showAlert("Invalid input", "Please enter valid positive numeric values.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            double[] suggestedWorkout = ChatBot.suggestWorkout(timeLimit, pounds, timePeriod);
+
+            showAlert("Suggested Workout",
+                    "Hi " + name + "! Based on your inputs, here's a suggested workout over the course of the next " + timePeriod + " days:\n"
+                            + "Workout: " + ChatBot.determineWorkoutChoice(suggestedWorkout[1]) + "\n"
+                            + "Distance: " + String.format("%.2f", suggestedWorkout[0]) + " miles\n"
+                            + "Speed: " + String.format("%.2f", suggestedWorkout[1]) + " miles per hour", Alert.AlertType.INFORMATION);
+
+            // Prompt for another entry
+            clearInputs(theView.getNameInput(), theView.getTimeLimitInput(), theView.getPoundsInput(), theView.getTimePeriodInput());
+        });
     }
 
 
@@ -104,39 +125,34 @@ public class FitnessAppController {
     private void loginEventHandlers() {
 
         // Action on login button click
-        this.theView.getBtnLogin().setOnAction(event -> {
 
-            // Check if username is empty
-            if (theView.getTextFieldUsername().isEmpty()){
-                System.out.println("enter username");
+
+    }
+
+    private boolean handleLogin() {
+        // Check if username is empty
+        if (theView.getTextFieldUsername().isEmpty()){
+            showAlert("Missing Information", "Enter your username", Alert.AlertType.WARNING);
+            return false;
+        }
+        // Check if password is empty
+        if (theView.getTextFieldPassword().isEmpty()){
+            showAlert("Missing Information", "Enter password", Alert.AlertType.WARNING);
+            return false;
+        }
+        else{
+            // Verify login credentials
+            if (theModel.verifyLogin(theView.getTextFieldUsername(), theView.getTextFieldPassword())){
+                showAlert("Success", "Login successful", Alert.AlertType.INFORMATION);
+                return true;
             }
-            // Check if password is empty
-            if (theView.getTextFieldPassword().isEmpty()){
-                System.out.println("enter password");
-            }
+            // Display an error alert when login verification fails.
             else{
-                // Verify login credentials
-                if (theModel.verifyLogin(theView.getTextFieldUsername(), theView.getTextFieldPassword())){
-                    System.out.println("Login success");
-
-                    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                    stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
-                    stage.show();
-
-
-                }
-                // Display an error alert when login verification fails.
-                else{
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Login Unsuccessful");
-                    alert.setHeaderText("Login failed");
-                    alert.setContentText("Make sure your username and password are correct");
-                    alert.show();
-
-
-                }
+                showAlert("Login Unsuccessful", "Make sure your username and password are correct"
+                        , Alert.AlertType.WARNING);
+                return false;
             }
-        });
+        }
     }
 
 
@@ -171,10 +187,12 @@ public class FitnessAppController {
 
             // Check if passwords are empty or mismatched
             if (theView.getTextFieldPassword2().isEmpty() || theView.getTextFieldConfirmPassword().isEmpty()){
-                System.out.println("Make sure to confirm ur password");
+                showAlert("Confirm your password", "Make sure to confirm your password"
+                        , Alert.AlertType.WARNING);
             }
             else if (!theView.getTextFieldPassword2().equals(theView.getTextFieldConfirmPassword())){
-                System.out.println("Your password does not match");
+                showAlert("Confirm your password", "Enter your password again correctly"
+                        , Alert.AlertType.WARNING);
             }
             // Create a new account with provided username and password
             else {
@@ -185,11 +203,23 @@ public class FitnessAppController {
                 else{
                     gender = Gender.FEMALE;
                 }
+
                 theModel.createNewAccount(theView.getTextFieldUsername2(), theView.getTextFieldPassword2(), gender);
-                System.out.println("Created a new account");
+                showAlert("Success", "Created a new account"
+                        , Alert.AlertType.INFORMATION);
             }
         });
     }
+
+    private void calorieChatBotEventHandlers() {
+
+        theView.getSubmitButton().setOnAction(event -> {
+            String name = theView.getNameInput().getText();
+
+        });
+
+    }
+
 
     private void calorieCalculatorEventHandlers() {
         theView.getCalculateButton().setOnAction(e -> handleCalculateButton());
@@ -214,6 +244,12 @@ public class FitnessAppController {
                 System.out.println("You have to create an account");
             }
 
+        });
+
+        theView.getBtnChatBot().setOnAction(event -> {
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(theView.getChatBotRoot(), 300, 200));
+            stage.show();
         });
 
     }
@@ -247,6 +283,23 @@ public class FitnessAppController {
 
     }
 
+    // TODO combine 2 parseDouble methods
+    private double parseDoubleInput(String input) {
+        double result = 0.0;
+        try {
+            result = Double.parseDouble(input);
+        } catch (NumberFormatException | NullPointerException e) {
+            showAlert("Invalid input", "Please enter a valid numeric value.", Alert.AlertType.WARNING);
+        }
+        return result;
+    }
+
+    private void clearInputs(TextField... textFields) {
+        for (TextField textField : textFields) {
+            textField.clear();
+        }
+    }
+
 
     private double parseDouble(String text) {
         try {
@@ -258,6 +311,7 @@ public class FitnessAppController {
     }
 
 
+
     /**
      * Handles various scene changes
      *
@@ -265,24 +319,48 @@ public class FitnessAppController {
      */
     private void handleSceneChange() {
 
+        this.theView.getBtnLogin().setOnAction(event -> {
+
+            if (handleLogin()){
+                changeScene(event, new Scene(theView.getCalorieCalculatorRoot()));
+            }
+        });
+
         this.theView.getBtnSignup().setOnAction(event -> {
 
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene (theView.getSignupRoot()));
-            stage.show();
+            changeScene(event, new Scene (theView.getSignupRoot()));
+
+//            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//            stage.setScene(new Scene (theView.getSignupRoot()));
+//            stage.show();
 
         });
 
         this.theView.getBtnGuest().setOnAction(event -> {
 
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
-            stage.show();
+            changeScene(event, new Scene(theView.getCalorieCalculatorRoot()));
+
+//            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//            stage.setScene(new Scene(theView.getCalorieCalculatorRoot()));
+//            stage.show();
         });
     }
 
-    private void sceneChangeToCalorieCalculator(){
-
+    private void changeScene(javafx.event.ActionEvent event, Scene scene){
+        stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
+
+
+    // Donovan
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }
 

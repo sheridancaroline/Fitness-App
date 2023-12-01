@@ -12,4 +12,6 @@ module csci205_final_project {
     exports org.team1;
     exports org.team1.calendar;
     opens org.team1.calendar to javafx.fxml;
+    exports org.team1.linechartmvc;
+    opens org.team1.linechartmvc to javafx.fxml;
 }

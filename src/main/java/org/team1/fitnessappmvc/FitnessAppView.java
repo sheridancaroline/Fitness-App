@@ -35,9 +35,8 @@ public class FitnessAppView {
     /** The model that contains the data and logic behind this view */
     private FitnessAppModel theModel;
 
-    private VBox root;
 
-    // Controls used in the login page
+    /** Controls used in the login page */
     private VBox loginRoot;
     private TextField textFieldUsername;
     private TextField textFieldPassword;
@@ -46,48 +45,51 @@ public class FitnessAppView {
     private Button btnGuest;
 
 
-    // Controls used in the signup page
+    /** Controls used in the signup page */
     private VBox signupRoot;
     private TextField textFieldUsername2;
     private TextField textFieldPassword2;
     private TextField textFieldConfirmPassword;
     private Button btnCreateNewAccount;
     private Button btnVerifyUsername;
-
-    private Button btnViewCalendar;
     private RadioButton rbMale;
     private RadioButton rbFemale;
 
 
-
+    /** Controls used in the calorie calculator page */
     private VBox calorieCalculatorRoot;
-
-    /** TextField */
     public TextField speedTextField;
     public TextField weightTextField;
     public TextField heightTextField;
     public TextField hoursTextField;
     public TextField minutesTextField;
-
-    /** Buttons */
     private Button calculateButton;
     private Button clearButton;
     private Button addButton;
-
-    /** ComboBoxes */
     private ComboBox<Activity> activityComboBox;
     private ComboBox<String> speedComboBox;
     private ComboBox<String> weightComboBox;
     private ComboBox<String> heightComboBox;
 
+
+    /** Controls used in the chatbot page */
+    private VBox chatBotRoot;
+    private TextField nameInput;
+    private TextField timeLimitInput;
+    private TextField poundsInput;
+    private TextField timePeriodInput;
+    private Button submitButton;
+
+
+
+    // TODO replace with menubar
+    private Button btnViewCalendar;
+    private Button btnChatBot;
+
     /** Menu bar to be displayed for layout */
     private MenuBar menuBar;
-
     private MenuItem menuItem1;
-
     private MenuItem menuItem2;
-
-
 
 
     /**
@@ -99,75 +101,45 @@ public class FitnessAppView {
 
         this.theModel = theModel;
 
-        root = new VBox();
-
         initSceneGraph();
         initStyling();
     }
 
-    public VBox getLoginRoot() {
 
-        root = loginRoot;
-        return loginRoot;
-    }
+    /** Getter methods for different roots */
+    public VBox getChatBotRoot() {return chatBotRoot;}
+    public VBox getCalorieCalculatorRoot() { return calorieCalculatorRoot; }
+    public VBox getLoginRoot() { return loginRoot; }
+    public VBox getSignupRoot() { return signupRoot; }
 
-    public VBox getSignupRoot() {
 
-        root = signupRoot;
-        return signupRoot;
-    }
+    /** Getter methods for controls for login page */
+    public String getTextFieldUsername() { return textFieldUsername.getText(); }
+    public String getTextFieldPassword() { return textFieldPassword.getText(); }
+    public Button getBtnLogin() { return btnLogin; }
+    public Button getBtnSignup() { return btnSignup; }
+    public Button getBtnGuest() { return btnGuest; }
 
-    public VBox getRoot(){
-        return root;
-    }
 
-    public String getTextFieldUsername() {
-        return textFieldUsername.getText();
-    }
-
-    public String getTextFieldUsername2() {
-        return textFieldUsername2.getText();
-    }
-
-    public String getTextFieldPassword() {
-        return textFieldPassword.getText();
-    }
-
-    public String getTextFieldPassword2() {
-        return textFieldPassword2.getText();
-    }
-
+    /** Getter methods for controls for signup page */
+    public String getTextFieldUsername2() { return textFieldUsername2.getText(); }
+    public String getTextFieldPassword2() { return textFieldPassword2.getText(); }
     public String getTextFieldConfirmPassword() { return textFieldConfirmPassword.getText(); }
-
-    public Button getBtnLogin() {
-        return btnLogin;
-    }
-
-    public Button getBtnSignup() {
-        return btnSignup;
-    }
-
-    public Button getBtnViewCalendar() {return btnViewCalendar; }
-
-    public Button getBtnGuest() {
-        return btnGuest;
-    }
-
     public Button getBtnCreateNewAccount() { return btnCreateNewAccount; }
-
     public Button getBtnVerifyUsername() { return btnVerifyUsername; }
-
     public RadioButton getRbMale() { return rbMale; }
-
     public RadioButton getRbFemale() { return rbFemale; }
 
 
+    /** Getter methods for controls for chatbot page */
+    public TextField getNameInput() { return nameInput; }
+    public TextField getTimeLimitInput() { return timeLimitInput; }
+    public TextField getPoundsInput() { return poundsInput; }
+    public TextField getTimePeriodInput() { return timePeriodInput; }
+    public Button getSubmitButton() { return submitButton; }
 
-    public VBox getCalorieCalculatorRoot() {
-        root = calorieCalculatorRoot;
-        return root;
-    }
 
+    /** Getter methods for controls for calorie calculator page */
     public Activity getComboBoxActivity() { return activityComboBox.getValue(); }
     public String getTextFieldSpeed() { return speedTextField.getText(); }
     public String getComboBoxSpeed() { return speedComboBox.getValue(); }
@@ -181,11 +153,16 @@ public class FitnessAppView {
     public Button getClearButton() { return clearButton; }
     public Button getAddButton() { return addButton;}
 
+
+    // TODO replace
+    public Button getBtnViewCalendar() {return btnViewCalendar; }
+    public Button getBtnChatBot() { return  btnChatBot; }
+
+    // TODO incorporate menubar
     public MenuBar getMenuBar() {return menuBar;}
-
     public MenuItem getMenuItem1() { return menuItem1; }
-
     public MenuItem getMenuItem2() { return menuItem2; }
+
 
     /**
      * @author Dong Hyun Roh
@@ -209,7 +186,11 @@ public class FitnessAppView {
 
         calorieCalculatorRoot.setPadding(new Insets(10,5,10,5));
         calorieCalculatorRoot.setAlignment(Pos.CENTER);
+
+        chatBotRoot.setPadding(new Insets(20, 20, 20, 20));
+        chatBotRoot.setSpacing(10);
     }
+
 
     /**
      * Initialize the entire scene graph
@@ -219,7 +200,32 @@ public class FitnessAppView {
         initLoginPage();
         initSignupPage();
         initCalorieCalculatorPage();
+        initChatBotPage();
     }
+
+    /**
+     * @author Donovan
+     */
+    private void initChatBotPage() {
+        chatBotRoot = new VBox();
+
+        nameInput = new TextField();
+        nameInput.setPromptText("Enter your name");
+
+        timeLimitInput = new TextField();
+        timeLimitInput.setPromptText("Enter workout time limit (Minutes)");
+
+        poundsInput = new TextField();
+        poundsInput.setPromptText("Enter the number of pounds to lose");
+
+        timePeriodInput = new TextField();
+        timePeriodInput.setPromptText("Enter the time span to lose weight (Days)");
+
+        submitButton = new Button("Submit");
+
+        chatBotRoot.getChildren().addAll(nameInput, timeLimitInput, poundsInput, timePeriodInput, submitButton);
+    }
+
 
     /**
      * @author Dong Hyun Roh
@@ -257,6 +263,7 @@ public class FitnessAppView {
 
         loginRoot.getChildren().add(btnGuest);
     }
+
 
     /**
      * @author Dong Hyun Roh
@@ -306,12 +313,16 @@ public class FitnessAppView {
         signupRoot.getChildren().add(userInformationBox);
     }
 
+    /**
+     * @author Amanda
+     */
     public void initCalorieCalculatorPage(){
         this.calorieCalculatorRoot = new VBox();
 
         btnViewCalendar = new Button("View Calendar");
+        btnChatBot = new Button("Chat with Trainer");
 
-        calorieCalculatorRoot.getChildren().add(btnViewCalendar);
+        calorieCalculatorRoot.getChildren().addAll(btnViewCalendar, btnChatBot);
 
 //        menuBar = createMenuBar();
 //        this.calorieCalculatorRoot.getChildren().add(menuBar);
@@ -370,9 +381,9 @@ public class FitnessAppView {
         addButton = new Button("Add to Chart");
         buttonSection.getChildren().addAll(clearButton, calculateButton, addButton);
 
-
         calorieCalculatorRoot.getChildren().addAll(activitySection, durationSection, speedSection, weightSection, heightSection, buttonSection);
     }
+
 
     //format of all drop down options
     private ComboBox<String> dropDownOptions(String promptText, String... items) {
@@ -381,6 +392,7 @@ public class FitnessAppView {
         comboBox.setPromptText(promptText);
         return comboBox;
     }
+
 
     private ComboBox<Activity> activityDropDownOptions(String promptText) {
         ComboBox<Activity> comboBox = new ComboBox<>();
@@ -414,7 +426,4 @@ public class FitnessAppView {
 
         return menuBar;
     }
-
-
-
 }
