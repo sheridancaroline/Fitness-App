@@ -53,5 +53,26 @@ public class ConversionUtil {
                 throw new IllegalArgumentException("Invalid distance unit");
         }
     }
+
+    public static int[] convertToHousrAndMinutes(double durationInMins){
+
+        if (durationInMins < 0) {
+            throw new IllegalArgumentException("Duration cannot be negative");
+        }
+
+        double hours = durationInMins / 60; // Calculate total hours
+        int wholeHours = (int) hours; // Extract the whole number of hours
+        int remainingMinutes = (int) Math.round((hours - wholeHours) * 60); // Calculate remaining minutes
+
+        return new int[]{wholeHours, remainingMinutes};
+    }
+
+
+    public static void main(String[] args){
+        int[] hoursAndMinutes = convertToHousrAndMinutes(3);
+
+        System.out.println(hoursAndMinutes[0]);
+        System.out.println(hoursAndMinutes[1]);
+    }
 }
 

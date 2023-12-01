@@ -22,6 +22,7 @@ package org.team1.fitnessappmvc;
 import org.team1.*;
 import org.team1.UserInformation;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -31,7 +32,7 @@ import java.util.ArrayList;
  */
 public class FitnessAppModel {
 
-    public static final String FILE_NAME = "userInformations.ser";
+    public static final String FILE_NAME = "userInformation.ser";
 
     private ArrayList<UserInformation> userInformations;
 
@@ -51,9 +52,9 @@ public class FitnessAppModel {
 
 //        this.userInformations = new ArrayList<>();
 //
-//        Workouts day0 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,6,70,900);
+//        Workouts day0 = new Workouts(LocalDate.of(2023,12,1), Activity.WALKING,5.5,60,70,900);
 //        Workouts day1 = new Workouts(LocalDate.now(), Activity.WALKING,5.5,6,70,900);
-//        Workouts day2 = new Workouts(LocalDate.of(2022,12,1), Activity.WALKING,5.5,6,70,900);
+//        Workouts day2 = new Workouts(LocalDate.of(2022,12,1), Activity.WALKING,5.5,30,70,900);
 //
 //        UserInformation userinformation = new UserInformation("rohbot", "1234", Gender.MALE);
 //
@@ -61,8 +62,17 @@ public class FitnessAppModel {
 //        userinformation.addWorkout(day1);
 //        userinformation.addWorkout(day2);
 //        userInformations.add(userinformation);
+//
+//        try{
+//            SerializationUtil.serialize(userInformations, FILE_NAME);
+//            System.out.println("success");
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//            return;
+//        }
 
-//        serializeUserInformation(userInformations);
+        //serializeUserInformation(userInformation);
 
 
     }

@@ -21,6 +21,7 @@ package org.team1.fitnessappmvc;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.team1.Activity;
@@ -81,6 +82,14 @@ public class FitnessAppView {
     private Button submitButton;
 
 
+    /** Controls used in the calendar page */
+
+    private BorderPane calendarRoot;
+    private DatePicker datePicker;
+    private TextArea textArea;
+    private Button btnAdd;
+
+
 
     // TODO replace with menubar
     private Button btnViewCalendar;
@@ -111,6 +120,7 @@ public class FitnessAppView {
     public VBox getCalorieCalculatorRoot() { return calorieCalculatorRoot; }
     public VBox getLoginRoot() { return loginRoot; }
     public VBox getSignupRoot() { return signupRoot; }
+    public BorderPane getCalendarRoot() { return calendarRoot; }
 
 
     /** Getter methods for controls for login page */
@@ -164,6 +174,12 @@ public class FitnessAppView {
     public MenuItem getMenuItem2() { return menuItem2; }
 
 
+    /** Getter methods for controls for calendar page */
+    public DatePicker getDatePicker() { return datePicker; }
+    public TextArea getTextArea() { return textArea; }
+    public Button getBtnAdd() { return btnAdd; }
+
+
     /**
      * @author Dong Hyun Roh
      */
@@ -201,6 +217,23 @@ public class FitnessAppView {
         initSignupPage();
         initCalorieCalculatorPage();
         initChatBotPage();
+        initCalendarPage();
+    }
+
+    /**
+     * @author Caroline
+     */
+    private void initCalendarPage() {
+        calendarRoot = new BorderPane();
+
+        datePicker = new DatePicker();
+        textArea = new TextArea();
+        btnAdd = new Button("+");
+
+        VBox vbox = new VBox(datePicker, textArea);
+        calendarRoot.setCenter(vbox);
+        calendarRoot.setBottom(addButton);
+        BorderPane.setMargin(btnAdd, new Insets(10));
     }
 
     /**

@@ -157,7 +157,7 @@ public class Calendar implements Initializable {
         VBox workoutsBox = new VBox();
 
         for (Workouts workout : workouts) {
-            Text text = new Text(workout.getActivity().toString());
+            Text text = new Text(workout.getWorkoutType().toString());
             text.setUserData(workout); // Store Workouts object in the userData property
             workoutsBox.getChildren().add(text);
 
