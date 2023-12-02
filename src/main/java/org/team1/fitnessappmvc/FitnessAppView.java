@@ -18,8 +18,10 @@
  */
 package org.team1.fitnessappmvc;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -36,9 +38,13 @@ public class FitnessAppView {
     /** The model that contains the data and logic behind this view */
     private FitnessAppModel theModel;
 
+    private Scene scene;
+
 
     /** Controls used in the login page */
-    private VBox loginRoot;
+
+    private BorderPane loginRoot;
+    private VBox loginInformation;
     private TextField textFieldUsername;
     private TextField textFieldPassword;
     private Button btnLogin;
@@ -47,13 +53,13 @@ public class FitnessAppView {
 
 
     /** Controls used in the signup page */
-    private VBox signupRoot;
+    private BorderPane signupRoot;
+    private VBox signupInformation;
     private TextField textFieldUsername2;
     private TextField textFieldPassword2;
     private TextField textFieldConfirmPassword;
     private Button btnCreateNewAccount;
     private Button btnVerifyUsername;
-    private Button btnReturnToLoginPage;
     private RadioButton rbMale;
     private RadioButton rbFemale;
     private TextField textFieldWeight;
@@ -61,7 +67,9 @@ public class FitnessAppView {
 
 
     /** Controls used in the calorie calculator page */
-    private VBox calorieCalculatorRoot;
+
+    private BorderPane calorieCalculatorRoot;
+    private VBox calorieCalculatorInformation;
     public TextField speedTextField;
     public TextField weightTextField;
     public TextField heightTextField;
@@ -94,14 +102,21 @@ public class FitnessAppView {
 
 
 
+
     // TODO replace with menubar
     private Button btnViewCalendar;
     private Button btnChatBot;
 
     /** Menu bar to be displayed for layout */
     private MenuBar menuBar;
-    private MenuItem menuItem1;
-    private MenuItem menuItem2;
+    private MenuItem menuItemCalorieCalculator;
+    private MenuItem menuItemCalendar;
+    private MenuItem menuItemChatbot;
+    private Menu menuView;
+    private MenuItem menuItemExit;
+    private Menu menuFile;
+    private Menu menuLogin;
+    private MenuItem menuItemLogin;
 
 
     /**
@@ -113,16 +128,21 @@ public class FitnessAppView {
 
         this.theModel = theModel;
 
+        initMenuBar();
         initSceneGraph();
         initStyling();
     }
 
 
+
     /** Getter methods for different roots */
+
+
     public VBox getChatBotRoot() {return chatBotRoot;}
-    public VBox getCalorieCalculatorRoot() { return calorieCalculatorRoot; }
-    public VBox getLoginRoot() { return loginRoot; }
-    public VBox getSignupRoot() { return signupRoot; }
+    public BorderPane getCalorieCalculatorRoot() { return calorieCalculatorRoot; }
+    //public VBox getLoginRoot() { return loginRoot; }
+    public BorderPane getLoginRoot() {return loginRoot;}
+    public BorderPane getSignupRoot() { return signupRoot; }
     public BorderPane getCalendarRoot() { return calendarRoot; }
 
 
@@ -142,7 +162,6 @@ public class FitnessAppView {
     public String getTextFieldConfirmPassword() { return textFieldConfirmPassword.getText(); }
     public Button getBtnCreateNewAccount() { return btnCreateNewAccount; }
     public Button getBtnVerifyUsername() { return btnVerifyUsername; }
-    public Button getBtnReturnToLoginPage() { return btnReturnToLoginPage; }
     public RadioButton getRbMale() { return rbMale; }
     public RadioButton getRbFemale() { return rbFemale; }
 
@@ -175,10 +194,29 @@ public class FitnessAppView {
     public Button getBtnChatBot() { return  btnChatBot; }
 
     // TODO incorporate menubar
-    public MenuBar getMenuBar() {return menuBar;}
-    public MenuItem getMenuItem1() { return menuItem1; }
-    public MenuItem getMenuItem2() { return menuItem2; }
 
+
+    public MenuBar getMenuBar() { return menuBar;}
+
+    public MenuItem getMenuItemCalorieCalculator() { return menuItemCalorieCalculator;}
+
+    public MenuItem getMenuItemCalendar() { return menuItemCalendar;}
+
+    public MenuItem getMenuItemChatbot() { return menuItemChatbot;}
+
+    public Menu getMenuView() { return menuView;}
+
+    public MenuItem getMenuItemExit() {return menuItemExit;}
+
+    public Menu getMenuFile() {return menuFile;}
+
+    public Menu getMenuLogin() {
+        return menuLogin;
+    }
+
+    public MenuItem getMenuItemLogin() {
+        return menuItemLogin;
+    }
 
     /** Getter methods for controls for calendar page */
     public DatePicker getDatePicker() { return datePicker; }
@@ -191,26 +229,68 @@ public class FitnessAppView {
      */
     private void initStyling() {
 
-        loginRoot.setAlignment(Pos.CENTER);
+        loginRoot.setPadding(new Insets(0,0,40,0));
 
-        loginRoot.setPrefSize(350, 500);
-        loginRoot.setPadding(new Insets(40,40,40,40));
-        loginRoot.setSpacing(10);
+        loginInformation.setAlignment(Pos.CENTER);
+        loginInformation.setSpacing(10);
+        loginInformation.setPadding(new Insets(40,100,40,100));
 
-        signupRoot.setAlignment(Pos.CENTER);
 
-        signupRoot.setPrefSize(350,500);
-        signupRoot.setPadding(new Insets(40,40,40,40));
-        signupRoot.setSpacing(10);
+        signupRoot.setPadding(new Insets(0,0,40,0));
 
-        calorieCalculatorRoot.setSpacing(5);
-        calorieCalculatorRoot.setPrefSize(500,500);
+        signupInformation.setAlignment(Pos.CENTER);
+        signupInformation.setSpacing(10);
+        signupInformation.setPadding(new Insets(40,100,40,100));
 
-        calorieCalculatorRoot.setPadding(new Insets(10,5,10,5));
-        calorieCalculatorRoot.setAlignment(Pos.CENTER);
+        //signupRoot.setAlignment(Pos.CENTER);
+
+        //signupRoot.setPrefSize(350,500);
+        //signupRoot.setPadding(new Insets(40,40,40,40));
+        //signupRoot.setSpacing(10);
+
+        calorieCalculatorRoot.setPadding(new Insets(0,0,40,0));
+
+        calorieCalculatorInformation.setAlignment(Pos.CENTER);
+        calorieCalculatorInformation.setSpacing(10);
+        calorieCalculatorInformation.setPadding(new Insets(40,100,40,100));
+//        calorieCalculatorRoot.setPrefSize(500,500);
+
+
+
 
         chatBotRoot.setPadding(new Insets(20, 20, 20, 20));
         chatBotRoot.setSpacing(10);
+    }
+
+    private void initMenuBar() {
+        menuItemCalorieCalculator = new MenuItem("Calorie Calculator");
+        menuItemCalendar = new MenuItem("Calendar");
+        menuItemChatbot = new MenuItem("Chatbot");
+
+        menuView = new Menu("View", null, menuItemCalorieCalculator, menuItemCalendar, menuItemChatbot);
+        menuView.setDisable(true);
+
+        menuItemExit = new MenuItem("Exit");
+
+        // TODO move to controller
+        menuItemExit.setOnAction(e -> Platform.exit());
+
+        menuFile = new Menu("File", null, menuItemExit);
+
+
+//        menuItemLogin = new MenuItem("Login Page");
+//        menuLogin = new Menu("Login", null, menuItemLogin);
+
+//        menuBar = new MenuBar(menuLogin, menuView, menuFile);
+
+        menuBar = new MenuBar( menuView, menuFile);
+
+
+
+
+
+
+
     }
 
 
@@ -224,7 +304,9 @@ public class FitnessAppView {
         initCalorieCalculatorPage();
         initChatBotPage();
         initCalendarPage();
+
     }
+
 
     /**
      * @author Caroline
@@ -270,38 +352,32 @@ public class FitnessAppView {
     /**
      * @author Dong Hyun Roh
      */
-    private void initLoginPage(){
+    public void initLoginPage(){
 
-        loginRoot = new VBox();
+        loginRoot = new BorderPane();
+
+        loginInformation = new VBox();
 
         Label lblLoginHeading = new Label("Member Login");
-        lblLoginHeading.setId("lblLoginHeading");
 
         VBox usernameBox = new VBox();
-        VBox passwordBox = new VBox();
-
         Label lblUsername = new Label("Username");
         textFieldUsername = new TextField();
-
         usernameBox.getChildren().addAll(lblUsername, textFieldUsername);
 
+        VBox passwordBox = new VBox();
         Label lblPassword = new Label("Password");
         textFieldPassword = new TextField();
-
         passwordBox.getChildren().addAll(lblPassword, textFieldPassword);
-
-        loginRoot.getChildren().addAll(lblLoginHeading, usernameBox, passwordBox);
 
         btnLogin = new Button("Login");
         btnSignup = new Button("Signup");
-
-        loginRoot.getChildren().addAll(btnLogin, btnSignup);
-
-        loginRoot.getChildren().add(new Separator());
-
         btnGuest = new Button("Continue as a guest");
 
-        loginRoot.getChildren().add(btnGuest);
+        loginInformation.getChildren().addAll(lblLoginHeading, usernameBox,
+                passwordBox, btnLogin, btnSignup, new Separator(), btnGuest);
+
+        loginRoot.setCenter(loginInformation);
     }
 
 
@@ -310,14 +386,11 @@ public class FitnessAppView {
      */
     public void initSignupPage(){
 
-        signupRoot = new VBox();
+        signupRoot = new BorderPane();
 
-        btnReturnToLoginPage = new Button("Return to Login Page");
+        signupInformation = new VBox();
 
         Label lblSignupHeading = new Label("Signup");
-
-        signupRoot.getChildren().add(btnReturnToLoginPage);
-        signupRoot.getChildren().add(lblSignupHeading);
 
         VBox userInformationBox = new VBox();
 
@@ -331,18 +404,17 @@ public class FitnessAppView {
 
         VBox genderBox = new VBox();
         genderBox.getChildren().addAll(rbMale, rbFemale);
-        signupRoot.getChildren().add(genderBox);
+
 
         Label lblWeight = new Label("Weight");
         textFieldWeight = new TextField();
         textFieldWeight.setPromptText("Enter in kg");
+
         Label lblHeight = new Label("Height");
         textFieldHeight = new TextField();
-        textFieldHeight.setText("Enter in cm");
+        textFieldHeight.setPromptText("Enter in cm");
 
-        userInformationBox.getChildren().addAll(lblWeight, textFieldWeight);
-        userInformationBox.getChildren().addAll(lblHeight, textFieldHeight);
-
+        userInformationBox.getChildren().addAll(lblWeight, textFieldWeight, lblHeight, textFieldHeight);
 
         Label lblUsername = new Label("Username");
         btnVerifyUsername = new Button("Verify");
@@ -357,27 +429,27 @@ public class FitnessAppView {
         btnCreateNewAccount = new Button("Create a new account");
         btnCreateNewAccount.setDisable(true);
 
-        userInformationBox.getChildren().addAll(lblUsername, textFieldUsername2, btnVerifyUsername);
-        userInformationBox.getChildren().addAll(lblPassword, textFieldPassword2);
-        userInformationBox.getChildren().addAll(lblConfirmPassword, textFieldConfirmPassword);
-        userInformationBox.getChildren().addAll(new Separator(), btnCreateNewAccount);
+        userInformationBox.getChildren().addAll(lblUsername, textFieldUsername2, btnVerifyUsername,
+                lblPassword, textFieldPassword2, lblConfirmPassword, textFieldConfirmPassword,
+                new Separator(), btnCreateNewAccount);
 
-        signupRoot.getChildren().add(userInformationBox);
+        signupInformation.getChildren().addAll(lblSignupHeading, genderBox, userInformationBox);
+
+        signupRoot.setCenter(signupInformation);
     }
 
     /**
      * @author Amanda
      */
     public void initCalorieCalculatorPage(){
-        this.calorieCalculatorRoot = new VBox();
+
+        this.calorieCalculatorRoot = new BorderPane();
+        this.calorieCalculatorInformation = new VBox();
 
         btnViewCalendar = new Button("View Calendar");
-        btnChatBot = new Button("Chat with Trainer");
 
-        calorieCalculatorRoot.getChildren().addAll(btnViewCalendar, btnChatBot);
+        calorieCalculatorInformation.getChildren().addAll(btnViewCalendar);
 
-//        menuBar = createMenuBar();
-//        this.calorieCalculatorRoot.getChildren().add(menuBar);
 
         // Activity
         HBox activitySection= new HBox();
@@ -433,7 +505,8 @@ public class FitnessAppView {
         addButton = new Button("Add to Chart");
         buttonSection.getChildren().addAll(clearButton, calculateButton, addButton);
 
-        calorieCalculatorRoot.getChildren().addAll(activitySection, durationSection, speedSection, weightSection, heightSection, buttonSection);
+        calorieCalculatorInformation.getChildren().addAll(activitySection, durationSection, speedSection, weightSection, heightSection, buttonSection);
+        calorieCalculatorRoot.setCenter(calorieCalculatorInformation);
     }
 
 
@@ -453,29 +526,5 @@ public class FitnessAppView {
         return comboBox;
     }
 
-//    private MenuBar createMenuBar() {
-//        menuItem1 = new MenuItem("Calorie Calculator");
-//        menuItem2 = new MenuItem("Calendar");
-//
-//        menuBar = new MenuBar((Menu) menuItem1, (Menu) menuItem2);
-//        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
-//        return menuBar;
-//    }
 
-//    private MenuBar createMenuBar() {
-//        Menu menu1 = new Menu("Calorie Calculator");
-//        Menu menu2 = new Menu("Calendar");
-//
-//        MenuItem menuItem1 = new MenuItem("Item 1");
-//        MenuItem menuItem2 = new MenuItem("Item 2");
-//
-//        menu1.getItems().add(menuItem1);
-//        menu2.getItems().add(menuItem2);
-//
-//        MenuBar menuBar = new MenuBar();
-//        menuBar.getMenus().addAll(menu1, menu2);
-//        menuBar.setMinSize(MenuBar.USE_PREF_SIZE, MenuBar.USE_PREF_SIZE);
-//
-//        return menuBar;
-//    }
 }

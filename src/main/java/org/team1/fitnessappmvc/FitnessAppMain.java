@@ -20,6 +20,7 @@ package org.team1.fitnessappmvc;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 
@@ -70,7 +71,10 @@ public class FitnessAppMain extends Application {
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Fitness Application");
-        primaryStage.setScene(new Scene(theView.getLoginRoot()));
+
+        BorderPane root = theView.getLoginRoot();
+        root.setTop(theView.getMenuBar());
+        primaryStage.setScene(new Scene(root,650, 450));
         primaryStage.sizeToScene();
         primaryStage.show();
     }
