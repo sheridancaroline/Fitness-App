@@ -19,6 +19,7 @@
  */
 package org.team1.fitnessappmvc;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -232,7 +233,6 @@ public class FitnessAppController {
                 stage = (Stage)((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
-
             }
             else {
                 showAlert("Cannot use this feature", "You have to create an account " +
@@ -267,7 +267,6 @@ public class FitnessAppController {
     }
 
 
-
     private void calendarEventHandlers() {
         theView.getDatePicker().setOnAction(event -> {
             if (theModel.getUserInformation() != null){
@@ -298,11 +297,14 @@ public class FitnessAppController {
         Spinner<Integer> hoursSpinner = new Spinner<>(0, 10, 0);
         Spinner<Integer> minutesSpinner = new Spinner<>(0, 59, 0);
 
+        TextField textfieldSpeed = new TextField();
+
         // Layout components in the dialog
         VBox content = new VBox(new Label("Workout Date: " + selectedDate),
                 typeComboBox,
                 new Label("Duration:"),
-                new HBox(new Label("Hours:"), hoursSpinner, new Label("Minutes:"), minutesSpinner));
+                new HBox(new Label("Hours:"), hoursSpinner, new Label("Minutes:"), minutesSpinner),
+                new HBox(new Label("Speed (m/s)"), textfieldSpeed));
 
         dialog.getDialogPane().setContent(content);
 
@@ -313,16 +315,13 @@ public class FitnessAppController {
         // Handle button actions
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButton) {
-                // Add the workout to the manager
+
                 WorkoutType selectedType = typeComboBox.getValue();
                 int hours = hoursSpinner.getValue();
                 int minutes = minutesSpinner.getValue();
                 int duration = minutes + hours * 60;
+                double speed = parseDouble(textfieldSpeed.getText());
 
-                // TODO add speed
-                double speed = 0;
-
-                // TODO show
                 double weight = theModel.getUserInformation().getWeight();
                 double heightInCm = theModel.getUserInformation().getHeight();
                 double heightInM = (double) heightInCm/100;
@@ -331,7 +330,6 @@ public class FitnessAppController {
 
                 theModel.getUserInformation().addWorkout(newWorkout);
                 theModel.updateUserInformation();
-
 
                 // Immediately update the display in the textArea
                 displayWorkoutsForSelectedDate(selectedDate, theView.getTextArea());
@@ -372,13 +370,6 @@ public class FitnessAppController {
                     workout.getCaloriesBurned());
             textArea.appendText(workoutBlock);
         }
-    }
-
-
-    //TODO remove?
-    private void handleAddButton() {
-
-        //theChart.updateLineChart(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd")), calculatedCalories);
     }
 
 
@@ -443,6 +434,10 @@ public class FitnessAppController {
         theView.getMenuItemChatbot().setOnAction(event -> {
             changeScene(new BorderPane(theView.getChatBotRoot()));
         });
+
+        theView.getMenuItemExit().setOnAction(event -> {
+            Platform.exit();
+        });
     }
 
 
@@ -474,6 +469,7 @@ public class FitnessAppController {
 
     // Donovan
     private void showAlert(String title, String message, Alert.AlertType type) {
+
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);

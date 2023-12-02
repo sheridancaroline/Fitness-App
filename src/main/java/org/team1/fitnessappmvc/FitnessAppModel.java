@@ -39,6 +39,7 @@ public class FitnessAppModel {
     private UserInformation userInformation;
 
 
+
     /**
      * @author Dong Hyun Roh
      */
@@ -77,8 +78,6 @@ public class FitnessAppModel {
 //        }
 
         //serializeUserInformation(userInformation);
-
-
     }
 
     public UserInformation getUserInformation() {
@@ -99,7 +98,6 @@ public class FitnessAppModel {
 
         try{
             SerializationUtil.serialize(userInformations, FILE_NAME);
-            System.out.println("success");
         }
         catch (IOException e){
             e.printStackTrace();
@@ -179,7 +177,6 @@ public class FitnessAppModel {
 
         try{
             SerializationUtil.serialize(userInformations, FILE_NAME);
-            System.out.println("success");
         }
         catch (IOException e){
             e.printStackTrace();
@@ -198,8 +195,7 @@ public class FitnessAppModel {
      * @return
      */
     public double calculateCalories(double durationInMins, double speedPace, double weight, double height){
-        return CalorieCalculator.calculateCalories( durationInMins, speedPace, weight, height/100);
+        return CalorieCalculator.calculateCalories( durationInMins, speedPace, weight, height);
     }
-
 
 }
