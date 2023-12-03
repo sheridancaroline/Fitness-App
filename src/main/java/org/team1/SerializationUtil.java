@@ -31,6 +31,7 @@ public class SerializationUtil {
      * @see <a href = "https://www.digitalocean.com/community/tutorials/serialization-in-java">
      *     https://www.digitalocean.com/community/tutorials/serialization-in-java</a>
      *
+     * @author Dong Hyun Roh
      * @param fileName File path from which to deserialize the object
      * @return Deserialized object
      * @throws IOException If an I/O error occurs during deserialization
@@ -50,6 +51,10 @@ public class SerializationUtil {
     /**
      * Serialize the given object and save it to a file.
      *
+     * @see <a href = "https://www.digitalocean.com/community/tutorials/serialization-in-java">
+     *      *     https://www.digitalocean.com/community/tutorials/serialization-in-java</a>
+     *
+     * @author Dong Hyun Roh
      * @param obj Object to be serialized
      * @param fileName File path to which the object will be serialized
      * @throws IOException If an I/O error occurs during serialization

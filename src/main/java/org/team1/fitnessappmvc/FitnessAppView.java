@@ -38,8 +38,6 @@ public class FitnessAppView {
     /** The model that contains the data and logic behind this view */
     private FitnessAppModel theModel;
 
-    private Scene scene;
-
 
     /** Controls used in the login page */
     private BorderPane loginRoot;
@@ -82,7 +80,7 @@ public class FitnessAppView {
     private ComboBox<String> heightComboBox;
 
 
-    /** Controls used in the chatbot page */
+    /** Controls used in the chatBot page */
     private VBox chatBotRoot;
     private TextField nameInput;
     private TextField timeLimitInput;
@@ -96,17 +94,6 @@ public class FitnessAppView {
     private DatePicker datePicker;
     private TextArea textArea;
     private Button btnAdd;
-
-
-    /** Controls used in the chart page */
-    private LineChart<String, Number> lineChart;
-    private BorderPane chartRoot;
-    private VBox updateRoot;
-    private TextField updateCals;
-    private Label updateCalsLabel;
-    private Button updateButton;
-    private Button updateSaveButton;
-
 
 
     // TODO replace with menubar
@@ -177,7 +164,6 @@ public class FitnessAppView {
 
 
     /** Getter methods for controls for calorie calculator page */
-    public WorkoutType getComboBoxActivity() { return activityComboBox.getValue(); }
     public String getTextFieldSpeed() { return speedTextField.getText(); }
     public String getComboBoxSpeed() { return speedComboBox.getValue(); }
     public String getTextFieldWeight() { return weightTextField.getText(); }
@@ -188,7 +174,6 @@ public class FitnessAppView {
     public String getTextFieldMinutes() { return minutesTextField.getText();}
     public Button getBtnCalculate() { return btnCalculate; }
     public Button getBtnClear() { return btnClear; }
-    public Button getAddButton() { return addButton;}
     // TODO replace
     public Button getBtnViewCalendar() {return btnViewCalendar; }
 
@@ -200,8 +185,6 @@ public class FitnessAppView {
     public MenuItem getMenuItemChatbot() { return menuItemChatbot;}
     public Menu getMenuView() { return menuView;}
     public MenuItem getMenuItemExit() { return menuItemExit; }
-    public Menu getMenuFile() { return menuFile; }
-    public MenuItem getMenuItemChart() { return menuItemChart; }
 
 
     /** Getter methods for controls for calendar page */
@@ -211,57 +194,71 @@ public class FitnessAppView {
 
 
     /**
+     * Initializes styling properties for various root elements and their corresponding information sections.
+     *
      * @author Dong Hyun Roh
      */
     private void initStyling() {
 
+        // Styling for loginRoot and loginInformation
         loginRoot.setPadding(new Insets(0,0,40,0));
-
         loginInformation.setAlignment(Pos.CENTER);
         loginInformation.setSpacing(10);
         loginInformation.setPadding(new Insets(40,100,40,100));
 
-
+        // Styling for signupRoot and signupInformation
         signupRoot.setPadding(new Insets(0,0,40,0));
-
         signupInformation.setAlignment(Pos.CENTER);
         signupInformation.setSpacing(10);
         signupInformation.setPadding(new Insets(40,100,40,100));
 
-
+        // Styling for calorieCalculatorRoot and calorieCalculatorInformation
         calorieCalculatorRoot.setPadding(new Insets(0,0,40,0));
-
         calorieCalculatorInformation.setAlignment(Pos.CENTER);
         calorieCalculatorInformation.setSpacing(10);
         calorieCalculatorInformation.setPadding(new Insets(40,100,40,100));
 
+        // Styling for chatBotRoot
         chatBotRoot.setPadding(new Insets(20, 20, 20, 20));
         chatBotRoot.setSpacing(10);
     }
 
 
+    /**
+     * Initializes the menu bar with various menus and menu items for different functionalities.
+     *
+     * @author Amanda and Dong Hyun Roh
+     */
     private void initMenuBar() {
+
+        // Create menu items for different functionalities
         menuItemCalorieCalculator = new MenuItem("Calorie Calculator");
         menuItemCalendar = new MenuItem("Calendar");
         menuItemChatbot = new MenuItem("Chatbot");
         menuItemChart = new MenuItem("Chart");
 
+        // Create a 'View' menu containing related menu items and disable it initially
         menuView = new Menu("View", null, menuItemCalorieCalculator,
                 menuItemCalendar, menuItemChatbot, menuItemChart);
         menuView.setDisable(true);
 
+        // Create an 'Exit' menu item within the 'File' menu
         menuItemExit = new MenuItem("Exit");
         menuFile = new Menu("File", null, menuItemExit);
 
+        // Create a MenuBar with 'View' and 'File' menus
         menuBar = new MenuBar( menuView, menuFile);
     }
 
 
     /**
-     * Initialize the entire scene graph
+     * Initializes the scene graph by setting up different pages within the application.
+     *
+     * @author Dong Hyun Roh
      */
     private void initSceneGraph() {
 
+        // Initialize different pages
         initLoginPage();
         initSignupPage();
         initCalorieCalculatorPage();
@@ -270,11 +267,13 @@ public class FitnessAppView {
     }
 
 
-
     /**
+     * Initializes the calendar page by creating necessary components and setting up the layout.
+     *
      * @author Caroline
      */
     private void initCalendarPage() {
+
         calendarRoot = new BorderPane();
 
         datePicker = new DatePicker();
@@ -289,6 +288,8 @@ public class FitnessAppView {
 
 
     /**
+     * Initializes the ChatBot page by creating necessary components and setting up the layout.
+     *
      * @author Donovan
      */
     private void initChatBotPage() {
@@ -313,10 +314,13 @@ public class FitnessAppView {
 
 
     /**
+     * Initializes the login page by creating necessary components and setting up the layout.
+     *
      * @author Dong Hyun Roh
      */
     public void initLoginPage(){
 
+        // Create a BorderPane for the login page
         loginRoot = new BorderPane();
 
         loginInformation = new VBox();
@@ -345,10 +349,13 @@ public class FitnessAppView {
 
 
     /**
+     * Initializes the signup page by creating necessary components and setting up the layout.
+     *
      * @author Dong Hyun Roh
      */
     public void initSignupPage(){
 
+        // Create a BorderPane for the signup page
         signupRoot = new BorderPane();
 
         signupInformation = new VBox();
@@ -367,7 +374,6 @@ public class FitnessAppView {
 
         VBox genderBox = new VBox();
         genderBox.getChildren().addAll(rbMale, rbFemale);
-
 
         Label lblWeight = new Label("Weight");
         textFieldWeight = new TextField();
@@ -401,7 +407,10 @@ public class FitnessAppView {
         signupRoot.setCenter(signupInformation);
     }
 
+
     /**
+     * Initializes the Calorie Calculator page by creating necessary components and setting up the layout.
+     *
      * @author Amanda
      */
     public void initCalorieCalculatorPage(){
@@ -473,7 +482,14 @@ public class FitnessAppView {
     }
 
 
-    //format of all drop down options
+    /**
+     * Creates a ComboBox<String> with specified items and a prompt text.
+     *
+     * @author Amanda Agambire
+     * @param promptText initial option
+     * @param items other unit options
+     * @return A ComboBox<String> populated with provided items and displaying the specified prompt text.
+     */
     private ComboBox<String> dropDownOptions(String promptText, String... items) {
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.getItems().addAll(items);
@@ -482,6 +498,13 @@ public class FitnessAppView {
     }
 
 
+    /**
+     * Creates a ComboBox<WorkoutType> with WorkoutType values and a prompt text.
+     *
+     * @author Amanda Agambire
+     * @param promptText The prompt text to be displayed initially in the ComboBox.
+     * @return A ComboBox<WorkoutType> populated with WorkoutType values and displaying the specified prompt text.
+     */
     private ComboBox<WorkoutType> activityDropDownOptions(String promptText) {
         ComboBox<WorkoutType> comboBox = new ComboBox<>();
         comboBox.getItems().addAll(WorkoutType.values());

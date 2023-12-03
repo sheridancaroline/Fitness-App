@@ -223,7 +223,4 @@ public class FitnessAppModel {
         // Serialize the userInformations collection
         updateUserInformation();
     }
-
-
-
 }
