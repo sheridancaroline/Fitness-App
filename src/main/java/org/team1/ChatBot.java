@@ -23,11 +23,6 @@ public class ChatBot {
     private static final double CALORIES_BURNED_PER_MILE = 100;
     private static final int AVG_WALKING_SPEED = 3;
 
-//    private double timeLimit;
-//    private double calorieInput;
-//    private String workoutChoice;
-//    private double timePeriod = 30;
-
     public static double[] suggestWorkout(double time, double pounds, double days) {
 
         double calorie = pounds * 3500;
@@ -35,10 +30,7 @@ public class ChatBot {
         double suggestedSpeed = suggestedDistance / time;
         double sessionDistance = suggestedDistance / days;
 
-        //String workoutChoice = (suggestedSpeed > AVG_WALKING_SPEED) ? "Running" : "Walking";
-
         return new double[]{sessionDistance, suggestedSpeed};
-
     }
 
     public static String determineWorkoutChoice(double suggestedSpeed){
@@ -48,14 +40,4 @@ public class ChatBot {
 
     }
 
-//    public static String printSuggestion(String name, ){
-//
-//    }
-
-
-
-
-
-
-
-    }
+}

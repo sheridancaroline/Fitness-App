@@ -73,8 +73,8 @@ public class FitnessAppView {
     public TextField heightTextField;
     public TextField hoursTextField;
     public TextField minutesTextField;
-    private Button calculateButton;
-    private Button clearButton;
+    private Button btnCalculate;
+    private Button btnClear;
     private Button addButton;
     private ComboBox<WorkoutType> activityComboBox;
     private ComboBox<String> speedComboBox;
@@ -168,7 +168,7 @@ public class FitnessAppView {
     public RadioButton getRbFemale() { return rbFemale; }
 
 
-    /** Getter methods for controls for chatbot page */
+    /** Getter methods for controls for chatBot page */
     public TextField getNameInput() { return nameInput; }
     public TextField getTimeLimitInput() { return timeLimitInput; }
     public TextField getPoundsInput() { return poundsInput; }
@@ -186,8 +186,8 @@ public class FitnessAppView {
     public String getComboBoxHeight() { return heightComboBox.getValue(); }
     public String getTextFieldHours() { return hoursTextField.getText(); }
     public String getTextFieldMinutes() { return minutesTextField.getText();}
-    public Button getCalculateButton() { return calculateButton; }
-    public Button getClearButton() { return clearButton; }
+    public Button getBtnCalculate() { return btnCalculate; }
+    public Button getBtnClear() { return btnClear; }
     public Button getAddButton() { return addButton;}
     // TODO replace
     public Button getBtnViewCalendar() {return btnViewCalendar; }
@@ -461,12 +461,12 @@ public class FitnessAppView {
 
         //Calculate Calories Button
         HBox buttonSection= new HBox();
-        calculateButton = new Button("Calculate");
+        btnCalculate = new Button("Calculate");
         //Clear Calories Button
-        clearButton = new Button("Clear ");
+        btnClear = new Button("Clear ");
         //Clear Calories Button
         addButton = new Button("Add to Chart");
-        buttonSection.getChildren().addAll(clearButton, calculateButton, addButton);
+        buttonSection.getChildren().addAll(btnClear, btnCalculate, addButton);
 
         calorieCalculatorInformation.getChildren().addAll(activitySection, durationSection, speedSection, weightSection, heightSection, buttonSection);
         calorieCalculatorRoot.setCenter(calorieCalculatorInformation);

@@ -56,7 +56,6 @@ public class LineChartStatsView extends Node {
     public LineChartStatsView(LineChartStatsModel theModel) {
         chartRoot = new VBox();
         initSceneGraph();
-//        initStyling();
     }
 
     private void initSceneGraph() {

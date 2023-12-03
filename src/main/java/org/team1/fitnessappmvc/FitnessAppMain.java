@@ -30,10 +30,13 @@ import javafx.stage.Stage;
  */
 public class FitnessAppMain extends Application {
 
+    /** The model component of the application */
     private FitnessAppModel theModel;
 
+    /** The view component of the application */
     private FitnessAppView theView;
 
+    /** The controller component of the application */
     private FitnessAppController theController;
 
 
@@ -72,6 +75,7 @@ public class FitnessAppMain extends Application {
 
         primaryStage.setTitle("Fitness Application");
 
+        // Start the application by displaying login page
         BorderPane root = theView.getLoginRoot();
         root.setTop(theView.getMenuBar());
         primaryStage.setScene(new Scene(root,650, 450));

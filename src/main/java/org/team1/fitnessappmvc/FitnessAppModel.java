@@ -184,18 +184,4 @@ public class FitnessAppModel {
         }
     }
 
-
-    /**
-     * @author Amanda
-     *
-     * @param durationInMins
-     * @param speedPace
-     * @param weight
-     * @param height
-     * @return
-     */
-    public double calculateCalories(double durationInMins, double speedPace, double weight, double height){
-        return CalorieCalculator.calculateCalories( durationInMins, speedPace, weight, height);
-    }
-
 }
