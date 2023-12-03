@@ -42,8 +42,6 @@ public class Calendar implements Initializable {
     ZonedDateTime dateFocus;
     ZonedDateTime today;
 
-    private FitnessAppModel theModel;
-
     @FXML
     private Text year;
 
