@@ -9,16 +9,17 @@
  * Time: 11:52 PM
  *
  * Project: csci205_final_project
- * Package: org.team1.example
+ * Package: org.team1.calendar
  * Class: CalendarController
  *
- * Description:
+ * Description: Developed to improve the visual of the calendar
+ * incorporated into fitnessappmvc. Have not completed the implementation
  *
  * ****************************************
  */
 package org.team1.calendar;
 
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.FlowPane;
@@ -30,7 +31,6 @@ import javafx.scene.text.Text;
 import org.team1.WorkoutType;
 import org.team1.Workout;
 import javafx.scene.input.MouseEvent;
-import org.team1.fitnessappmvc.FitnessAppModel;
 
 import java.net.URL;
 import java.time.LocalDate;

@@ -12,23 +12,29 @@
  * Package: org.team1
  * Class: CalorieCalculator
  *
- * Description:
+ * Description: Calorie Calculator class that computes calories burnt
+ * based on the parameters provided
  *
  * ****************************************
  */
 package org.team1;
 
-/**
- * Calulate the user's calories burnt based on their input
- * @see <a href = "https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/">
- *     https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/ </a>
- */
+
 public class CalorieCalculator {
 
+    /**
+     * Calulate the user's calories burnt based on their input
+     * @see <a href = "https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/">
+     *     https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/ </a>
+     */
+    public static double calculateCalories(double durationInMins, double speedMeterPerSecond,
+                                           double weightInKg, double heightInMeter) {
 
-    public static double calculateCalories(double durationInMins, double speedMeterPerSecond, double weightInKg, double heightInMeter) {
+        // Calculate calories burned per minute
+        double caloriesPerMin = ((0.035 * weightInKg) + (Math.pow(speedMeterPerSecond, 2))
+                / heightInMeter) * (0.029) * (weightInKg);
 
-        double caloriesPerMin = ((0.035 * weightInKg) + (Math.pow(speedMeterPerSecond, 2)) / heightInMeter) * (0.029) * (weightInKg);
+        // Calculate and return the total calories burned
         return Math.round(caloriesPerMin * durationInMins);
 
     }

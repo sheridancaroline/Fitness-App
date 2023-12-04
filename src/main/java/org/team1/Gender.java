@@ -12,12 +12,15 @@
  * Package: org.team1
  * Class: Gender
  *
- * Description:
+ * Description: Enum class for gender
  *
  * ****************************************
  */
 package org.team1;
 
+/**
+ * Enum class for gender
+ */
 public enum Gender {
     MALE,
     FEMALE

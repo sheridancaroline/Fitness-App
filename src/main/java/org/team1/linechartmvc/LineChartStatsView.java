@@ -12,7 +12,9 @@
  * Package: org.team1.linechartmvc
  * Class: LineChartStatsView
  *
- * Description:
+ * Description: This represents the basic GUI part of lineChart program.
+ * This includes the code to create the scene graph, and
+ * the styling of the display.
  *
  * ****************************************
  */

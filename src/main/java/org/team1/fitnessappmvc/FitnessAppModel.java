@@ -22,7 +22,6 @@ package org.team1.fitnessappmvc;
 import org.team1.*;
 import org.team1.UserInformation;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -194,7 +193,7 @@ public class FitnessAppModel {
         // Set the current user information to the newly created one
         userInformation = userinformation;
 
-        // Serialize the userInformations collection
+        // Serialize the userInformation collection
         updateUserInformation();
     }
 }

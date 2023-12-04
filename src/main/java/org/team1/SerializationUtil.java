@@ -12,7 +12,7 @@
  * Package: org.team1
  * Class: SerializationUtil
  *
- * Description:
+ * Description: Class that utilizes serialization to store information
  *
  * ****************************************
  */

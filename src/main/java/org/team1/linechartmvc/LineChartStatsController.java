@@ -12,7 +12,8 @@
  * Package: org.team1.linechartmvc
  * Class: LineChartStatsController
  *
- * Description:
+ * Description: This is the MVC controller class for
+ * lineChart program
  *
  * ****************************************
  */

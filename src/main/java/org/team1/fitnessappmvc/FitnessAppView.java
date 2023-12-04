@@ -12,7 +12,9 @@
  * Package: org.team1.fitnessappmvc
  * Class: FitnessAppView
  *
- * Description:
+ * Description: This represents the basic GUI part of our fitness application.
+ * This includes the code to create the scene graph for the app, and
+ * the styling of the display.
  *
  * ****************************************
  */
@@ -20,8 +22,6 @@ package org.team1.fitnessappmvc;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;

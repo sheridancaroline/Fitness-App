@@ -12,7 +12,7 @@
  * Package: org.team1.linechartmvc
  * Class: LineChartStatsModel
  *
- * Description:
+ * Description: This is the "model" for lineChart program
  *
  * ****************************************
  */
