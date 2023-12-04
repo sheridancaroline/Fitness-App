@@ -39,7 +39,7 @@ public class ConversionUtil {
             case "Kilograms(kg)":
                 return weight;
             case "Pound (lb)":
-                return weight * 2.20462;
+                return weight * 0.453592;
             default:
                 throw new IllegalArgumentException("Invalid distance unit");
         }
@@ -56,7 +56,12 @@ public class ConversionUtil {
         }
     }
 
-    public static int[] convertToHousrAndMinutes(double durationInMins){
+    /**
+     *
+     * @param durationInMins
+     * @return - a list where index 0 is hour and index is minutes
+     */
+    public static int[] convertToHourAndMinutes(double durationInMins){
 
         if (durationInMins < 0) {
             throw new IllegalArgumentException("Duration cannot be negative");
@@ -71,7 +76,7 @@ public class ConversionUtil {
 
 
     public static void main(String[] args){
-        int[] hoursAndMinutes = convertToHousrAndMinutes(3);
+        int[] hoursAndMinutes = convertToHourAndMinutes(3);
 
         System.out.println(hoursAndMinutes[0]);
         System.out.println(hoursAndMinutes[1]);

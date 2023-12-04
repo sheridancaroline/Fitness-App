@@ -8,11 +8,22 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalorieCalculatorTest {
+    /** the user input duration in minutes */
     private double durationInMins;
+
+    /** the user's speed input converted to Meters per second */
     private double speedMeterPerSecond;
+
+    /** the user's weight input converted to Kilograms  */
     private double weightInKg;
+
+    /** the user's height input converted to Meters  */
     private double heightInMeter;
     @BeforeEach
+    /**
+     * Set up the initial variables to test the
+     * calculateCalorie method
+     */
     void setUp() {
         this.durationInMins = 80 ;
         this.speedMeterPerSecond = 3.5;
