@@ -62,7 +62,7 @@ public class LineChartStatsModel {
     }
 
     /**
-     * A method that sets a tile for the line chart and
+     * A method that sets a title for the line chart and
      * adds data points to the chart
      *
      * @author Amanda Agambire

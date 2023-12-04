@@ -18,7 +18,6 @@
  */
 package org.team1.fitnessappmvc;
 
-
 import org.team1.*;
 import org.team1.UserInformation;
 import java.io.IOException;
@@ -53,18 +52,15 @@ public class FitnessAppModel {
 
         // Initialize the userInformation of the current user
         this.userInformation = null;
+
     }
 
+    /** @return {@link UserInformation} of the current user using the program */
     public UserInformation getUserInformation() {
         return userInformation;
     }
 
-
-
-
-    /**
-     * update the current userInformations by serializing it
-     */
+    /** update the current userInformations by serializing it */
     public void updateUserInformation(){
         serializeUserInformation(null);
     }

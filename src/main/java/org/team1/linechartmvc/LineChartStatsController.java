@@ -52,7 +52,7 @@ public class LineChartStatsController {
      */
     private void initEventHandlers() {
         //Update the chart when save is clicked
-        theView.getUpdateButton().setOnAction(e -> theModel.updateChart(theView.getUpdateRoot()));
+        theView.getBtnUpdate().setOnAction(e -> theModel.updateChart(theView.getUpdateRoot()));
 
         theView.getSaveButton().setOnAction(e -> handleSaveButton());
     }
@@ -66,7 +66,7 @@ public class LineChartStatsController {
      */
     private void handleSaveButton() {
         try {
-            double currentCals = Double.parseDouble(theView.getUpdateCals().getText());
+            double currentCals = Double.parseDouble(theView.getTextFieldUpdateCals().getText());
             theModel.updateLineChart(LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd")), currentCals);
         } catch (NumberFormatException ex) {
             System.out.println("Please enter a valid number for calories");

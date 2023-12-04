@@ -5,11 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-
 public class LineChartStatsMain extends Application {
 
     private LineChartStatsModel theModel;

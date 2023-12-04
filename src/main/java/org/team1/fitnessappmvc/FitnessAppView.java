@@ -22,6 +22,10 @@ package org.team1.fitnessappmvc;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -97,15 +101,22 @@ public class FitnessAppView {
     private Button btnViewCalendar;
 
 
+    /** Controls used in the chart page */
+    private BorderPane chartRoot;
+    private VBox chartInformation;
+    private LineChart<String, Number> lineChart;
+
+
     /** Menu bar to be displayed for layout */
     private MenuBar menuBar;
     private MenuItem menuItemCalorieCalculator;
     private MenuItem menuItemCalendar;
     private MenuItem menuItemChatbot;
+    private MenuItem menuItemChart;
     private Menu menuView;
     private MenuItem menuItemExit;
     private Menu menuFile;
-    private MenuItem menuItemChart;
+
 
 
     /**
@@ -179,6 +190,7 @@ public class FitnessAppView {
     public MenuItem getMenuItemCalorieCalculator() { return menuItemCalorieCalculator;}
     public MenuItem getMenuItemCalendar() { return menuItemCalendar;}
     public MenuItem getMenuItemChatbot() { return menuItemChatbot;}
+    public MenuItem getMenuItemChart() { return menuItemChart; }
     public Menu getMenuView() { return menuView;}
     public MenuItem getMenuItemExit() { return menuItemExit; }
 
@@ -187,6 +199,11 @@ public class FitnessAppView {
     public DatePicker getDatePicker() { return datePicker; }
     public TextArea getTextArea() { return textArea; }
     public Button getBtnAdd() { return btnAdd; }
+
+
+    /** Getter methods for controls for chart page */
+    public BorderPane getChartRoot() { return chartRoot; }
+    public LineChart<String, Number> getLineChart() { return lineChart; }
 
 
     /**
@@ -260,6 +277,24 @@ public class FitnessAppView {
         initCalorieCalculatorPage();
         initChatBotPage();
         initCalendarPage();
+        initChartPage();
+    }
+
+
+    /**
+     * Initializes the chart page by creating necessary components and setting up the layout.
+     *
+     * @author Amanda
+     */
+    private void initChartPage() {
+
+        chartRoot = new BorderPane();
+
+        chartInformation = new VBox();
+        lineChart = new LineChart<>(new CategoryAxis(), new NumberAxis());
+        chartInformation.getChildren().add(lineChart);
+
+        chartRoot.setCenter(chartInformation);
     }
 
 

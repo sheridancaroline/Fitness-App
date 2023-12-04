@@ -25,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -116,6 +117,13 @@ public class FitnessAppController {
                 // Change the scene to the calorie calculator view
                 changeScene(event, theView.getCalorieCalculatorRoot());
 
+                // Check if there is workout information to be displayed in the chart
+                if (theModel.getUserInformation().getPastWorkouts().firstEntry() != null){
+
+                    // Initialize the chart
+                    theView.getLineChart().getData().add(generateSeries());
+                }
+
                 // Enable the menu
                 theView.getMenuView().setDisable(false);
             }
@@ -132,8 +140,11 @@ public class FitnessAppController {
             showAlert("Notification", "You want be able to use calendar feature", Alert.AlertType.INFORMATION);
             // Change the scene to the calorie calculator view
             changeScene(event, theView.getCalorieCalculatorRoot());
-            // Enable the men
+
+            // Enable the menu but limit certain menuItems because it's a guest
             theView.getMenuView().setDisable(false);
+            theView.getMenuItemChart().setDisable(true);
+            theView.getMenuItemCalendar().setDisable(true);
         });
     }
 
@@ -314,8 +325,6 @@ public class FitnessAppController {
             showAlert("Calculation result", "Calculated Calories: " + calculatedCalories,
                     Alert.AlertType.INFORMATION);
         }
-
-
     }
 
 
@@ -345,15 +354,7 @@ public class FitnessAppController {
 
         // Action when a date is selected in the DatePicker
         theView.getDatePicker().setOnAction(event -> {
-            // It is a registered user
-            if (theModel.getUserInformation() != null){
-                displayWorkoutsForSelectedDate(theView.getDatePicker().getValue(), theView.getTextArea());
-            }
-            // It is a guest
-            else{
-                showAlert("Cannot use this feature", "Please create your account to " +
-                        "use this feature", Alert.AlertType.WARNING);
-            }
+            displayWorkoutsForSelectedDate(theView.getDatePicker().getValue(), theView.getTextArea());
         });
 
         // Action when the add button is clicked
@@ -410,7 +411,6 @@ public class FitnessAppController {
                 double weight = theModel.getUserInformation().getWeight();
                 double heightInM = (double) theModel.getUserInformation().getHeight()/100;
                 double calculatedCalories = CalorieCalculator.calculateCalories(duration, speed, weight, heightInM);
-                System.out.println(duration + " " + calculatedCalories + " " + speed + " " + weight + " " + heightInM);
 
                 Workout newWorkout = new Workout(selectedDate, selectedType, speed, duration, weight, calculatedCalories);
 
@@ -586,10 +586,51 @@ public class FitnessAppController {
             changeScene(new BorderPane(theView.getChatBotRoot()));
         });
 
+        // Action when 'Chart' menu item is clicked
+        theView.getMenuItemChart().setOnAction(event -> {
+
+            // Direct to the chart page
+            changeScene(new BorderPane(theView.getChartRoot()));
+
+            // Inform the user there is no past workout information saved yet
+            if (theModel.getUserInformation().getPastWorkouts().firstEntry() == null){
+                showAlert("Empty Chart", "It seems that you have created a new account! " +
+                        "\n So we do not have any information to generate the chart "
+                        , Alert.AlertType.INFORMATION);
+            }
+        });
+
         // Action when 'Exit' menu item is clicked
         theView.getMenuItemExit().setOnAction(event -> {
             Platform.exit();
         });
+    }
+
+
+    /**
+     * Generates an XYChart.Series containing sample data of calories for specific dates.
+     * Although this method generates sample data, we would have extracted data from userInformation in
+     * {@link org.team1.fitnessappmvc.FitnessAppModel}
+     *
+     * @author Amanda and Dong Hyun
+     * @return An XYChart.Series object representing calorie data over a range of dates.
+     */
+    private XYChart.Series<String, Number> generateSeries(){
+
+        // Create a new XYChart.Series to hold calorie data
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        series.setName("Calories");
+
+        // Sample dates and corresponding calorie values
+        String[] dates = {"10/12", "10/13", "10/14", "10/15", "10/16", "10/17", "10/18", "10/19", "10/20"};
+        int[] calories = {362, 222, 156, 156, 1133, 120, 91, 45, 430};
+
+        // Add data points to the series with dates and calorie values
+        for (int i = 0; i < dates.length; i++) {
+            series.getData().add(new XYChart.Data<>(dates[i], calories[i]));
+        }
+        return series;
     }
 
 

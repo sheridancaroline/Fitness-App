@@ -39,13 +39,13 @@ public class LineChartStatsView extends Node {
     private VBox updateRoot;
 
     /** TextField */
-    private TextField updateCals;
+    private TextField textFieldUpdateCals;
 
     /** Button */
-    private Button updateSaveButton;
+    private Button btnUpdateSave;
 
     /** Button */
-    private Button updateButton;
+    private Button btnUpdate;
 
 
     /**
@@ -68,16 +68,16 @@ public class LineChartStatsView extends Node {
      * get Update Cals
      * @return updateCals
      */
-    public TextField getUpdateCals() {
-        return updateCals;
+    public TextField getTextFieldUpdateCals() {
+        return textFieldUpdateCals;
     }
 
     /**
      * get update Button
      * @return - updateButton
      */
-    public Button getUpdateButton() {
-        return updateButton;
+    public Button getBtnUpdate() {
+        return btnUpdate;
     }
 
     /**
@@ -85,7 +85,7 @@ public class LineChartStatsView extends Node {
      * @return - updateSaveButton
      */
     public Button getSaveButton() {
-        return updateSaveButton;
+        return btnUpdateSave;
     }
 
     /**
@@ -107,24 +107,24 @@ public class LineChartStatsView extends Node {
      * @author Amanda Agambire
      */
     private void initSceneGraph() {
-        updateButton = new Button("UPDATE");
-        chartRoot.getChildren().add(updateButton);
+        btnUpdate = new Button("UPDATE");
+        chartRoot.getChildren().add(btnUpdate);
         theModel.generateLineChart();
         chartRoot.getChildren().add(theModel.lineChart);
 
 
         // Initialize updateRoot
         updateRoot = new VBox();
-        updateCals = new TextField();
-        updateCals.setPromptText("Calories");
-        updateCals.setFocusTraversable(false);
+        textFieldUpdateCals = new TextField();
+        textFieldUpdateCals.setPromptText("Calories");
+        textFieldUpdateCals.setFocusTraversable(false);
 
         //create update label and button
         Label updateCalsLabel = new Label("Calories");
-        updateSaveButton = new Button("SAVE");
+        btnUpdateSave = new Button("SAVE");
 
         //Add to update root
-        updateRoot.getChildren().addAll(updateCals, updateCalsLabel, updateSaveButton);
+        updateRoot.getChildren().addAll(textFieldUpdateCals, updateCalsLabel, btnUpdateSave);
     }
 
 
