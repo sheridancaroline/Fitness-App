@@ -3,52 +3,40 @@
  * Fall 2023
  * Instructor: Prof. Brian King / Prof. Joshua Stough
  *
- * Name: Caroline Sheridan
- * Section: 9 AM
- * Date: 11/14/23
- * Time: 2:36 PM
+ * Name: Amanda
+ * Section: 9am
+ * Date: 11/30/23
+ * Time: 3:59 PM
  *
  * Project: csci205_final_project
  * Package: org.team1
  * Class: CalorieCalculator
  *
- * Description:
+ * Description: Calorie Calculator class that computes calories burnt
+ * based on the parameters provided
  *
  * ****************************************
  */
 package org.team1;
 
+
 public class CalorieCalculator {
-    private static final double CALORIES_PER_MIN_RUNNING_MALE = 10.0;
-    private static final double CALORIES_PER_MIN_RUNNING_FEMALE = 8.5;
 
-    private static final double CALORIES_PER_MIN_WALKING_MALE = 5.0;
-    private static final double CALORIES_PER_MIN_WALKING_FEMALE = 4.0;
+    /**
+     * Calulate the user's calories burnt based on their input
+     * @see <a href = "https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/">
+     *     https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/ </a>
+     */
+    public static double calculateCalories(double durationInMins, double speedMeterPerSecond,
+                                           double weightInKg, double heightInMeter) {
 
-    private static final double DEFAULT_WEIGHT = 150.0;
+        // Calculate calories burned per minute
+        double caloriesPerMin = ((0.035 * weightInKg) + (Math.pow(speedMeterPerSecond, 2))
+                / heightInMeter) * (0.029) * (weightInKg);
 
-    public static int calculateCalories(WorkoutType workoutType, Sex sex, double weight, int minutes, int seconds) {
-        // Use default weight if weight is not provided
-        if (weight <= 0) {
-            weight = DEFAULT_WEIGHT;
-        }
+        // Calculate and return the total calories burned
+        return Math.round(caloriesPerMin * durationInMins);
 
-        double caloriesPerMinute;
-
-        // Determine calories per minute based on workout type and sex
-
-        if (workoutType == WorkoutType.RUN) {
-            caloriesPerMinute = (sex == Sex.MALE) ? CALORIES_PER_MIN_RUNNING_MALE : CALORIES_PER_MIN_RUNNING_FEMALE;
-        } else if (workoutType == WorkoutType.WALK) {
-            caloriesPerMinute = (sex == Sex.FEMALE) ? CALORIES_PER_MIN_WALKING_MALE : CALORIES_PER_MIN_WALKING_FEMALE;
-        } else {
-            throw new IllegalArgumentException("Invalid workout type");
-        }
-
-        // Calculate total calories burned
-        double totalCalories = (minutes + seconds / 60.0) * caloriesPerMinute * (weight/DEFAULT_WEIGHT);
-
-        return (int) totalCalories;
     }
 }
 

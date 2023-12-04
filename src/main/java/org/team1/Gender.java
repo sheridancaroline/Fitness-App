@@ -5,23 +5,23 @@
  *
  * Name: Dong Hyun Roh
  * Section: 9am
- * Date: 11/14/23
- * Time: 4:59 PM
+ * Date: 11/27/23
+ * Time: 9:23 PM
  *
  * Project: csci205_final_project
  * Package: org.team1
- * Class: WorkoutType
+ * Class: Gender
  *
- * Description: Enum class for workout type
+ * Description: Enum class for gender
  *
  * ****************************************
  */
 package org.team1;
 
 /**
- * Enum class for workout type
+ * Enum class for gender
  */
-public enum WorkoutType {
-    RUNNING,
-    WALKING
+public enum Gender {
+    MALE,
+    FEMALE
 }
