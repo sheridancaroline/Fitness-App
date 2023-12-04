@@ -32,7 +32,6 @@ import javafx.scene.text.Text;
 import org.team1.WorkoutType;
 import org.team1.Workout;
 import javafx.scene.input.MouseEvent;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
