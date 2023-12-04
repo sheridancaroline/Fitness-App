@@ -1,6 +1,6 @@
 package org.team1.CalorieCalculator;
 
-import org.team1.Sex;
+import org.team1.Gender;
 import org.team1.User;
 import org.team1.WorkoutType;
 

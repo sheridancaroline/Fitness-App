@@ -22,7 +22,9 @@ public class CalorieCalculator {
         double heightMeters = ConversionUtil.convertHeightToMeters(height, heightUnit);
         double workoutDuration = minutes + (hours * 60);
         double caloriesPerMin = ((0.035 * weightInKg) + (Math.pow(speedMeters, 2)) / heightMeters) * (0.029) * (weightInKg);
-        return caloriesPerMin * workoutDuration;
+
+        //round to 2 dp
+        return Math.round((caloriesPerMin * workoutDuration) * 100.0) / 100.0;
 
     }
 }

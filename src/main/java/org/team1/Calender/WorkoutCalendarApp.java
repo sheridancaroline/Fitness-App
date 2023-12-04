@@ -46,7 +46,7 @@ public class WorkoutCalendarApp extends Application {
      * @return the User created
      */
     private static User createUser() {
-        return new User(Sex.FEMALE, 130, 3);
+        return new User(Gender.FEMALE, 130, 3);
     }
 
     @Override

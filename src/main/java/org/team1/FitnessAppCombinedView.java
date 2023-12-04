@@ -14,6 +14,7 @@ import org.team1.CalorieCalculator.CalorieCalculatorView;
 import org.team1.LineChartStats.LineChartStatsController;
 import org.team1.LineChartStats.LineChartStatsModel;
 import org.team1.LineChartStats.LineChartStatsView;
+import org.team1.WorkoutCalendarApp;
 
 public class FitnessAppCombinedView extends Application {
     /** Primary stage for layout */
@@ -43,8 +44,12 @@ public class FitnessAppCombinedView extends Application {
     private LineChartStatsController lineController;
 
 
+    private WorkoutCalendarApp calender;
 
-    private org.team1.WorkoutCalendarApp calender;
+
+
+
+
 
     @Override
     public void init() throws Exception {
@@ -70,8 +75,8 @@ public class FitnessAppCombinedView extends Application {
         this.lineModel = new LineChartStatsModel();
         this.lineView = new LineChartStatsView(lineModel);
         this.lineController = new LineChartStatsController( lineModel, lineView);
-        this.calender = new org.team1.WorkoutCalendarApp();
-        calender.start(new Stage());
+        this.calender = new WorkoutCalendarApp();
+
 
         // Create menu bar
         menuBar = createMenuBar();
@@ -96,6 +101,7 @@ public class FitnessAppCombinedView extends Application {
         viewThreeMenuItem.setOnAction(e -> setScene(createSceneThree()));
 
         Menu viewMenu = new Menu("View", null, viewOneMenuItem, viewTwoMenuItem, viewThreeMenuItem);
+        //
 
         MenuItem exitMenuItem = new MenuItem("Exit");
         exitMenuItem.setOnAction(e -> Platform.exit());
@@ -122,6 +128,7 @@ public class FitnessAppCombinedView extends Application {
     }
     private BorderPane createSceneThree() {
         BorderPane borderPane = new BorderPane();
+        calender.start(stage);
         borderPane.setCenter(calender.getRoot());
         return borderPane;
     }

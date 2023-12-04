@@ -1,9 +1,10 @@
 package org.team1.CalorieCalculator;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import org.team1.LineChartStats.LineChartStatsMain;
 import org.team1.LineChartStats.LineChartStatsView;
-import org.team1.Sex;
+import org.team1.Gender;
 import org.team1.User;
 import org.team1.WorkoutType;
 
@@ -55,25 +56,28 @@ public class CalorieCalculatorController {
      * variables for the calorie formula
      */
     private void handleCalculateButton() {
-        //WorkoutType selectedActivity = theView.getComboBoxActivity();
-        double speed = parseDouble(theView.getTextFieldSpeed());
-        String speedUnit = theView.getComboBoxSpeed();
-        double weight = parseDouble(theView.getTextFieldWeight());
-        String weightUnit = theView.getComboBoxWeight();
-        double height = parseDouble(theView.getTextFieldHeight());
-        String heightUnit = theView.getComboBoxHeight();
-        double hours = parseDouble(theView.getTextFieldHours());
-        double minutes = parseDouble(theView.getTextFieldMinutes());
+        if (!validateInput()) {
+            return;
+        }
+        else {
+            double speed = parseDouble(theView.getTextFieldSpeed());
+            String speedUnit = theView.getComboBoxSpeed();
+            double weight = parseDouble(theView.getTextFieldWeight());
+            String weightUnit = theView.getComboBoxWeight();
+            double height = parseDouble(theView.getTextFieldHeight());
+            String heightUnit = theView.getComboBoxHeight();
+            double hours = parseDouble(theView.getTextFieldHours());
+            double minutes = parseDouble(theView.getTextFieldMinutes());
 
-        // Assume we have a 'User' instance obtained from initial login!! this should be temporary
-        //User user = new User(Sex.MALE, 82,2.5);
 
-        // Calculate calories based on the model
-        calculatedCalories = theModel.calculateCalories( hours, minutes, speed, speedUnit, weight, weightUnit, height, heightUnit);
+            // Calculate calories based on the model
+            calculatedCalories = theModel.calculateCalories(hours, minutes, speed, speedUnit, weight, weightUnit, height, heightUnit);
 
-        // Display/print to console
-        System.out.println("Calculated Calories: " + calculatedCalories);
+            // Display/print to console
+            System.out.println("Calculated Calories: " + calculatedCalories);
+        }
     }
+
 
     /**
      * @author Amanda Agambire
@@ -84,7 +88,6 @@ public class CalorieCalculatorController {
         theView.weightTextField.clear();
         theView.hoursTextField.clear();
         theView.minutesTextField.clear();
-
     }
 
     /**
@@ -112,30 +115,47 @@ public class CalorieCalculatorController {
         }
     }
 
-
-    private void initBindings() {
+    /**
+     * Creates a Warning alert with a given message to warn the
+     * user of an input error
+     * @param message - error message
+     */
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Check Input ");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
-    public void handleActionEvent(ActionEvent event) {
-        //TODO related to validating input
-//        try {
-//            String s = this.theView.getTextFieldTempInput().getText();
-//            // only convert if something has been entered
-//            if (!s.isEmpty()) {
-//                String result = this.theModel.strTempConvert(s);
-//                this.theView.getLblResult().setText(result);
-//            }
-//        }
-//        catch (NumberFormatException e) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Incorrect input!");
-//            alert.setHeaderText("Incorrect input specified!");
-//            alert.setContentText(String.format("Can not convert \"%s\"",
-//                    this.theView.getTextFieldTempInput().getText()));
-//            alert.show();
-//        }
-//    }
+
+    /**
+     * checks if any variables are 0
+     * @return true/false depending on if input is valid or not
+     */
+    private boolean validateInput() {
+        //get all variables
+        double speed = parseDouble(theView.getTextFieldSpeed());
+        double weight = parseDouble(theView.getTextFieldWeight());
+        double height = parseDouble(theView.getTextFieldHeight());
+        double hours = parseDouble(theView.getTextFieldHours());
+        double minutes = parseDouble(theView.getTextFieldMinutes());
+
+
+        // Check any variables = 0
+        if (speed == 0 || weight == 0 || height == 0 || (hours == 0 && minutes == 0)) {
+            // Alert the user to enter non-zero values
+            showAlert("Please enter non-zero values for ALL input fields.");
+
+            //return false so that the other calculations don't proceed
+            return false;
+        }
+
+        return true;
     }
+
+
+
 
 }
 

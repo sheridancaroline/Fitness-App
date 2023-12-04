@@ -8,4 +8,5 @@ module csci205_final_project {
     exports org.team1;
     exports org.team1.CalorieCalculator;
     exports org.team1.LineChartStats;
+
 }

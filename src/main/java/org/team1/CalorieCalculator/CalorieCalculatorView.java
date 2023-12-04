@@ -30,7 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.team1.CalorieCalculator.CalorieCalculatorModel;
-import org.team1.Sex;
+import org.team1.Gender;
 import org.team1.WorkoutType;
 import org.team1.User;
 
@@ -86,7 +86,7 @@ public class CalorieCalculatorView extends Node {
     public CalorieCalculatorView(CalorieCalculatorModel theModel) {
         this.theModel = theModel;
         root = new VBox();
-        this.user = new User(Sex.MALE, 82, 5);
+        this.user = new User(Gender.MALE, 82, 5);
         initSceneGraph();
         initStyling();
     }
