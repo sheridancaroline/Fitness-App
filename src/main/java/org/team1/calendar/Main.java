@@ -11,15 +11,14 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private FitnessAppModel theModel;
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        theModel = new FitnessAppModel();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/calendar/Calendar.fxml"));
         Parent root = loader.load();
+
         // Set up the stage and show it
         primaryStage.setTitle("Hello FXML");
         primaryStage.setScene(new Scene(root));

@@ -129,6 +129,7 @@ public class FitnessAppController {
 
         // Action on guest button click
         this.theView.getBtnGuest().setOnAction(event -> {
+            showAlert("Notification", "You want be able to use calendar feature", Alert.AlertType.INFORMATION);
             // Change the scene to the calorie calculator view
             changeScene(event, theView.getCalorieCalculatorRoot());
             // Enable the men
@@ -289,8 +290,6 @@ public class FitnessAppController {
      * @author Amanda
      */
     private void handleCalculateButton() {
-
-
 
         // Convert inputs to appropriate units for calculation
         double speed = ConversionUtil.convertSpeedToMeters(parseDouble(theView.getTextFieldSpeed()),

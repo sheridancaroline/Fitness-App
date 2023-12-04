@@ -23,6 +23,8 @@ import java.time.LocalDate;
 
 public class Workout implements Serializable {
 
+    private static final long serialVersionUID = 205;
+
     private LocalDate date;
 
     private WorkoutType workoutType;
@@ -64,19 +66,6 @@ public class Workout implements Serializable {
         String information = String.format("Activity: %s \nSpeed: %.2f \nDuration: %d Hours  %d Minutes \nBodyWeight: %.2f " +
                 "\nCalories Burned: %.2f", workoutType, speed, durationConverted[0], durationConverted[1], bodyWeight, caloriesBurned);
         return information;
-    }
-
-    public static void main(String[] args){
-        Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,60,70,900);
-        System.out.println(day1);
-        System.out.println(day1.date);
-
-        Workout day2 = new Workout(LocalDate.of(2022,12,1), WorkoutType.WALKING,5.5,6,70,900);
-        System.out.println(day2);
-        System.out.println(day2.date);
-
-
-
     }
 
 }

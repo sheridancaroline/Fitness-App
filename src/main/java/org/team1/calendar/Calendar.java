@@ -66,14 +66,14 @@ public class Calendar implements Initializable {
     }
 
     @FXML
-    void backOneMonth(ActionEvent event) {
+    void backOneMonth() {
         dateFocus = dateFocus.minusMonths(1);
         calendar.getChildren().clear();
         drawCalendar();
     }
 
     @FXML
-    void forwardOneMonth(ActionEvent event) {
+    void forwardOneMonth() {
         dateFocus = dateFocus.plusMonths(1);
         calendar.getChildren().clear();
         drawCalendar();
@@ -93,8 +93,6 @@ public class Calendar implements Initializable {
         double spacingH = calendar.getHgap();
         double spacingV = calendar.getVgap();
 
-        //List of activities for a given month
-        //Map<LocalDate, List<Workouts>> workoutsMap = getWorkoutsMonth();
 
         int monthMaxDate = dateFocus.getMonth().maxLength();
         //Check for leap year

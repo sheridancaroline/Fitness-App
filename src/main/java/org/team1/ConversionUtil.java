@@ -37,7 +37,7 @@ public class ConversionUtil {
             case "Kilograms(kg)":
                 return weight;
             case "Pound (lb)":
-                return weight * 2.20462;
+                return weight * 0.453592;
             default:
                 throw new IllegalArgumentException("Invalid distance unit");
         }
@@ -65,14 +65,6 @@ public class ConversionUtil {
         int remainingMinutes = (int) Math.round((hours - wholeHours) * 60); // Calculate remaining minutes
 
         return new int[]{wholeHours, remainingMinutes};
-    }
-
-
-    public static void main(String[] args){
-        int[] hoursAndMinutes = convertToHoursAndMinutes(3);
-
-        System.out.println(hoursAndMinutes[0]);
-        System.out.println(hoursAndMinutes[1]);
     }
 }
 

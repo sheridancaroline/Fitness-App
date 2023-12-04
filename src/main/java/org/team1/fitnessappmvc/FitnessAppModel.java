@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class FitnessAppModel {
 
     /** The file name used for serialization */
-    public static final String FILE_NAME = "userInformation.ser";
+    public static final String FILE_NAME = "userInformations.ser";
 
     /** A collection of userInformation */
     private ArrayList<UserInformation> userInformations;
@@ -49,39 +49,11 @@ public class FitnessAppModel {
      */
     public FitnessAppModel(){
 
+        // deserialize to fetch arraylist of userInformation
         this.userInformations = deserializeUserInformation();
 
+        // Initialize the userInformation of the current user
         this.userInformation = null;
-
-        System.out.println(userInformations);
-
-//        this.userInformations = new ArrayList<>();
-//
-//        //LocalDate date, WorkoutType workoutType, double speed, double duration, double bodyWeight, double caloriesBurned
-//
-//        Workout day0 = new Workout(LocalDate.of(2023,12,1), WorkoutType.RUNNING,5.5,60,76,900);
-//        Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,6,70,900);
-//        Workout day2 = new Workout(LocalDate.of(2022,12,3), WorkoutType.WALKING,3,30,76,250);
-//
-//
-//        //String username, String password, Gender gender, double weightInKg, double heightInCm
-//        UserInformation userinformation = new UserInformation("CSCI", "205", Gender.MALE, 76, 176);
-//
-//        userinformation.addWorkout(day0);
-//        userinformation.addWorkout(day1);
-//        userinformation.addWorkout(day2);
-//        userInformations.add(userinformation);
-//
-//        try{
-//            SerializationUtil.serialize(userInformations, FILE_NAME);
-//            System.out.println("success");
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//            return;
-//        }
-
-        //serializeUserInformation(userInformation);
     }
 
     public UserInformation getUserInformation() {

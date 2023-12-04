@@ -10,14 +10,17 @@
  *
  * Project: csci205_final_project
  * Package: org.team1
- * Class: Activity
+ * Class: WorkoutType
  *
- * Description:
+ * Description: Enum class for workout type
  *
  * ****************************************
  */
 package org.team1;
 
+/**
+ * Enum class for workout type
+ */
 public enum WorkoutType {
     RUNNING,
     WALKING
