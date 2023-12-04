@@ -13,7 +13,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/calendar/Calendar.fxml"));
         Parent root = loader.load();

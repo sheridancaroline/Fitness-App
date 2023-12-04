@@ -22,6 +22,7 @@ package org.team1.calendar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -37,6 +38,10 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+/** This class is not fully developed and integrated into the fitnessappmvc.
+ *  The purpose of this class was to experiment with enhancing the visual aspect of the calendar
+ *  that is currently being used in the fitnessappmvc
+ * */
 public class Calendar implements Initializable {
 
     ZonedDateTime dateFocus;
@@ -60,7 +65,7 @@ public class Calendar implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
-        workoutsMap = getWorkoutsMonth();
+        workoutsMap = createWorkoutsMap(getWorkouts());
 
         drawCalendar();
     }
@@ -180,38 +185,28 @@ public class Calendar implements Initializable {
             if (userData instanceof Workout) {
                 Workout clickedWorkout = (Workout) userData;
                 LocalDate workoutDate = clickedWorkout.getDate();
-                List<Workout> workoutForDate = getWorkoutsForDate(workoutDate);
+                List<Workout> workoutForDate = workoutsMap.get(workoutDate);
 
                 if (workoutForDate != null && !workoutForDate.isEmpty()) {
                     for (Workout workout : workoutForDate) {
-                        System.out.println(workout);
+                        showAlert("Workout Information", workout.toString(), Alert.AlertType.INFORMATION);
                     }
                 } else {
-                    System.out.println("No workouts found for the clicked date.");
+                    showAlert("No workout", "No workouts found for the selected date", Alert.AlertType.WARNING);
                 }
             }
         }
     }
 
-    /**
-     * Retrieves workouts associated with a specific date.
-     *
-     * @param date Date for which workouts need to be retrieved
-     * @return List of workouts for the specified date
-     */
-    private List<Workout> getWorkoutsForDate(LocalDate date) {
-        // Retrieve workouts associated with the given date from workoutsMap
-        return workoutsMap.get(date);
-    }
-
 
     /**
-     * Creates a map of workouts grouped by dates from the provided workouts list.
+     * Creates a map where workout objects are grouped by their respective dates.
      *
-     * @param workoutList List of workouts to be grouped by dates
-     * @return Map containing workouts grouped by dates
+     * @author Dong Hyun Roh
+     * @param workoutList ArrayList containing Workout objects to be grouped by date
+     * @return Map with LocalDate as keys and ArrayList of Workout objects as values
      */
-    private Map<LocalDate, ArrayList<Workout>> createWorkoutsMap(List<Workout> workoutList) {
+    private Map<LocalDate, ArrayList<Workout>> createWorkoutsMap(ArrayList<Workout> workoutList) {
         Map<LocalDate, ArrayList<Workout>> workoutsMap = new HashMap<>();
 
         for (Workout workout : workoutList) {
@@ -227,29 +222,51 @@ public class Calendar implements Initializable {
         return workoutsMap;
     }
 
-    /**
-     * Creates a map of workouts grouped by dates for a given month.
-     *
-     * @return Map containing workouts grouped by dates for the specified month
-     */
-    private Map<LocalDate, ArrayList<Workout>> getWorkoutsMonth() {
-        List<Workout> workoutList = new ArrayList<>();
 
+    /**
+     * Generates a list of sample workouts for demonstration purposes.
+     *
+     * @author Dong Hyun Roh
+     * @return An ArrayList containing sample Workout objects.
+     */
+    private ArrayList<Workout> getWorkouts() {
+
+        // Initialize an empty ArrayList to store Workout objects
+        ArrayList<Workout> workoutList = new ArrayList<>();
+
+        // Generate sample Workout objects
         Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,6,70,900);
         Workout day2 = new Workout(LocalDate.of(2023,11,1), WorkoutType.WALKING,5.5,6,70,900);
         Workout day3 = new Workout(LocalDate.of(2023,11,2), WorkoutType.RUNNING,5.5,6,70,900);
         Workout day4 = new Workout(LocalDate.of(2023,11,25), WorkoutType.WALKING,5.5,6,70,900);
         Workout day5 = new Workout(LocalDate.of(2023,11,25), WorkoutType.WALKING,5.5,6,70,900);
 
+        // Add the sample Workout objects to the ArrayList
         workoutList.add(day1);
         workoutList.add(day2);
         workoutList.add(day3);
         workoutList.add(day4);
         workoutList.add(day5);
 
+        return workoutList;
+    }
 
-        return createWorkoutsMap(workoutList);
 
+    /**
+     * Displays an alert dialog with the specified title, message, and type.
+     *
+     * @author Donovan
+     * @param title   The title of the alert dialog.
+     * @param message The message to be displayed in the alert dialog.
+     * @param type    The type of the alert dialog (e.g., INFORMATION, WARNING, ERROR).
+     */
+    private void showAlert(String title, String message, Alert.AlertType type) {
+
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }
