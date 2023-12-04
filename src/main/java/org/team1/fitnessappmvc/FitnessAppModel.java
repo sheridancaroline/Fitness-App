@@ -59,13 +59,13 @@ public class FitnessAppModel {
 //
 //        //LocalDate date, WorkoutType workoutType, double speed, double duration, double bodyWeight, double caloriesBurned
 //
-//        Workout day0 = new Workout(LocalDate.of(2023,12,1), WorkoutType.WALKING,5.5,60,70,900);
+//        Workout day0 = new Workout(LocalDate.of(2023,12,1), WorkoutType.RUNNING,5.5,60,76,900);
 //        Workout day1 = new Workout(LocalDate.now(), WorkoutType.WALKING,5.5,6,70,900);
-//        Workout day2 = new Workout(LocalDate.of(2022,12,1), WorkoutType.WALKING,5.5,30,70,900);
+//        Workout day2 = new Workout(LocalDate.of(2022,12,3), WorkoutType.WALKING,3,30,76,250);
 //
 //
 //        //String username, String password, Gender gender, double weightInKg, double heightInCm
-//        UserInformation userinformation = new UserInformation("rohbot", "1234", Gender.MALE, 76, 176);
+//        UserInformation userinformation = new UserInformation("CSCI", "205", Gender.MALE, 76, 176);
 //
 //        userinformation.addWorkout(day0);
 //        userinformation.addWorkout(day1);
@@ -87,6 +87,8 @@ public class FitnessAppModel {
     public UserInformation getUserInformation() {
         return userInformation;
     }
+
+
 
 
     /**

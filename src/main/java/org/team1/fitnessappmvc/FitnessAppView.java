@@ -94,9 +94,6 @@ public class FitnessAppView {
     private DatePicker datePicker;
     private TextArea textArea;
     private Button btnAdd;
-
-
-    // TODO replace with menubar
     private Button btnViewCalendar;
 
 
@@ -174,7 +171,6 @@ public class FitnessAppView {
     public String getTextFieldMinutes() { return minutesTextField.getText();}
     public Button getBtnCalculate() { return btnCalculate; }
     public Button getBtnClear() { return btnClear; }
-    // TODO replace
     public Button getBtnViewCalendar() {return btnViewCalendar; }
 
 
@@ -278,11 +274,13 @@ public class FitnessAppView {
 
         datePicker = new DatePicker();
         textArea = new TextArea();
+        btnViewCalendar = new Button("View Calendar");
         btnAdd = new Button("+");
 
+        VBox vBoxButtons = new VBox(btnAdd, btnViewCalendar);
         VBox vbox = new VBox(datePicker, textArea);
         calendarRoot.setCenter(vbox);
-        calendarRoot.setBottom(btnAdd);
+        calendarRoot.setBottom(vBoxButtons);
         BorderPane.setMargin(btnAdd, new Insets(10));
     }
 
@@ -417,11 +415,6 @@ public class FitnessAppView {
 
         this.calorieCalculatorRoot = new BorderPane();
         this.calorieCalculatorInformation = new VBox();
-
-        btnViewCalendar = new Button("View Calendar");
-
-        calorieCalculatorInformation.getChildren().addAll(btnViewCalendar);
-
 
         // Activity
         HBox activitySection= new HBox();

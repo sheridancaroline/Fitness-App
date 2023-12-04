@@ -54,7 +54,7 @@ public class ConversionUtil {
         }
     }
 
-    public static int[] convertToHousrAndMinutes(double durationInMins){
+    public static int[] convertToHoursAndMinutes(double durationInMins){
 
         if (durationInMins < 0) {
             throw new IllegalArgumentException("Duration cannot be negative");
@@ -69,7 +69,7 @@ public class ConversionUtil {
 
 
     public static void main(String[] args){
-        int[] hoursAndMinutes = convertToHousrAndMinutes(3);
+        int[] hoursAndMinutes = convertToHoursAndMinutes(3);
 
         System.out.println(hoursAndMinutes[0]);
         System.out.println(hoursAndMinutes[1]);

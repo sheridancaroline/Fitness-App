@@ -59,7 +59,7 @@ public class Workout implements Serializable {
 
     public String toString(){
 
-        int[] durationConverted = ConversionUtil.convertToHousrAndMinutes(duration);
+        int[] durationConverted = ConversionUtil.convertToHoursAndMinutes(duration);
 
         String information = String.format("Activity: %s \nSpeed: %.2f \nDuration: %d Hours  %d Minutes \nBodyWeight: %.2f " +
                 "\nCalories Burned: %.2f", workoutType, speed, durationConverted[0], durationConverted[1], bodyWeight, caloriesBurned);
