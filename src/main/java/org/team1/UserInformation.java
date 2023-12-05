@@ -12,7 +12,8 @@
  * Package: org.team1
  * Class: User
  *
- * Description:
+ * Description: UserInformation class that captures various information of the user, including
+ * username, password, gender, weight ...
  *
  * ****************************************
  */
@@ -29,6 +30,7 @@ import java.util.TreeMap;
  */
 public class UserInformation implements Serializable {
 
+    /** SerialVersionUID used as an identifier of the userInformation class */
     private static final long serialVersionUID = 101;
 
     private String username;

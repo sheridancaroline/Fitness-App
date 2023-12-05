@@ -12,7 +12,7 @@
  * Package: org.team1
  * Class: ConversionUtil
  *
- * Description:
+ * Description: ConversionUtil that provides methods for converting units
  *
  * ****************************************
  */

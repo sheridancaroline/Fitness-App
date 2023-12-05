@@ -12,7 +12,8 @@
  * Package: org.team1
  * Class: ChatBot
  *
- * Description:
+ * Description: ChatBot that generates suggestions on achieving certain goal based on
+ * what the user wants
  *
  * ****************************************
  */

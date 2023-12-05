@@ -12,7 +12,8 @@
  * Package: org.team1
  * Class: Workouts
  *
- * Description:
+ * Description: Workout class that captures various information such as
+ * date, workout type, duration...
  *
  * ****************************************
  */
@@ -23,37 +24,50 @@ import java.time.LocalDate;
 
 public class Workout implements Serializable {
 
+    /** SerialVersionUID used as an identifier of the workout class */
     private static final long serialVersionUID = 205;
 
+    /** Date on which the workout is done */
     private LocalDate date;
 
+    /** Workout type */
     private WorkoutType workoutType;
 
+    /** Speed */
     private double speed;
 
+    /** Duration */
     private double duration;
 
+    /** Weight of the person doing workout */
     private double bodyWeight;
 
+    /** Calorie burned */
     private double caloriesBurned;
 
+    /**
+     * Create a workout object
+     *
+     * @param date on which the workout is done
+     * @param workoutType of the workout
+     * @param speed in meter per second
+     * @param duration of the workout in minutes
+     * @param bodyWeight of the person in kg
+     * @param caloriesBurned from the workout
+     */
     public Workout(LocalDate date, WorkoutType workoutType, double speed, double duration, double bodyWeight, double caloriesBurned){
 
         this.date = date;
         this.workoutType = workoutType;
-        this.speed = speed; // in m/s
-        this.duration = duration; // in mins
-        this.bodyWeight = bodyWeight; // in kg
+        this.speed = speed;
+        this.duration = duration;
+        this.bodyWeight = bodyWeight;
         this.caloriesBurned = caloriesBurned;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
+    public LocalDate getDate() { return date; }
 
-    public WorkoutType getWorkoutType() {
-        return workoutType;
-    }
+    public WorkoutType getWorkoutType() { return workoutType;}
 
     public double getCaloriesBurned() {return caloriesBurned;}
 
