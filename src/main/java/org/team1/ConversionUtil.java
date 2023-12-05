@@ -18,7 +18,15 @@
  */
 package org.team1;
 
+/** Conversions used throughout app */
 public class ConversionUtil {
+
+    /**
+     * Converts speed from miles per hour or kilometers per hour to meters per second
+     * @param speed user is going
+     * @param unit mph, kph, or m/s
+     * @return speed in meters per second
+     */
     public static double convertSpeedToMeters(double speed, String unit) {
         switch (unit) {
             case "Miles per Hour":
@@ -32,6 +40,12 @@ public class ConversionUtil {
         }
     }
 
+    /**
+     * Converts pounds to kilograms
+     * @param weight of user
+     * @param unit lbs or kg
+     * @return weight in kilograms
+     */
     public static double convertWeightToKg(double weight, String unit) {
         switch (unit) {
             case "Kilograms(kg)":
@@ -43,6 +57,12 @@ public class ConversionUtil {
         }
     }
 
+    /**
+     * Convert height to meters
+     * @param height of user
+     * @param unit inches or centimeters
+     * @return height in meters
+     */
     public static double convertHeightToMeters(double height, String unit) {
         switch (unit) {
             case "inches(in)":
@@ -54,6 +74,11 @@ public class ConversionUtil {
         }
     }
 
+    /**
+     * Convert from minutes to hours and minutes
+     * @param durationInMins the minutes to convert to hours and minutes
+     * @return the duration in hours and minutes
+     */
     public static int[] convertToHoursAndMinutes(double durationInMins){
 
         if (durationInMins < 0) {

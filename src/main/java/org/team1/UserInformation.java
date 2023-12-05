@@ -29,18 +29,25 @@ import java.util.TreeMap;
  */
 public class UserInformation implements Serializable {
 
+    /** */
     private static final long serialVersionUID = 101;
 
+    /** Instantiate username for login*/
     private String username;
 
+    /** Instantiate password for login*/
     private String password;
 
+    /** Instantiate user gender */
     private Gender gender;
 
+    /** Instantiate user weight */
     private double weight;
 
+    /** Instantiate user height */
     private double height;
 
+    /** Instantiate past workouts to be stored */
     private TreeMap<LocalDate, ArrayList<Workout>> pastWorkouts;
 
 
@@ -83,6 +90,10 @@ public class UserInformation implements Serializable {
     }
 
 
+    /**
+     * Add workout to the list of past workouts to be stored
+     * @param workout the workout to be added
+     */
     public void addWorkout(Workout workout){
 
         LocalDate workoutDate = workout.getDate();
@@ -98,6 +109,10 @@ public class UserInformation implements Serializable {
     }
 
 
+    /**
+     * Creates String representation of the user information
+     * @return the String representation
+     */
     public String toString(){
         String information = String.format("Username: %s \nPassword: %s \nSex: %s \n Height: %s \nPast Workouts: %s "
                 ,  username, password, gender, height, pastWorkouts);

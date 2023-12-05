@@ -3,14 +3,14 @@
  * Fall 2023
  * Instructor: Prof. Brian King / Prof. Joshua Stough
  *
- * Name: Caroline Sheridan
- * Section: 9 AM
- * Date: 11/14/23
- * Time: 1:13 PM
+ * Name: Dong Hyun Roh
+ * Section: 9am
+ * Date: 11/12/23
+ * Time: 1:37 PM
  *
  * Project: csci205_final_project
  * Package: org.team1
- * Class: Workout
+ * Class: Workouts
  *
  * Description:
  *
@@ -18,60 +18,54 @@
  */
 package org.team1;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class Workout {
-    public WorkoutType workoutType;
+public class Workout implements Serializable {
 
-    public LocalDate date;
+    private static final long serialVersionUID = 205;
 
-    public int caloriesBurned;
+    private LocalDate date;
 
-    public int minutesDuration;
+    private WorkoutType workoutType;
 
-    public int secondsDuration;
+    private double speed;
 
-    public Workout(WorkoutType workoutType, LocalDate date, int caloriesBurned, int minutesDuration, int secondsDuration) {
-        this.workoutType = workoutType;
+    private double duration;
+
+    private double bodyWeight;
+
+    private double caloriesBurned;
+
+    public Workout(LocalDate date, WorkoutType workoutType, double speed, double duration, double bodyWeight, double caloriesBurned){
+
         this.date = date;
+        this.workoutType = workoutType;
+        this.speed = speed; // in m/s
+        this.duration = duration; // in mins
+        this.bodyWeight = bodyWeight; // in kg
         this.caloriesBurned = caloriesBurned;
-        this.minutesDuration = minutesDuration;
-        this.secondsDuration = secondsDuration;
-    }
-
-    public WorkoutType getWorkoutType() {
-        return workoutType;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public int getCaloriesBurned() {
-        return caloriesBurned;
+    public WorkoutType getWorkoutType() {
+        return workoutType;
     }
 
-    public int getMinutesDuration() {
-        return minutesDuration;
+    public double getCaloriesBurned() {return caloriesBurned;}
+
+    public double getDuration() {return duration; }
+
+    public String toString(){
+
+        int[] durationConverted = ConversionUtil.convertToHoursAndMinutes(duration);
+
+        String information = String.format("Activity: %s \nSpeed: %.2f \nDuration: %d Hours  %d Minutes \nBodyWeight: %.2f " +
+                "\nCalories Burned: %.2f", workoutType, speed, durationConverted[0], durationConverted[1], bodyWeight, caloriesBurned);
+        return information;
     }
 
-    public int getSecondsDuration() {
-        return secondsDuration;
-    }
-
-    public String toString() {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-        // Format the workout information
-        String formattedDate = dateFormat.format(date);
-        String formattedType = workoutType.toString();
-        String formattedDuration = String.format("%d:%02d", minutesDuration, secondsDuration);
-        String formattedCalories = Integer.toString(caloriesBurned);
-
-        return "[" + formattedDate + ", " + formattedType + ", " + formattedDuration + ", " + formattedCalories + "]";
-    }
 }
-
-
-
