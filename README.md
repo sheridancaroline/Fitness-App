@@ -20,7 +20,6 @@ Our main directory is org.team1 which contains different subdirectories and clas
 
 - The fitnessappmvc subdirectory contains FitnessAppModel, FitnessAppController, FitnessAppView, and FitnessAppMain. The FitnessAppMain, which uses the view, controller, and model, is responsible for running our fitness application. 
 - The calendar subdirectory contains Calendar and Main, which are not fully implemented and integrated into our fitness application. Still, we have included the calendar subdirectory to show how we were working to improve the calendar that is currently being used in our fitness application.
-- The linechartmvc subdirectory contains LineChartStatsController, LineChartStatsView, LineChartStatsModel, and LineChartStatsMain. 
 - The various classes that are contained in the main directory are being used by FitnessAppModel and FitnessAppController.
 
 
