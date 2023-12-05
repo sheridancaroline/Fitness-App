@@ -11,6 +11,11 @@ class SerializationUtilTest {
     private static final String TEST_FILE_NAME = "testFile.ser";
 
 
+    /**
+     * Test serialization
+     *
+     * @author Dong Hyun Roh
+     */
     @Test
     void serializeAndDeserializeObject() {
 

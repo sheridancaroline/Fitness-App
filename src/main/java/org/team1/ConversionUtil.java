@@ -23,6 +23,8 @@ public class ConversionUtil {
 
     /**
      * Converts speed from miles per hour or kilometers per hour to meters per second
+     *
+     * @author Amanda
      * @param speed user is going
      * @param unit mph, kph, or m/s
      * @return speed in meters per second
@@ -42,6 +44,8 @@ public class ConversionUtil {
 
     /**
      * Converts pounds to kilograms
+     *
+     * @author Amanda
      * @param weight of user
      * @param unit lbs or kg
      * @return weight in kilograms
@@ -59,6 +63,8 @@ public class ConversionUtil {
 
     /**
      * Convert height to meters
+     *
+     * @author Amanda
      * @param height of user
      * @param unit inches or centimeters
      * @return height in meters
@@ -76,6 +82,8 @@ public class ConversionUtil {
 
     /**
      * Convert from minutes to hours and minutes
+     *
+     * @author Dong Hyun Roh
      * @param durationInMins the minutes to convert to hours and minutes
      * @return the duration in hours and minutes
      */

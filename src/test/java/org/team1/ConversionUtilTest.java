@@ -23,6 +23,8 @@ class ConversionUtilTest {
 
     /**
      * A test to ensure units are correctly converted to meters per second
+     *
+     * @author Amanda
      */
     @Test
     @DisplayName("convertWeightToKg()- test converting given weight to Kg")
@@ -41,6 +43,8 @@ class ConversionUtilTest {
 
     /**
      * A test to make sure weight units are converted to Kilograms
+     *
+     * @author Amanda
      */
     @Test
     @DisplayName("convertWeightToKg()- test converting given weight to Kg")
@@ -54,6 +58,8 @@ class ConversionUtilTest {
 
     /**
      * A test to make sure height units are converted to Meters
+     *
+     * @author Amanda
      */
     @Test
     @DisplayName("convertHeightToMeters()- test converting height to meters")
@@ -72,6 +78,8 @@ class ConversionUtilTest {
      * A test to make sure minutes are converted
      * to 0 hours and x minutes if duration is below 60
      * and x hours and x minutes if duration is above 60 minutes
+     *
+     * @author Amanda
      */
     @Test
     @DisplayName("convertToHourAndMinutes()- test converting minutes to  hours and minutes")

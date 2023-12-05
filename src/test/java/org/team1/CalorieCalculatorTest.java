@@ -25,6 +25,8 @@ class CalorieCalculatorTest {
     /**
      * Set up the initial variables to test the
      * calculateCalorie method
+     *
+     * @author Amanda
      */
     @BeforeEach
     void setUp() {
@@ -43,6 +45,8 @@ class CalorieCalculatorTest {
      * A test to makes sure the correct values are returned given the formula:
      * Calories burned per minute = (0.035  X body weight in kg) +
      * (Velocity in m/s ^ 2) / (Height in m) X (0.029) X (body weight in kg)
+     *
+     * @author Amanda
      */
     @DisplayName("CalorieCalculator() - test for correct calories calculated")
     @Test

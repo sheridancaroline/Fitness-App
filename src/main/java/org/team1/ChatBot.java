@@ -32,6 +32,8 @@ public class ChatBot {
 
     /**
      * Method for chatbot to suggest workout based on input
+     *
+     * @author Donovan
      * @param time the amount of time to exercise daily to achieve goal
      * @param pounds the goal of pounds to be lost
      * @param days the number of days to achieve goal
@@ -49,6 +51,8 @@ public class ChatBot {
 
     /**
      * Method to determine whether workout should be a walk or a run
+     *
+     * @author Donovan
      * @param suggestedSpeed the speed the user is suggested to go
      * @return the chosen workout
      */
