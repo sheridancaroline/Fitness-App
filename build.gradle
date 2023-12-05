@@ -46,7 +46,7 @@ dependencies {
 
 application {
     mainModule = "csci205_final_project"
-    mainClassName = "org.team1.Main"
+    mainClassName = "org.team1.fitnessappmvc.FitnessAppMain"
 
     if (project.hasProperty("mainClass")) {
         getMainClass().set(project.getProperty("mainClass"))
