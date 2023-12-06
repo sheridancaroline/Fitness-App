@@ -284,7 +284,7 @@ public class FitnessAppController {
      * Sets up event handlers for buttons related to the calorie calculator
      * functionality in the application view.
      *
-     * @author Dong Hyun Roh
+     * @author Dong Hyun Roh and Amanda
      */
     private void calorieCalculatorEventHandlers() {
 
@@ -300,7 +300,7 @@ public class FitnessAppController {
      * Handles the action when the {@code btnCalculate} is clicked
      * Calculates the calories burned based on the input values and displays the result.
      *
-     * @author Amanda
+     * @author Amanda and Grace
      */
     private void handleCalculateButton() {
 
@@ -334,7 +334,7 @@ public class FitnessAppController {
      * Handles the action when {@code btnClear} is clicked.
      * Clears input fields for speed, weight, height, hours, and minutes.
      *
-     * @author Amanda
+     * @author Amanda and Grace
      */
     private void handleClearButton() {
         theView.speedTextField.clear();

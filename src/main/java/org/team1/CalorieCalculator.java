@@ -25,7 +25,7 @@ public class CalorieCalculator {
     /**
      * Calulate the user's calories burnt based on their input
      *
-     * @author Amanda
+     * @author Amanda and Grace
      * @see <a href = "https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/">
      *     https://www.womanandhome.com/health-wellbeing/fitness/calories-burned-walking/ </a>
      */
