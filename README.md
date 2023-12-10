@@ -20,11 +20,13 @@ This fitness application provides a user friendly interface that encompasses all
 
 Key features:
 
-1. Calorie Calculator 
+1. User login/signup
+  
+2. Calorie Calculator 
 
-2. Calendar - Enter workouts to be stored in calendar and view previous workouts. 
+3. Calendar - Enter workouts to be stored in calendar and view previous workouts. 
 
-3. ChatBot - Receive chatbot workout suggestions based on goals.
+4. ChatBot - Receive chatbot workout suggestions based on goals.
 
 
 ## Explanation of Package Structure
@@ -36,6 +38,8 @@ Our main directory is org.team1 which contains different subdirectories and clas
 - The various classes that are contained in the main directory are being used by FitnessAppModel and FitnessAppController.
 
 
-## URL to Video Presentation
+## URLs
 
-https://mediaspace.bucknell.edu/media/Team1+Presentation/1_lsfctnt8
+User Manual: https://docs.google.com/document/d/1F8BQpohlwT-D38RIxTWT7r0L7ORXnHjqOz9KCXov2KM/edit?usp=sharing 
+
+Video: https://mediaspace.bucknell.edu/media/Team1+Presentation/1_lsfctnt8
