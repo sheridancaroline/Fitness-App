@@ -21,7 +21,7 @@ This fitness application provides a user friendly interface that encompasses all
 Key features:
 
 1. User login/signup
-  
+
 2. Calorie Calculator 
 
 3. Calendar - Enter workouts to be stored in calendar and view previous workouts. 
